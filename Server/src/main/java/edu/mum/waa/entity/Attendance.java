@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@Table(indexes = {@Index(columnList = "student,dateTime", unique = true)})
+//@Table(indexes = {@Index(columnList = "student,dateTime", unique = true)})
 public class Attendance {
 
     @Id
