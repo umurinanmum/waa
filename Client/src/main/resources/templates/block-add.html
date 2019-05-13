@@ -1,12 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Block</title>
 </head>
 <body>
 
+<form th:action="@{/save-block}" th:object="${blockModel}" method="post">
+    <table border="1">
+        <tr>
+            <td><label th:text="#{startDate}" /></td>
+            <td><input type="datetime-local" th:field="*{startDate}" /></td>
+        </tr>
 
+        <tr>
+            <td><label th:text="#{endDate}" /></td>
+            <td><input type="datetime-local" th:field="*{endDate}" /></td>
+        </tr>
+
+        <tr>
+            <td><label th:text="#{cancelledDays}" /></td>
+            <td><input type="number" th:field="*{cancelledDays}" /></td>
+        </tr>
+
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
+        </tr>
+    </table>
+</form>
 
 </body>
 </html>

@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/blocks")
+@RestController
+@RequestMapping("/api/v1/blocks")
 public class BlockController {
 
     private BlockService blockService;
