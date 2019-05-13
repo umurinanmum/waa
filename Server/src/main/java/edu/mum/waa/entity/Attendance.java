@@ -23,7 +23,10 @@ public class Attendance {
     private LocalDate dateTime;
 
     @ManyToOne
-    private Session session;
+    private Location location;
+
+    @ManyToOne
+    private Block block;
 
 
 }
