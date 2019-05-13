@@ -23,10 +23,6 @@ public class Attendance {
     private LocalDate dateTime;
 
     @ManyToOne
-    private Location location;
-
-    @ManyToOne
     private Block block;
-
 
 }
