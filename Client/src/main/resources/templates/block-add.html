@@ -1,32 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Block</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <body>
 
-<form th:action="@{/block/save-block}" th:object="${blockModel}" method="post">
-    <table border="1">
-        <tr>
-            <td><label th:text="#{startDate}" /></td>
-            <td><input type="date" th:field="*{startDate}" /></td>
-        </tr>
 
-        <tr>
-            <td><label th:text="#{endDate}" /></td>
-            <td><input type="date" th:field="*{endDate}" /></td>
-        </tr>
+<form  th:action="@{/block/save-block}" th:object="${blockModel}" method="post">
+    <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" class="form-control" id="startDate" th:field="*{startDate}"/>
+    </div>
+    <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input type="date" class="form-control" id="endDate" th:field="*{endDate}"/>
+    </div>
 
-        <tr>
-            <td><label th:text="#{cancelledDays}" /></td>
-            <td><input type="number" th:field="*{cancelledDays}" /></td>
-        </tr>
+    <div class="form-group">
+        <label for="cancelledDays">Cancelled Days</label>
+        <input type="date" class="form-control" id="cancelledDays"  th:field="*{cancelledDays}"/>
+    </div>
 
-        <tr>
-            <td><input type="submit" value="Submit" /></td>
-        </tr>
-    </table>
+    <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
 </body>
