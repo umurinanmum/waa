@@ -21,15 +21,7 @@ public class Block {
 
     private LocalDate endDate;
 
-
-    @OneToMany(mappedBy = "block")
-    //@JoinColumn(name="block_id")
-    private List<Session> sessions;
-
-
     private int canceledDays=0;
 
-
-
-
+    private int availableDays=22;
 }
