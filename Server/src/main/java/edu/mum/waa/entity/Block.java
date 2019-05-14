@@ -4,9 +4,11 @@ package edu.mum.waa.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Getter
@@ -21,7 +23,7 @@ public class Block {
 
     private LocalDate endDate;
 
-    private int canceledDays=0;
+    private int canceledDays = 0;
 
-    private int availableDays=22;
+    private int availableDays = 22;
 }

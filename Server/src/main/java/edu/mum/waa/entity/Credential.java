@@ -29,7 +29,7 @@ public class Credential {
     @OneToOne
     private Faculty faculty;
 
-    @OneToMany
+    @ManyToMany
     private List<Role> roles;
 
 }
