@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,5 +28,8 @@ public class Credential {
 
     @OneToOne
     private Faculty faculty;
+
+    @OneToMany
+    private List<Role> roles;
 
 }

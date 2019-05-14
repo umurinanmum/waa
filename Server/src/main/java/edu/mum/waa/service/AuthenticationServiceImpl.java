@@ -9,6 +9,8 @@ import edu.mum.waa.service.interfaces.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
 
@@ -32,7 +34,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             //TODO student or faculty id
             jwtUserDetails.setId(credential.getId());
 
-            //TODO fetch roles
+            //fetch roles
+            jwtUserDetails.setRoles(credential.getRoles().stream().map(l -> l.getName()).collect(Collectors.toList()));
 
             return jwtUtil.encode(jwtUserDetails);
         }
