@@ -13,6 +13,9 @@ public class AttendanceWriter implements ItemWriter<Attendance> {
 
     @Override
     public void write(List<? extends Attendance> list) throws Exception {
-        //for each call save
+        for(Attendance attendance:list){
+            System.out.println(attendance.getDateTime());
+
+        }
     }
 }
