@@ -50,7 +50,7 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests().antMatchers("/api/authentication*").permitAll()
-                .antMatchers("/").authenticated()
+                .antMatchers("/api").authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()
@@ -58,6 +58,7 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.headers().cacheControl();
+        http.headers().frameOptions().sameOrigin();
 
 
     }
