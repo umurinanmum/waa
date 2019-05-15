@@ -13,29 +13,36 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        return new WaaAccessDeniedHandler();
-    }
-
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return new WaaForbiddenEntryPoint();
-    }
+//    @Bean
+//    public AccessDeniedHandler accessDeniedHandler() {
+//        return new WaaAccessDeniedHandler();
+//    }
+//
+//    @Bean
+//    public AuthenticationEntryPoint authenticationEntryPoint() {
+//        return new WaaForbiddenEntryPoint();
+//    }
 
     @Override
     protected void configure(HttpSecurity security) throws Exception {
 
-        security
-                .authorizeRequests()
-                .antMatchers("/authorization/login").permitAll()
-                .antMatchers("/authorization/do-login").permitAll()
-                .antMatchers("/css/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-                .and()
-                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
+        security.authorizeRequests().antMatchers("/**").permitAll()
+        .and().csrf().disable();
+
+
+      //  security
+                //   .authorizeRequests()
+//                .antMatchers("/authorization/login").permitAll()
+//                .antMatchers("/fileUpload/show").permitAll()
+//                .antMatchers("/fileUpload/uploadFile").permitAll()
+//                .antMatchers("/authorization/do-login").permitAll()
+//                .antMatchers("/css/**").permitAll()
+//                .anyRequest().authenticated()
+
+                //   .and()
+        //        .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+          //      .and()
+            //    .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
         //.and()
         // .formLogin()
         //.loginPage("/login");

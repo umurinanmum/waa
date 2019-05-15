@@ -12,6 +12,7 @@ public class WaaForbiddenEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+        System.out.println("forbidden");
         httpServletResponse.sendRedirect("/authorization/login");
     }
 }
