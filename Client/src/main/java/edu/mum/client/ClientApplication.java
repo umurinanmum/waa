@@ -23,4 +23,9 @@ public class ClientApplication {
         return messageSource;
     }
 
+//    @Bean
+//    public SpringSecurityDialect securityDialect() {
+//        return new SpringSecurityDialect();
+//    }
+
 }
