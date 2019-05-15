@@ -12,6 +12,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity security) throws Exception
     {
-        security.httpBasic().disable();
+
+        security
+                .formLogin()
+                .loginPage("/login")
+                .failureUrl("/login-error.html")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/index.html");
+
+      //  security.httpBasic().disable();
     }
 }
