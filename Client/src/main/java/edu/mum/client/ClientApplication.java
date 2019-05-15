@@ -1,10 +1,12 @@
 package edu.mum.client;
 
+import edu.mum.client.config.WaaAccessDeniedHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @SpringBootApplication
 public class ClientApplication {
@@ -22,6 +24,8 @@ public class ClientApplication {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
+
+
 
 //    @Bean
 //    public SpringSecurityDialect securityDialect() {
