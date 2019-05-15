@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Welcome to WAA</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
 </head>
-<body>
+<body sec:authorize="isAuthenticated()">
 Hello World
 </body>
 </html>

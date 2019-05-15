@@ -8,24 +8,25 @@
 <body>
 
 
-<form  th:action="@{/block/save-block}" th:object="${blockModel}" method="post">
+<form th:action="@{/block/save-block}" th:object="${blockModel}" method="post">
+    <div class="container">
+        <div class="form-group">
+            <label for="startDate" th:text="#{startDate}"></label>
+            <input type="date" class="form-control" id="startDate" th:field="*{startDate}"/>
+        </div>
 
-    <div class="form-group">
-        <label for="startDate" th:text="#{startDate}"></label>
-        <input type="date" class="form-control" id="startDate" th:field="*{startDate}"/>
+        <div class="form-group">
+            <label for="endDate" th:text="#{endDate}"></label>
+            <input type="date" class="form-control" id="endDate" th:field="*{endDate}"/>
+        </div>
+
+        <div class="form-group">
+            <label for="cancelledDays" th:text="#{cancelledDays}"></label>
+            <input type="date" class="form-control" id="cancelledDays" th:field="*{cancelledDays}"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
     </div>
-
-    <div class="form-group">
-        <label for="endDate" th:text="#{endDate}"></label>
-        <input type="date" class="form-control" id="endDate" th:field="*{endDate}"/>
-    </div>
-
-    <div class="form-group">
-        <label for="cancelledDays" th:text="#{cancelledDays}"></label>
-        <input type="date" class="form-control" id="cancelledDays"  th:field="*{cancelledDays}"/>
-    </div>
-
-    <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
 </body>
