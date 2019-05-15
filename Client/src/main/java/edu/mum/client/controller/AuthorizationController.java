@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 public class AuthorizationController {
 
 
-    @GetMapping
+    @GetMapping("/login")
     public String showLoginForm(@ModelAttribute LoginModel loginModel) {
 
         return "login";
@@ -32,7 +32,7 @@ public class AuthorizationController {
             SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true);
             return "welcome";
         }
-        return "redirect:/authorization";
+        return "redirect:/authorization/login";
     }
 
 }
