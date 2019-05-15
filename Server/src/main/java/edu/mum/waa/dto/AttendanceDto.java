@@ -22,9 +22,9 @@ public class AttendanceDto extends BaseDto<AttendanceDto, Attendance> {
 
     private long id;
 
-    private Student student;
+    private StudentDto student;
 
     private LocalDate dateTime;
 
-    private Block block;
+    private BlockDto block;
 }

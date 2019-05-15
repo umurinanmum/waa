@@ -6,7 +6,7 @@
   (1 ,'2017-08-04', '2017-08-04',0,22 );
 
     INSERT INTO student (id,barcode, student_Id) VALUES
-  (1 ,'12345343', '987012' );
+  (1 ,'7888', '987012' );
 
 
       INSERT INTO credential (id,email, password,student_id) VALUES
