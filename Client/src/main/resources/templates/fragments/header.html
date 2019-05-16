@@ -1,0 +1,75 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <div th:fragment="header-css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </div>
+
+</head>
+<body>
+
+<div th:fragment="header">
+    <div class="container-fluid">
+        <nav class="navbar navbar-inverse bg-success">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Meditation Attendance System</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="navbar-brand" th:href="@{/authorization/login}">Login</a>
+                </li>
+                <li>
+                    <a class="navbar-brand" th:href="@{/authorization/login}">Register New User</a>
+                </li>
+                <li>
+                    <a class="navbar-brand" th:href="@{/authorization/login}">Import</a>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Faculty morning meditation</a></li>
+                        <li><a href="#">Student’s detail report</a></li>
+                        <li><a href="#">Generate Attendance report by entry</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">CRUDs
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/students/list}">Students</a></li>
+                        <li><a href="#">TM Retreat</a></li>
+                        <li><a href="#">TM Check</a></li>
+                        <li><a th:href="@{/block/show-add-form}">Blocks</a></li>
+                        <li><a href="#">...</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Language
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li id="enLang"><a href="#">En</a></li>
+                        <li id="trLang"><a href="#">Tr</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li sec:authorize="isAuthenticated()">
+                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+                        Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;
+                    </a>
+                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+</div>
+
+</body>
+</html>
