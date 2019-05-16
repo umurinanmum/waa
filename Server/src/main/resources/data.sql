@@ -4,7 +4,7 @@
 
 
 INSERT INTO student (id,barcode, student_Id) VALUES(1 ,'7888', '987012' );
-INSERT INTO student (id,barcode, student_Id) VALUES(2 ,'456', '986814' );
+INSERT INTO student (id,barcode, student_Id) VALUES(2 ,'456', '000-98-1234');
 
 
 INSERT INTO credential (id,email, password,student_id) VALUES (1 ,'eozturk@mum.edu', '12345',1);

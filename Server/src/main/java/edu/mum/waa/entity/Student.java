@@ -26,4 +26,8 @@ public class Student {
     @ManyToMany
     private List<Section> sections;
 
+    private String firstName;
+
+    private String lastName;
+
 }
