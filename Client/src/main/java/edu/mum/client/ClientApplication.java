@@ -15,20 +15,24 @@ public class ClientApplication {
         SpringApplication.run(ClientApplication.class, args);
     }
 
-    @Bean
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource
-                = new ReloadableResourceBundleMessageSource();
-
-        messageSource.setBasename("classpath:messages_en");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
+//    @Bean
+//    public MessageSource messageSource() {
+//        ReloadableResourceBundleMessageSource messageSource
+//                = new ReloadableResourceBundleMessageSource();
+//
+//        messageSource.setBasename("classpath:messages_en");
+//        messageSource.setDefaultEncoding("UTF-8");
+//        return messageSource;
+//    }
 
     @Bean
     public MultipartResolver multipartResolver() {
         StandardServletMultipartResolver resolver = new StandardServletMultipartResolver();
         return resolver;
     }
+
+
+
+
 
 }
