@@ -31,15 +31,17 @@ public class FileController {
     @PostMapping("/file/upload")
     public String uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
         byte[] bytes = file.getBytes();
-
-        Path path = Paths.get("/tmp/rest/attendance.csv");
-        Files.write(path, bytes);
-
-        batchService.startBarcode();
-
+        if (file.getOriginalFilename().equals("attendance.csv")) {
+            Path path = Paths.get("/tmp/rest/attendance.csv");
+            Files.write(path, bytes);
+            batchService.startBarcode();
+        } else {
+            Path path = Paths.get("/tmp/rest/manual.csv");
+            Files.write(path, bytes);
+            batchService.startManuel();
+        }
         return "ok";
     }
-
 
 
 }

@@ -61,11 +61,19 @@ public class BatchConfig {
                 .reader(itemReaderManualModel).processor(itemProcessorManualModel).writer(itemWriter).build();
     }
 
-    @Bean
+    @Bean(name = "barcodeJob")
     public Job barcodeJob(){
         return jobs.get("barcodeJob")
                 .incrementer(new RunIdIncrementer())
                 .start(step1())
+                .build();
+    }
+
+    @Bean(name = "manuelJob")
+    public Job manualJob(){
+        return jobs.get("manualJob")
+                .incrementer(new RunIdIncrementer())
+                .start(step2())
                 .build();
     }
 
@@ -110,7 +118,7 @@ public class BatchConfig {
 
         FlatFileItemReader<ManualModel> reader = new FlatFileItemReader<>();
 
-        reader.setResource(new ClassPathResource("attendanceManual.csv"));
+        reader.setResource(new FileSystemResource("/tmp/rest/manual.csv"));
 
         reader.setLineMapper(new DefaultLineMapper<ManualModel>() {
             {

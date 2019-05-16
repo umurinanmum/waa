@@ -6,6 +6,7 @@ import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,15 +16,26 @@ public class BatchServiceImpl implements BatchService {
     JobLauncher jobLauncher;
 
     @Autowired
-    Job job;
+    @Qualifier("barcodeJob")
+    Job barcodeJob;
 
-    public void startBarcode() throws Exception{
+    @Autowired
+    @Qualifier("manuelJob")
+    Job manuelJob;
+
+    public void startBarcode() throws Exception {
         JobParameters params = new JobParametersBuilder()
                 .addString("barcodeJob", String.valueOf(System.currentTimeMillis()))
                 .toJobParameters();
-        jobLauncher.run(job, params);
+        jobLauncher.run(barcodeJob, params);
     }
 
+    public void startManuel() throws Exception {
+        JobParameters params = new JobParametersBuilder()
+                .addString("barcodeJob", String.valueOf(System.currentTimeMillis()))
+                .toJobParameters();
+        jobLauncher.run(manuelJob, params);
+    }
 
 
 }
