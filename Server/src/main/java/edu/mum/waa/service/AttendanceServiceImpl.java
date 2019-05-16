@@ -32,8 +32,14 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public boolean save(AttendanceDto attendanceDto) {
-        Attendance attendance = attendanceDto.convertToEntity(attendanceDto);
-        attendanceRepo.save(attendance);
+
+        //already added
+        boolean exists = attendanceRepo.existsByDateTimeAndStudentId(attendanceDto.getDateTime(), attendanceDto.getStudent().getId());
+        if (!exists) {
+            Attendance attendance = attendanceDto.convertToEntity(attendanceDto);
+            attendanceRepo.save(attendance);
+        }
+
         return true;
     }
 
@@ -94,8 +100,7 @@ public class AttendanceServiceImpl implements AttendanceService {
                 String location = column[3];
 
                 //todo change below line with service
-                Student student =  studentRepo.findStudentByBarcode(barcode).get();
-
+                Student student = studentRepo.findStudentByBarcode(barcode).get();
 
 
                 //set attendance

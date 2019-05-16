@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface AttendanceRepo extends CrudRepository<Attendance, Long> {
 
-
-
+    boolean existsByDateTimeAndStudentId(LocalDate date, Long id);
 
 }
