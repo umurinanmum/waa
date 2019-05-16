@@ -17,7 +17,7 @@ public class AttendanceWriter implements ItemWriter<AttendanceDto> {
     @Override
     public void write(List<? extends AttendanceDto> list) throws Exception {
         for (AttendanceDto attendanceDto : list) {
-            attendanceService.save(attendanceDto);
+             attendanceService.save(attendanceDto);
         }
     }
 }
