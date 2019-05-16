@@ -29,4 +29,8 @@ public class StudentDto extends BaseDto<StudentDto, Student> {
 
     private List<SectionDto> sections;
 
+    private String firstName;
+
+    private String lastName;
+
 }

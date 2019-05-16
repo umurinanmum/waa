@@ -6,4 +6,7 @@ public interface StudentService extends BaseService<StudentDto> {
 
     StudentDto findStudentByBarcode(String barcode);
 
+    StudentDto findStudentByStudentId(String studentId);
+
+
 }

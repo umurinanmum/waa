@@ -32,7 +32,13 @@ public class BatchConfig {
     private ItemReader<BarcodeModel> itemReader;
 
     @Autowired
+    private ItemReader<ManualModel> itemReaderManualModel;
+
+    @Autowired
     private ItemProcessor<BarcodeModel, AttendanceDto> itemProcessor;
+
+    @Autowired
+    private ItemProcessor<ManualModel, AttendanceDto> itemProcessorManualModel;
 
     @Autowired
     private ItemWriter<AttendanceDto> itemWriter;
@@ -45,9 +51,19 @@ public class BatchConfig {
                 .reader(itemReader).processor(itemProcessor).writer(itemWriter).build();
     }
 
+
+    @Bean
+    protected Step step2()
+    {
+        return steps.get("step2").<ManualModel, AttendanceDto> chunk(10)
+                .reader(itemReaderManualModel).processor(itemProcessorManualModel).writer(itemWriter).build();
+    }
+
     @Bean(name = "waaBatch")
-    public Job job(@Qualifier("step1") Step step1) {
-        return jobs.get("waaBatch").start(step1).build();
+    public Job job(@Qualifier("step1") Step step1,@Qualifier("step2") Step step2) {
+
+        return jobs.get("waaBatch").start(step2).start(step1).build();
+
     }
 
     //https://www.baeldung.com/introduction-to-spring-batch
@@ -75,6 +91,39 @@ public class BatchConfig {
                 setFieldSetMapper(new BeanWrapperFieldSetMapper<BarcodeModel>() {
                     {
                         setTargetType(BarcodeModel.class);
+                    }
+
+                });
+
+            }
+
+        });
+
+        return reader;
+    }
+
+
+    @Bean
+    public FlatFileItemReader<ManualModel> read2() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+
+        FlatFileItemReader<ManualModel> reader = new FlatFileItemReader<>();
+
+        reader.setResource(new ClassPathResource("attendanceManual.csv"));
+
+        reader.setLineMapper(new DefaultLineMapper<ManualModel>() {
+            {
+                setLineTokenizer(new DelimitedLineTokenizer() {
+                    {
+                        setNames(new String[]{
+                                "date",
+                                "studentId",
+                                "fullName"
+                        });
+                    }
+                });
+                setFieldSetMapper(new BeanWrapperFieldSetMapper<ManualModel>() {
+                    {
+                        setTargetType(ManualModel.class);
                     }
 
                 });
