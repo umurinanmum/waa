@@ -2,12 +2,14 @@ package edu.mum.waa.dto;
 
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BaseDto<TDto,TEntity> {
 
-    private ModelMapper modelMapper = new ModelMapper();
+    //@Autowired
+    private ModelMapper modelMapper = new ModelMapper() ;
 
     protected Class<TDto> dtoClass;
     protected Class<TEntity> entityClass;
