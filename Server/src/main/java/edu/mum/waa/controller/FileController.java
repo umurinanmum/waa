@@ -1,6 +1,13 @@
 package edu.mum.waa.controller;
 
 
+import edu.mum.waa.service.interfaces.BatchService;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.Step;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,12 +21,25 @@ import java.nio.file.Paths;
 @RestController
 public class FileController {
 
+    private final BatchService batchService;
+
+    @Autowired
+    public FileController(BatchService batchService) {
+        this.batchService = batchService;
+    }
+
     @PostMapping("/file/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    public String uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
         byte[] bytes = file.getBytes();
-        Path path = Paths.get("/tmp/rest/" + file.getOriginalFilename());
+
+        Path path = Paths.get("/tmp/rest/attendance.csv");
         Files.write(path, bytes);
+
+        batchService.startBarcode();
+
         return "ok";
     }
+
+
 
 }

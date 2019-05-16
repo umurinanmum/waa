@@ -7,6 +7,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.*;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 
 @Configuration
 @EnableBatchProcessing
@@ -59,22 +61,22 @@ public class BatchConfig {
                 .reader(itemReaderManualModel).processor(itemProcessorManualModel).writer(itemWriter).build();
     }
 
-    @Bean(name = "waaBatch")
-    public Job job(@Qualifier("step1") Step step1,@Qualifier("step2") Step step2) {
-
-        return jobs.get("waaBatch").start(step2).start(step1).build();
-
+    @Bean
+    public Job barcodeJob(){
+        return jobs.get("barcodeJob")
+                .incrementer(new RunIdIncrementer())
+                .start(step1())
+                .build();
     }
 
-    //https://www.baeldung.com/introduction-to-spring-batch
 
 
     @Bean
-    public FlatFileItemReader<BarcodeModel> read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+    public FlatFileItemReader<BarcodeModel> read(){
 
         FlatFileItemReader<BarcodeModel> reader = new FlatFileItemReader<>();
 
-        reader.setResource(new ClassPathResource("attendance.csv"));
+        reader.setResource(new FileSystemResource("/tmp/rest/attendance.csv"));
 
         reader.setLineMapper(new DefaultLineMapper<BarcodeModel>() {
             {
