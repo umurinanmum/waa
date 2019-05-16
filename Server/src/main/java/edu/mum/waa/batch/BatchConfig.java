@@ -1,7 +1,7 @@
 package edu.mum.waa.batch;
 
 
-import edu.mum.waa.entity.Attendance;
+import edu.mum.waa.dto.AttendanceDto;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -32,16 +32,16 @@ public class BatchConfig {
     private ItemReader<BarcodeModel> itemReader;
 
     @Autowired
-    private ItemProcessor<BarcodeModel, Attendance> itemProcessor;
+    private ItemProcessor<BarcodeModel, AttendanceDto> itemProcessor;
 
     @Autowired
-    private ItemWriter<Attendance> itemWriter;
+    private ItemWriter<AttendanceDto> itemWriter;
 
 
     @Bean
     protected Step step1()
     {
-        return steps.get("step1").<BarcodeModel, Attendance> chunk(10)
+        return steps.get("step1").<BarcodeModel, AttendanceDto> chunk(10)
                 .reader(itemReader).processor(itemProcessor).writer(itemWriter).build();
     }
 

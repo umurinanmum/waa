@@ -1,7 +1,6 @@
 package edu.mum.waa.dto;
 
 
-import edu.mum.waa.entity.Section;
 import edu.mum.waa.entity.Student;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,8 +15,8 @@ public class StudentDto extends BaseDto<StudentDto, Student> {
 
 
     public StudentDto() {
-        dtoClass = StudentDto.class;
-        entityClass = Student.class;
+        super.dtoClass = StudentDto.class;
+        super.entityClass = Student.class;
     }
 
     private long id;

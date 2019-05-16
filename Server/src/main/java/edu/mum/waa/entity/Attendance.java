@@ -25,4 +25,9 @@ public class Attendance {
     @ManyToOne
     private Block block;
 
+    @ManyToOne
+    private Location location;
+
+    private String time;
+
 }

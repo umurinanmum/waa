@@ -25,7 +25,8 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDto findStudentByBarcode(String barcode) {
         StudentDto temp = new StudentDto();
-        return temp.convertToDto(studentRepo.findStudentByBarcode(barcode).get());
+        var student = studentRepo.findStudentByBarcode(barcode).get();
+        return temp.convertToDto(student);
     }
 
     @Override

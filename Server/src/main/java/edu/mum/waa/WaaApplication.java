@@ -13,9 +13,6 @@ public class WaaApplication {
     }
 
 
-    @Bean
-    public ModelMapper modelMapper(){
-        return new ModelMapper();
-    }
+
 
 }

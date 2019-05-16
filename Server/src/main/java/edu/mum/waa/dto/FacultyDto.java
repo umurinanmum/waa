@@ -1,12 +1,18 @@
 package edu.mum.waa.dto;
 
 import edu.mum.waa.entity.Faculty;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
+@Component
+@Getter
+@Setter
 public class FacultyDto extends BaseDto<FacultyDto, Faculty> {
 
     public FacultyDto(){
-        dtoClass =FacultyDto.class;
-        entityClass=Faculty.class;
+        super.dtoClass =FacultyDto.class;
+        super.entityClass=Faculty.class;
     }
 
 

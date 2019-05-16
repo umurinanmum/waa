@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class BaseDto<TDto,TEntity> {
 
-    @Autowired
-    private ModelMapper modelMapper ;
+    //@Autowired
+    private ModelMapper modelMapper = new ModelMapper() ;
 
     protected Class<TDto> dtoClass;
     protected Class<TEntity> entityClass;

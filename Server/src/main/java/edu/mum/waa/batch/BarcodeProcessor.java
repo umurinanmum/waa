@@ -2,6 +2,7 @@ package edu.mum.waa.batch;
 
 import edu.mum.waa.dto.AttendanceDto;
 import edu.mum.waa.service.interfaces.BlockService;
+import edu.mum.waa.service.interfaces.LocationService;
 import edu.mum.waa.service.interfaces.StudentService;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class BarcodeProcessor implements ItemProcessor<BarcodeModel, AttendanceD
 
     @Autowired
     private BlockService blockService;
+
+    @Autowired
+    private LocationService locationService;
 
 
     @Override
@@ -36,7 +40,12 @@ public class BarcodeProcessor implements ItemProcessor<BarcodeModel, AttendanceD
         attendanceDto.setBlock(blockService.findBlockByStartDateBeforeAndEndDateAfter(attendanceDto.getDateTime()));
 
 
+        //Set Time
+        attendanceDto.setTime(barcodeModel.getTime());
 
+
+        //Set Location
+        attendanceDto.setLocation(locationService.findByLocationCode(barcodeModel.getLocation()));
 
 
         return attendanceDto;
