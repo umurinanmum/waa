@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>Welcome to WAA</title>
+    <div th:replace="fragments/header :: header-css"/>
 </head>
-<body>
-Hello World
+<div th:replace="fragments/header :: header"/>
+
+<body sec:authorize="isAuthenticated()">
+<div class="container-fluid">
+    Welcome to Meditation Attendance System
+</div>
 </body>
+
+<div th:replace="fragments/footer :: footer"/>
+
 </html>

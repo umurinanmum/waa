@@ -1,33 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Block</title>
+    <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Add New Block</h3>
+        </div>
+        <div id="formContent" class="panel-body">
+            <form th:action="@{/block/save-block}" th:object="${blockModel}" method="post">
+                <div class="form-group">
+                    <label for="startDate" th:text="#{startDate}"></label>
+                    <input type="date" class="form-control" id="startDate" th:field="*{startDate}"/>
+                </div>
 
-<form th:action="@{/save-block}" th:object="${blockModel}" method="post">
-    <table border="1">
-        <tr>
-            <td><label th:text="#{startDate}" /></td>
-            <td><input type="datetime-local" th:field="*{startDate}" /></td>
-        </tr>
+                <div class="form-group">
+                    <label for="endDate" th:text="#{endDate}"></label>
+                    <input type="date" class="form-control" id="endDate" th:field="*{endDate}"/>
+                </div>
 
-        <tr>
-            <td><label th:text="#{endDate}" /></td>
-            <td><input type="datetime-local" th:field="*{endDate}" /></td>
-        </tr>
-
-        <tr>
-            <td><label th:text="#{cancelledDays}" /></td>
-            <td><input type="number" th:field="*{cancelledDays}" /></td>
-        </tr>
-
-        <tr>
-            <td><input type="submit" value="Submit" /></td>
-        </tr>
-    </table>
-</form>
-
+                <div class="form-group">
+                    <label for="cancelledDays" th:text="#{cancelledDays}"></label>
+                    <input type="number" class="form-control" id="cancelledDays" th:field="*{cancelledDays}"/>
+                </div>
+                <div id="formFooter" class="form-group">
+                    <button type="submit" class="btn btn-primary form-control">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
