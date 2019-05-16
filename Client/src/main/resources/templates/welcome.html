@@ -4,10 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome to WAA</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <div th:replace="fragments/header :: header-css"/>
 </head>
+<div th:replace="fragments/header :: header"/>
 
 <body sec:authorize="isAuthenticated()">
-Hello World
+<div class="container-fluid">
+    Welcome to Meditation Attendance System
+</div>
 </body>
+
+<div th:replace="fragments/footer :: footer"/>
+
 </html>

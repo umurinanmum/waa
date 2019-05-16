@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Student List</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">BarCode</th>
+                    <th scope="col">Student ID</th>
+                    <th scope="col">Entry</th>
+                    <th scope="col">Events - <a th:href="@{/students/add}">Add</a>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student: ${students}">
+                    <td th:text="${student.id}">{{i + 1}}</td>
+                    <td th:text="${student.barCode}">BarCode</td>
+                    <td th:text="${student.studentId}">Student ID</td>
+                    <td th:text="${student.entry}">Entry</td>
+                    <!--                <td th:text="${student.isActive}? #{true} : #{false}">yes</td>-->
+                    <td>
+                        <a th:href="@{/students/detail}">Detail</a>&nbsp;
+                        <a th:href="@{/students/edit}">Edit</a>
+                        <a th:href="@{/students/delete}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-primary pull-right">Previous</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary">Next</button>
+                    </td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
