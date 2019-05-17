@@ -3,10 +3,13 @@ package edu.mum.waa.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Getter
@@ -21,15 +24,6 @@ public class Block {
 
     private LocalDate endDate;
 
-
-    @OneToMany(mappedBy = "block")
-    //@JoinColumn(name="block_id")
-    private List<Session> sessions;
-
-
-    private int canceledDays=0;
-
-
-
+    private String name;
 
 }

@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 @SpringBootApplication
 public class ClientApplication {
@@ -13,14 +15,24 @@ public class ClientApplication {
         SpringApplication.run(ClientApplication.class, args);
     }
 
-    @Bean
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource
-                = new ReloadableResourceBundleMessageSource();
+//    @Bean
+//    public MessageSource messageSource() {
+//        ReloadableResourceBundleMessageSource messageSource
+//                = new ReloadableResourceBundleMessageSource();
+//
+//        messageSource.setBasename("classpath:messages_en");
+//        messageSource.setDefaultEncoding("UTF-8");
+//        return messageSource;
+//    }
 
-        messageSource.setBasename("classpath:messages_en");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
+    @Bean
+    public MultipartResolver multipartResolver() {
+        StandardServletMultipartResolver resolver = new StandardServletMultipartResolver();
+        return resolver;
     }
+
+
+
+
 
 }

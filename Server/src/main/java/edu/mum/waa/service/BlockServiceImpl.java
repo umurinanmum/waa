@@ -8,6 +8,7 @@ import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Service
@@ -18,6 +19,20 @@ public class BlockServiceImpl implements BlockService {
     @Autowired
     public BlockServiceImpl(BlockRepo blockRepo) {
         this.blockRepo = blockRepo;
+    }
+
+
+    @Override
+    public BlockDto findBlockByStartDateBeforeAndEndDateAfter(LocalDate date) {
+        BlockDto temp = new BlockDto();
+        return temp.convertToDto(blockRepo.findBlockByStartDateLessThanEqualAndEndDateGreaterThanEqual(date,date).get());
+
+    }
+
+    @Override
+    public BlockDto findByName(String name) {
+        BlockDto temp = new BlockDto();
+        return temp.convertToDto(blockRepo.findByName(name));
     }
 
     @Override

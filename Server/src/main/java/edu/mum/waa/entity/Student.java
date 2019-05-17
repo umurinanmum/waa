@@ -24,6 +24,11 @@ public class Student {
     private Entry entry;
 
     @ManyToMany
+    @JoinTable(name = "student_sections")
     private List<Section> sections;
+
+    private String firstName;
+
+    private String lastName;
 
 }
