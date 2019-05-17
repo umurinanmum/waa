@@ -24,6 +24,8 @@ public class SectionDto extends BaseDto<SectionDto, Section> {
 
     private FacultyDto faculty;
 
+    private int canceledDays = 0;
 
+    private int availableDays = 22;
 
 }

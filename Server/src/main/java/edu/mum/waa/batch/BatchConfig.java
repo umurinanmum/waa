@@ -49,7 +49,7 @@ public class BatchConfig {
     @Bean
     protected Step step1()
     {
-        return steps.get("step1").<BarcodeModel, AttendanceDto> chunk(10)
+        return steps.get("step1").<BarcodeModel, AttendanceDto> chunk(1000)
                 .reader(itemReader).processor(itemProcessor).writer(itemWriter).build();
     }
 
@@ -57,7 +57,7 @@ public class BatchConfig {
     @Bean
     protected Step step2()
     {
-        return steps.get("step2").<ManualModel, AttendanceDto> chunk(10)
+        return steps.get("step2").<ManualModel, AttendanceDto> chunk(1000)
                 .reader(itemReaderManualModel).processor(itemProcessorManualModel).writer(itemWriter).build();
     }
 
@@ -84,7 +84,7 @@ public class BatchConfig {
 
         FlatFileItemReader<BarcodeModel> reader = new FlatFileItemReader<>();
 
-        reader.setResource(new FileSystemResource("/tmp/rest/attendance.csv"));
+        reader.setResource(new FileSystemResource("./attendance.csv"));
 
         reader.setLineMapper(new DefaultLineMapper<BarcodeModel>() {
             {

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,6 +25,15 @@ public class Section {
 
     @ManyToOne
     private Faculty faculty;
+
+    @ManyToMany(mappedBy = "sections")
+    private List<Student> studentList;
+
+
+
+    private int canceledDays = 0;
+
+    private int availableDays = 22;
 
 
 }

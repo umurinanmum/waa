@@ -32,11 +32,11 @@ public class FileController {
     public String uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
         byte[] bytes = file.getBytes();
         if (file.getOriginalFilename().equals("attendance.csv")) {
-            Path path = Paths.get("/tmp/rest/attendance.csv");
+            Path path = Paths.get("./attendance.csv");
             Files.write(path, bytes);
             batchService.startBarcode();
         } else {
-            Path path = Paths.get("/tmp/rest/manual.csv");
+            Path path = Paths.get("./manual.csv");
             Files.write(path, bytes);
             batchService.startManuel();
         }

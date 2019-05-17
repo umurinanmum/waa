@@ -25,8 +25,14 @@ public class BlockServiceImpl implements BlockService {
     @Override
     public BlockDto findBlockByStartDateBeforeAndEndDateAfter(LocalDate date) {
         BlockDto temp = new BlockDto();
-        return temp.convertToDto(blockRepo.findBlockByStartDateBeforeAndEndDateAfter(date,date).get());
+        return temp.convertToDto(blockRepo.findBlockByStartDateLessThanEqualAndEndDateGreaterThanEqual(date,date).get());
 
+    }
+
+    @Override
+    public BlockDto findByName(String name) {
+        BlockDto temp = new BlockDto();
+        return temp.convertToDto(blockRepo.findByName(name));
     }
 
     @Override

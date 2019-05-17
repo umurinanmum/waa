@@ -24,7 +24,8 @@ public class BlockDto extends BaseDto<BlockDto, Block>{
 
     private LocalDate endDate;
 
-    private int canceledDays=0;
+    private String name;
+
 
 
 }

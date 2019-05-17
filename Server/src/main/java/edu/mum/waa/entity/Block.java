@@ -24,7 +24,6 @@ public class Block {
 
     private LocalDate endDate;
 
-    private int canceledDays = 0;
+    private String name;
 
-    private int availableDays = 22;
 }

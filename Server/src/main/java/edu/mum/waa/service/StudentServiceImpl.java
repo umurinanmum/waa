@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -21,6 +22,19 @@ public class StudentServiceImpl implements StudentService {
         this.studentRepo = studentRepo;
     }
 
+
+    @Override
+    public List<StudentDto> findStudentsByEntry(String entryName) {
+        StudentDto temp = new StudentDto();
+        List<Student> students= studentRepo.findStudentsByEntryName(entryName);
+        List<StudentDto> result = new ArrayList<>();
+
+        for (Student student : students) {
+            result.add(temp.convertToDto(student));
+        }
+
+        return result;
+    }
 
     @Override
     public StudentDto findStudentByStudentId(String studentId) {
