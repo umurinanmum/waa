@@ -16,11 +16,13 @@ public class StudentController {
 
     @GetMapping
     public List<StudentDto> findAll(){
+        System.out.println("Students - findAll");
         return studentService.findAll();
     }
 
     @GetMapping("/{studentid}")
     public StudentDto getStudent(@PathVariable Long studentid){
+        System.out.println("Students - findById");
         return studentService.findById(studentid);
     }
 
@@ -28,17 +30,19 @@ public class StudentController {
 
     @PostMapping
     public boolean save(@RequestBody StudentDto studentDto){
+        System.out.println("Students - save");
         return studentService.save(studentDto);
     }
 
     @PutMapping
     public boolean update(@RequestBody StudentDto studentDto){
+        System.out.println("Students - update");
         return studentService.save(studentDto);
     }
 
     @DeleteMapping("/{studentid}")
     public boolean delete(@PathVariable Long studentid){
+        System.out.println("Students - delete");
         return studentService.delete(studentid);
     }
-
 }
