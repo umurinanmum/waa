@@ -3,23 +3,16 @@
   ('3', '4', '1','3');*/
 
 
---ENTRYs
+
 INSERT INTO entry (id,name) VALUES (1,'2016-November');
-<<<<<<< HEAD
-=======
 INSERT INTO entry (id,name) VALUES (2,'2016-December');
 
->>>>>>> master
 
 --STUDENTs
 INSERT INTO student (id,barcode, student_Id,entry_id,first_name,last_name) VALUES(1 ,'7888', '987012',1,'Eren','Ozturk' );
 INSERT INTO student (id,barcode, student_Id,entry_id,first_name,last_name) VALUES(2 ,'456', '986814',1,'Umur','Inan' );
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 --FACULTYs
 INSERT INTO faculty (id,first_name,last_name) VALUES (1 ,'Asaad','Saad' );
 INSERT INTO faculty (id,first_name,last_name) VALUES (2 ,'Tina','Xing' );
