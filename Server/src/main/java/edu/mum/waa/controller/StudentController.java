@@ -31,13 +31,14 @@ public class StudentController {
     @PostMapping
     public boolean save(@RequestBody StudentDto studentDto){
         System.out.println("Students - save");
+        System.out.println(studentDto);
         return studentService.save(studentDto);
     }
 
     @PutMapping
     public boolean update(@RequestBody StudentDto studentDto){
         System.out.println("Students - update");
-        return studentService.save(studentDto);
+        return studentService.update(studentDto);
     }
 
     @DeleteMapping("/{studentid}")
