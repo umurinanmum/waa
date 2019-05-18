@@ -110,8 +110,7 @@ public class StudentPersonalReportController {
             studentReportModelSes.setPercentageAttended(response.getBody().getPercentageAttended());
             studentReportModelSes.setExtraCredits(response.getBody().getExtraCredits());
 
-
-            studentReportModelSes.setExtraCredits(1.0);
+            studentReportModelSes.setDatePresentDtoList(response.getBody().getDatePresentDtoList());
 
             model.addAttribute("studentReportModelSes",studentReportModelSes);
         }

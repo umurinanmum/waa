@@ -84,7 +84,21 @@
 </div>
 
 <div>
+    <table border="1">
+        <thead>
+        <tr>
+            <th> Date </th>
+            <th> Present </th>
+        </tr>
+        </thead>
+        <tbody>
 
+        <tr th:each="item : ${studentReportModelSes.datePresentDtoList}">
+            <td><span th:text="${item.date}"> Title </span></td>
+            <td><span th:text="${item.present}"> Author </span></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 </form>
