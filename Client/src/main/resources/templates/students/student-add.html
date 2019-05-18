@@ -13,6 +13,7 @@
             <h3 class="panel-title"><span th:text="#{studentAdd}">Add New Student</span></h3>
         </div>
         <div id="formContent" class="panel-body">
+            <span th:text="${result}" class="alert-danger"></span>
             <form th:action="@{/students/add}" th:object="${studentModel}" method="post">
 
                 <div class="form-group">
@@ -28,9 +29,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="barCode" th:text="#{barCode}"></label>
-                    <input type="text" class="form-control" id="barCode" th:field="*{barCode}" placeholder="BarCode"/>
-                    <label th:if="${#fields.hasErrors('barCode')}" th:errors="*{barCode}" class="alert-danger"></label>
+                    <label for="barcode" th:text="#{barcode}"></label>
+                    <input type="text" class="form-control" id="barcode" th:field="*{barcode}" placeholder="Barcode"/>
+                    <label th:if="${#fields.hasErrors('barcode')}" th:errors="*{barcode}" class="alert-danger"></label>
                 </div>
 
                 <div class="form-group">

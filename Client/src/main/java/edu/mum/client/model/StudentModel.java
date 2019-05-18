@@ -20,8 +20,8 @@ public class StudentModel {
     private String lastName;
 
     @NotEmpty
-    //@Size(min = 2, max = 50, message = "${Size.barCode}")
-    private String barCode;
+    //@Size(min = 2, max = 50, message = "${Size.barcode}")
+    private String barcode;
 
     @NotEmpty
     @Size(min = 6, max = 6, message = "${Size.studentId}")

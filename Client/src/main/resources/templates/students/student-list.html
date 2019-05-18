@@ -7,6 +7,7 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"/>
+
 <div class="container">
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -20,7 +21,7 @@
                     <th scope="col">#</th>
                     <th scope="col" th:text="#{firstName}">First Name</th>
                     <th scope="col" th:text="#{lastName}">Last Name</th>
-                    <th scope="col" th:text="#{barCode}">BarCode</th>
+                    <th scope="col" th:text="#{barcode}">BarCode</th>
                     <th scope="col" th:text="#{studentId}">Student ID</th>
                     <th scope="col"><span th:text="#{events}">Events</span> - <a th:href="@{/students/add}"><span th:text="#{add}">Add</span></a></th>
                 </tr>
@@ -30,7 +31,7 @@
                     <td th:text="${student.id}">{{i + 1}}</td>
                     <td th:text="${student.firstName}">FirstName</td>
                     <td th:text="${student.lastName}">LastName</td>
-                    <td th:text="${student.barCode}">BarCode</td>
+                    <td th:text="${student.barcode}">BarCode</td>
                     <td th:text="${student.studentId}">Student ID</td>
                     <td>
                         <a th:href="${'/students/detail/' + student.id}"><span th:text="#{detail}">Detail</span></a>&nbsp;

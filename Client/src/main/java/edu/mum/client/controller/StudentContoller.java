@@ -41,7 +41,6 @@ public class StudentContoller {
         try{
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-            //HttpEntity entity = new HttpEntity(headers);
             HttpEntity<StudentModel[]> entity = new HttpEntity<StudentModel[]>(headers);
 
             RestTemplate restTemplate = new RestTemplate();
@@ -52,7 +51,7 @@ public class StudentContoller {
             model.addAttribute("students", students);
         }
         catch (Exception e){
-
+            System.out.println(e.getMessage());
         }
 
         return "students/student-list";
@@ -64,20 +63,64 @@ public class StudentContoller {
         return "students/student-add";
     }
 
+    @PostMapping("/add")
+    public String save(@Valid @ModelAttribute StudentModel studentModel,
+                      BindingResult bindingResult,
+                      RedirectAttributes redirectAttributes,
+                      Model model){
+        String result_str = "saved";
+        try {
+            if (bindingResult.hasErrors()) {
+                return "students/student-add";
+            }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            HttpEntity<StudentModel> entity = new HttpEntity<>(studentModel, headers);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            ResponseEntity<String> result = restTemplate.postForEntity(api_url, entity, String.class);
+            System.out.println("result: " + result.getBody());
+            if (result.getBody() == null || result.getBody().trim().isEmpty()) {
+                return "students/student-add";
+            }
+
+            if(!result.getBody().equalsIgnoreCase("true"))
+                result_str = result.getBody();
+
+            redirectAttributes.addFlashAttribute("studentModel", studentModel);
+            redirectAttributes.addFlashAttribute("result", result_str);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            model.addAttribute("result", e);
+            return "students/student-add";
+        }
+        return "redirect:list";
+    }
+
     @GetMapping("/edit/{studentid}")
-    public String edit(@PathVariable("studentid") Long studentid, Model model){
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-        //HttpEntity<StudentModel> entity = new HttpEntity<StudentModel>(headers);
-        HttpEntity entity = new HttpEntity<>(headers);
-        RestTemplate restTemplate = new RestTemplate();
+    public String edit(@PathVariable("studentid") Long studentid,
+                       Model model){
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
 
-        ResponseEntity<StudentModel> response = restTemplate.exchange(api_url + "/" + studentid.toString(), HttpMethod.GET, entity, StudentModel.class);
+            HttpEntity entity = new HttpEntity<>(headers);
+            RestTemplate restTemplate = new RestTemplate();
 
-        StudentModel student = response.getBody();
-        System.out.println("response: " + student);
+            ResponseEntity<StudentModel> response = restTemplate.exchange(api_url + "/" + studentid.toString(), HttpMethod.GET, entity, StudentModel.class);
 
-        model.addAttribute("studentModel", student);
+            StudentModel student = response.getBody();
+            System.out.println("response: " + student);
+
+            model.addAttribute("studentModel", student);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }
         return "students/student-edit";
     }
 
@@ -90,8 +133,6 @@ public class StudentContoller {
             if (bindingResult.hasErrors()) {
                 return "students/student-edit";
             }
-
-            //System.out.println("studentModel: " + studentModel);
 
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer " + tokenHelper.getToken());
@@ -113,50 +154,17 @@ public class StudentContoller {
             redirectAttributes.addFlashAttribute("result", result_str);
         }
         catch(Exception e){
-
-        }
-        return "redirect:list";
-    }
-
-    @PostMapping("/add")
-    public String save(@Valid @ModelAttribute StudentModel studentModel,
-                      BindingResult bindingResult,
-                      RedirectAttributes redirectAttributes,
-                      Model model){
-        try {
-            if (bindingResult.hasErrors()) {
-                return "students/student-add";
-            }
-
-            //System.out.println("studentModel: " + studentModel);
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-            HttpEntity<StudentModel> entity = new HttpEntity<>(studentModel, headers);
-
-            RestTemplate restTemplate = new RestTemplate();
-
-            ResponseEntity<String> result = restTemplate.postForEntity(api_url, entity, String.class);
-            System.out.println("result: " + result.getBody());
-            if (result.getBody() == null || result.getBody().trim().isEmpty()) {
-                return "students/student-add";
-            }
-
-            String result_str = "saved";
-            if(!result.getBody().equalsIgnoreCase("true"))
-                result_str = result.getBody();
-
-            redirectAttributes.addFlashAttribute("studentModel", studentModel);
-            redirectAttributes.addFlashAttribute("result", result_str);
-        }
-        catch(Exception e){
-
+            System.out.println(e.getMessage());
+            model.addAttribute("result", e);
+            return "students/student-edit";
         }
         return "redirect:list";
     }
 
     @GetMapping("/delete/{studentid}")
-    public String delete(@PathVariable("studentid") Long studentid, RedirectAttributes redirectAttributes, Model model){
+    public String delete(@PathVariable("studentid") Long studentid,
+                         RedirectAttributes redirectAttributes,
+                         Model model){
 
         try {
             HttpHeaders headers = new HttpHeaders();
@@ -174,17 +182,17 @@ public class StudentContoller {
             redirectAttributes.addFlashAttribute("resultInfo", result_str);
         }
         catch(Exception e){
-
+            System.out.println(e.getMessage());
         }
         return "result";
     }
 
     @GetMapping("/detail/{studentid}")
-    public String detail(@PathVariable("studentid") Long studentid, Model model){
+    public String detail(@PathVariable("studentid") Long studentid,
+                         Model model){
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-            //HttpEntity<StudentModel> entity = new HttpEntity<StudentModel>(headers);
             HttpEntity entity = new HttpEntity<>(headers);
             RestTemplate restTemplate = new RestTemplate();
 
@@ -196,7 +204,7 @@ public class StudentContoller {
             model.addAttribute("studentModel", student);
         }
         catch(Exception e){
-
+            System.out.println(e.getMessage());
         }
         return "students/student-detail";
     }
