@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.util.ArrayList;
 import java.util.List;
 
-@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = false, securedEnabled = false)
 @EnableWebSecurity
 @Configuration
 public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -44,13 +45,26 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
+    @Override
+    public void configure(WebSecurity webSecurity) throws Exception {
+        webSecurity.ignoring().antMatchers("/resources/**")
+                .antMatchers("/retreat-checking/**")
+                .antMatchers("/student-lookup/**")
+                .antMatchers("/student-lookup/**");
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/retreat-checking/**").permitAll()
+                .antMatchers("/student-lookup/**").permitAll()
+                .antMatchers("/faculty-report/**").permitAll()
+                .antMatchers("/report/**").permitAll();
 
         http.csrf().disable()
                 .authorizeRequests().antMatchers("/api/authentication*").permitAll()
                 .antMatchers("/api").authenticated()
+                //.antMatchers("/retreat-checking/**").permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TM Retreat And Checking</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+    <script type="text/javascript" th:src="@{/js/waa.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+<body>
+
+<form id="tmRetreatAndCheckingForm" th:object="${tmCheckAndRetreat}" method="post">
+    <div class="container">
+
+        <div class="form-group">
+            <label for="studentId" th:text="#{student}"></label>
+            <input class="form-control" id="studentId" th:field="*{student.id}"
+                minlength="4" placeholder="Put Student ID" maxlength="10"/>
+        </div>
+
+        <div class="form-group">
+            <label for="localDateTime" th:text="#{date}"></label>
+            <input type="date" class="form-control" id="localDateTime" th:field="*{localDateTime}"/>
+        </div>
+        <div class="form-group">
+            <label for="retreat" th:text="#{isRetreat}"></label>
+            <input type="checkbox" class="form-control" id="retreat" th:field="*{retreat}" th:checked="*{retreat} ? 'checked'"/>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="saveTmRetreatAndChecking()">Submit</button>
+    </div>
+</form>
+<div id="errors"></div>
+</body>
+</html>

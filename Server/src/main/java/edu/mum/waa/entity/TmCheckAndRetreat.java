@@ -8,11 +8,10 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Getter
-@Setter
+@SequenceGenerator(name="seq", initialValue=20)
 public class TmCheckAndRetreat {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seq")
     private long id;
 
     @ManyToOne
@@ -20,7 +19,37 @@ public class TmCheckAndRetreat {
 
     private LocalDate localDateTime;
 
-    private boolean isRetreat;
+    private boolean retreat;
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public LocalDate getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDate localDateTime) {
+        this.localDateTime = localDateTime;
+    }
+
+    public boolean isRetreat() {
+        return retreat;
+    }
+
+    public void setRetreat(boolean retreat) {
+        this.retreat = retreat;
+    }
 }
