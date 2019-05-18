@@ -42,13 +42,11 @@ public class StudentContoller {
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer " + tokenHelper.getToken());
             //HttpEntity entity = new HttpEntity(headers);
-            // HttpEntity<Employee[]>: To get result as Employee[].
             HttpEntity<StudentModel[]> entity = new HttpEntity<StudentModel[]>(headers);
 
             RestTemplate restTemplate = new RestTemplate();
 
             ResponseEntity<StudentModel[]> response = restTemplate.exchange(api_url, HttpMethod.GET, entity, StudentModel[].class);
-            //System.out.println("response: " + response.getStatusCode());
             final List<StudentModel> students = Arrays.stream(response.getBody()).collect(Collectors.toList());
 
             model.addAttribute("students", students);
@@ -60,8 +58,14 @@ public class StudentContoller {
         return "students/student-list";
     }
 
+    @GetMapping("/add")
+    public String add(@ModelAttribute StudentModel studentModel){
+        System.out.println("students/student-add");
+        return "students/student-add";
+    }
+
     @PostMapping("/add")
-    public String add(@Valid @ModelAttribute StudentModel studentModel,
+    public String save(@Valid @ModelAttribute StudentModel studentModel,
                       BindingResult bindingResult,
                       RedirectAttributes redirectAttributes,
                       Model model){
@@ -70,28 +74,50 @@ public class StudentContoller {
             return "students/student-add";
         }
 
-        System.out.println("studentModel: " + studentModel);
+        //System.out.println("studentModel: " + studentModel);
 
-        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+        HttpEntity<StudentModel> entity = new HttpEntity<>(studentModel, headers);
 
-        HttpEntity entity = new HttpEntity(headers);
+        RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<StudentModel> response = restTemplate.exchange(api_url, HttpMethod.POST, entity, StudentModel.class);
+        ResponseEntity<String> result = restTemplate.postForEntity(api_url, entity, String.class);
+        System.out.println("result: " + result.getBody());
+        if (result.getBody() == null || result.getBody().trim().isEmpty()) {
+            return "students/student-add";
+        }
 
-        System.out.println("response: " + response);
-//        ResponseEntity<String> result = restTemplate.postForEntity(api_url, studentModel, String.class);
-//        System.out.println("result: " + result.getBody());
-//        if (result.getBody() == null || result.getBody().trim().isEmpty()) {
-//            return "students/student-add";
-//        }
-        redirectAttributes.addFlashAttribute("studentModel", studentModel);
-        return "students/student-details";
+        //redirectAttributes.addFlashAttribute("studentModel", studentModel);
+        //return "students/student-list";
+        return "redirect:list";
     }
 
 //    @DeleteMapping("/delete/{studentid}")
-////    public String delete(){
-////
-////    }
+//    public String delete(){
+//
+//    }
+
+    @GetMapping("/detail/{studentid}")
+    public String detail(@PathVariable("studentid") Long studentid, Model model){
+        //try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            HttpEntity<StudentModel> entity = new HttpEntity<StudentModel>(headers);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            ResponseEntity<StudentModel> response = restTemplate.exchange(api_url + "/" + studentid, HttpMethod.GET, entity, StudentModel.class);
+            //final List<StudentModel> students = Arrays.stream(response.getBody()).collect(Collectors.toList());
+
+            StudentModel student = response.getBody();
+            System.out.println("response: " + student);
+
+            model.addAttribute("studentModel", student);
+        //}
+        //catch(Exception e){
+
+        //}
+        return "students/student-detail";
+    }
 }

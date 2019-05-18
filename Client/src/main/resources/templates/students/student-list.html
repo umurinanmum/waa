@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title><span th:text="#{studentlist}">Student List</span></title>
+    <title><span th:text="#{studentList}">Student List</span></title>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
@@ -10,15 +10,15 @@
 <div class="container">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title"><span th:text="#{studentlist}">Student List</span></h3>
+            <h3 class="panel-title"><span th:text="#{studentList}">Student List</span></h3>
         </div>
         <div class="panel-body">
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col" th:text="#{firstname}">First Name</th>
-                    <th scope="col" th:text="#{lastname}">Last Name</th>
+                    <th scope="col" th:text="#{firstName}">First Name</th>
+                    <th scope="col" th:text="#{lastName}">Last Name</th>
                     <th scope="col" th:text="#{barCode}">BarCode</th>
                     <th scope="col" th:text="#{studentId}">Student ID</th>
                     <th scope="col"><span th:text="#{events}">Events</span> - <a th:href="@{/students/add}"><span th:text="#{add}">Add</span></a></th>
@@ -32,9 +32,9 @@
                     <td th:text="${student.barCode}">BarCode</td>
                     <td th:text="${student.studentId}">Student ID</td>
                     <td>
-                        <a th:href="@{/students/detail}"><span th:text="#{detail}">Detail</span></a>&nbsp;
-                        <a th:href="@{/students/edit}"><span th:text="#{edit}">Edit</span></a>
-                        <a th:href="@{/students/delete}"><span th:text="#{delete}">Delete</span></a>
+                        <a th:href="${'/students/detail/' + student.id}"><span th:text="#{detail}">Detail</span></a>&nbsp;
+                        <a th:href="${'/students/edit/' + student.id}"><span th:text="#{edit}">Edit</span></a>
+                        <a th:href="${'/students/delete/' + student.id}"><span th:text="#{delete}">Delete</span></a>
                     </td>
                 </tr>
                 </tbody>

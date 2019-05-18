@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title><span th:text="#{studentList}">Student List</span></title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" th:text="#{studentDetails}">Detail information of ${studentModel.firstName}</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="col-xs-12">
+
+                <div class="row vertical-align">
+
+                    <div class="col-xs-7">
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{id}">ID</span></b></div>
+                            <div class="col-xs-6"><span th:text="${studentModel.id}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{firstName}">First Name</span></b></div>
+                            <div class="col-xs-6"><span th:text="${studentModel.firstName}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{lastName}">Last Name</span></b></div>
+                            <div class="col-xs-6"><span th:text="${studentModel.lastName}"></span></div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-7">
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{barCode}">Bar Code</span></b></div>
+                            <div class="col-xs-6"><span th:text="${studentModel.barCode}"></span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3"><b><span th:text="#{studentId}">StudentID</span></b></div>
+                            <div class="col-xs-6"><span th:text="${studentModel.studentId}"></span></div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
