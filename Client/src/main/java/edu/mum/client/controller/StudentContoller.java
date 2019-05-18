@@ -1,6 +1,5 @@
 package edu.mum.client.controller;
 
-import edu.mum.client.model.BlockModel;
 import edu.mum.client.model.StudentModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

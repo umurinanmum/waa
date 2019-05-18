@@ -7,6 +7,17 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </div>
 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#enLang").click(function () {
+                alert($("#blockSelect").val());
+
+            })
+        });
+    </script>
+
 </head>
 <body>
 
@@ -24,15 +35,15 @@
                     <a class="navbar-brand" th:href="@{/authorization/login}">Register New User</a>
                 </li>
                 <li>
-                    <a class="navbar-brand" th:href="@{/authorization/login}">Import</a>
+                    <a class="navbar-brand" th:href="@{/fileUpload/show}">Import</a>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports
+                    <a class="dropdown-toggle" data-toggle="dropdown">Reports
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Faculty morning meditation</a></li>
-                        <li><a href="#">Student’s detail report</a></li>
-                        <li><a href="#">Generate Attendance report by entry</a></li>
+                        <li><a>Faculty morning meditation</a></li>
+                        <li><a th:href="@{/StudentPersonalReport}">Student’s detail report</a></li>
+                        <li><a th:href="@{/entryReport}">Generate Attendance report by entry</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -51,7 +62,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Language
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li id="enLang"><a href="#">En</a></li>
+                        <li ><a id="enLang" href="#">En</a></li>
                         <li id="trLang"><a href="#">Tr</a></li>
                     </ul>
                 </li>

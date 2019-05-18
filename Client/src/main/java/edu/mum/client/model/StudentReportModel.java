@@ -19,4 +19,7 @@ public class StudentReportModel {
     private int totalSessionsPossible;
     private int totalSessionsAttended;
     private int percentageAttendedInTotal;
+
+
+    private String selectedBlock;
 }

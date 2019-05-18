@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class BlockModel {
+public class BlockReportModel {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
@@ -17,5 +17,7 @@ public class BlockModel {
     private LocalDate endDate;
 
     private int cancelledDays=0;
+
+    private String name;
 
 }

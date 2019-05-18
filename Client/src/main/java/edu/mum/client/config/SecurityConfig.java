@@ -1,14 +1,11 @@
 package edu.mum.client.config;
 
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -29,11 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         security.authorizeRequests().antMatchers("/**").permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and().csrf().disable();
+                .and().csrf().disable();
 
 
-      //  security
-                //   .authorizeRequests()
+        //  security
+        //   .authorizeRequests()
 //                .antMatchers("/authorization/login").permitAll()
 //                .antMatchers("/fileUpload/show").permitAll()
 //                .antMatchers("/fileUpload/uploadFile").permitAll()
@@ -41,10 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/css/**").permitAll()
 //                .anyRequest().authenticated()
 
-                //   .and()
+        //   .and()
         //        .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-          //      .and()
-            //    .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
+        //      .and()
+        //    .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
         //.and()
         // .formLogin()
         //.loginPage("/login");
