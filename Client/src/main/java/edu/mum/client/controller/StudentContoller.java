@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/students")
 public class StudentContoller {
 
-    private String api_url = "http://localhost:8081/api/v1/students"; //Constants.URL + "students";
+    private String api_url = Constants.URL + "students";
 
     private final TokenHelper tokenHelper;
 
@@ -64,60 +64,140 @@ public class StudentContoller {
         return "students/student-add";
     }
 
+    @GetMapping("/edit/{studentid}")
+    public String edit(@PathVariable("studentid") Long studentid, Model model){
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+        //HttpEntity<StudentModel> entity = new HttpEntity<StudentModel>(headers);
+        HttpEntity entity = new HttpEntity<>(headers);
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<StudentModel> response = restTemplate.exchange(api_url + "/" + studentid.toString(), HttpMethod.GET, entity, StudentModel.class);
+
+        StudentModel student = response.getBody();
+        System.out.println("response: " + student);
+
+        model.addAttribute("studentModel", student);
+        return "students/student-edit";
+    }
+
+    @PostMapping("/edit")
+    public String edit(@Valid @ModelAttribute StudentModel studentModel,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes,
+                       Model model){
+        try {
+            if (bindingResult.hasErrors()) {
+                return "students/student-edit";
+            }
+
+            //System.out.println("studentModel: " + studentModel);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            HttpEntity<StudentModel> entity = new HttpEntity<>(studentModel, headers);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            ResponseEntity<String> result = restTemplate.exchange(api_url, HttpMethod.PUT, entity, String.class);
+
+            System.out.println("result: " + result.getBody());
+            if (result.getBody() == null || result.getBody().trim().isEmpty()) {
+                return "students/student-edit";
+            }
+
+            String result_str = "edited";
+            if(!result.getBody().equalsIgnoreCase("true"))
+                result_str = result.getBody();
+
+            redirectAttributes.addFlashAttribute("result", result_str);
+        }
+        catch(Exception e){
+
+        }
+        return "redirect:list";
+    }
+
     @PostMapping("/add")
     public String save(@Valid @ModelAttribute StudentModel studentModel,
                       BindingResult bindingResult,
                       RedirectAttributes redirectAttributes,
                       Model model){
+        try {
+            if (bindingResult.hasErrors()) {
+                return "students/student-add";
+            }
 
-        if(bindingResult.hasErrors()){
-            return "students/student-add";
-        }
+            //System.out.println("studentModel: " + studentModel);
 
-        //System.out.println("studentModel: " + studentModel);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-        HttpEntity<StudentModel> entity = new HttpEntity<>(studentModel, headers);
-
-        RestTemplate restTemplate = new RestTemplate();
-
-        ResponseEntity<String> result = restTemplate.postForEntity(api_url, entity, String.class);
-        System.out.println("result: " + result.getBody());
-        if (result.getBody() == null || result.getBody().trim().isEmpty()) {
-            return "students/student-add";
-        }
-
-        //redirectAttributes.addFlashAttribute("studentModel", studentModel);
-        //return "students/student-list";
-        return "redirect:list";
-    }
-
-//    @DeleteMapping("/delete/{studentid}")
-//    public String delete(){
-//
-//    }
-
-    @GetMapping("/detail/{studentid}")
-    public String detail(@PathVariable("studentid") Long studentid, Model model){
-        //try {
             HttpHeaders headers = new HttpHeaders();
             headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-            HttpEntity<StudentModel> entity = new HttpEntity<StudentModel>(headers);
+            HttpEntity<StudentModel> entity = new HttpEntity<>(studentModel, headers);
 
             RestTemplate restTemplate = new RestTemplate();
 
-            ResponseEntity<StudentModel> response = restTemplate.exchange(api_url + "/" + studentid, HttpMethod.GET, entity, StudentModel.class);
-            //final List<StudentModel> students = Arrays.stream(response.getBody()).collect(Collectors.toList());
+            ResponseEntity<String> result = restTemplate.postForEntity(api_url, entity, String.class);
+            System.out.println("result: " + result.getBody());
+            if (result.getBody() == null || result.getBody().trim().isEmpty()) {
+                return "students/student-add";
+            }
+
+            String result_str = "saved";
+            if(!result.getBody().equalsIgnoreCase("true"))
+                result_str = result.getBody();
+
+            redirectAttributes.addFlashAttribute("studentModel", studentModel);
+            redirectAttributes.addFlashAttribute("result", result_str);
+        }
+        catch(Exception e){
+
+        }
+        return "redirect:list";
+    }
+
+    @GetMapping("/delete/{studentid}")
+    public String delete(@PathVariable("studentid") Long studentid, RedirectAttributes redirectAttributes, Model model){
+
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            HttpEntity entity = new HttpEntity<>(headers);
+
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> result = restTemplate.exchange(api_url + "/" + studentid, HttpMethod.DELETE, entity, String.class);
+            System.out.println("result: " + result.getBody());
+
+            String result_str = "Deleted";
+            if(!result.getBody().equalsIgnoreCase("true"))
+                result_str = result.getBody();
+
+            redirectAttributes.addFlashAttribute("resultInfo", result_str);
+        }
+        catch(Exception e){
+
+        }
+        return "result";
+    }
+
+    @GetMapping("/detail/{studentid}")
+    public String detail(@PathVariable("studentid") Long studentid, Model model){
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+            //HttpEntity<StudentModel> entity = new HttpEntity<StudentModel>(headers);
+            HttpEntity entity = new HttpEntity<>(headers);
+            RestTemplate restTemplate = new RestTemplate();
+
+            ResponseEntity<StudentModel> response = restTemplate.exchange(api_url + "/" + studentid.toString(), HttpMethod.GET, entity, StudentModel.class);
 
             StudentModel student = response.getBody();
             System.out.println("response: " + student);
 
             model.addAttribute("studentModel", student);
-        //}
-        //catch(Exception e){
+        }
+        catch(Exception e){
 
-        //}
+        }
         return "students/student-detail";
     }
 }
