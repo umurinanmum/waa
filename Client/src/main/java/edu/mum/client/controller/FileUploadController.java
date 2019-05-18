@@ -44,6 +44,7 @@ public class FileUploadController {
 
         String serverUrl = "http://localhost:8081/file/upload/";
 
+
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity(serverUrl, requestEntity, String.class);
         //ResponseEntity<String> responseEntity = restTemplate.exchange(serverUrl, HttpMethod.POST, requestEntity, String.class);

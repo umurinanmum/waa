@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:action="@{/studentPersonalReport}" th:object="${studentReportModel}" method="get">
+<div>
+
+    <div class="form-group">
+        <label for="totalSessionsPossible" th:text="#{totalSessionsPossible}"></label>
+        <input type="text" class="form-control" id="totalSessionsPossible" th:field="*{sessionsInBlock}"/>
+    </div>
+
+    <div class="form-group">
+        <label for="totalSessionsAttended" th:text="#{totalSessionsAttended}"></label>
+        <input type="text" class="form-control" id="totalSessionsAttended" th:field="*{daysPresent}"/>
+    </div>
+
+    <div class="form-group">
+        <label for="percentAttendance" th:text="#{percentAttended}"></label>
+        <input type="text" class="form-control" id="percentAttendance" th:field="*{percentageAttended}"/>
+    </div>
+
+</div>
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</form>
+
+</body>
+</html>

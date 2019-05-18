@@ -1,5 +1,6 @@
 package edu.mum.client.controller;
 
+import edu.mum.client.config.WaaAuthenticationModel;
 import edu.mum.client.helper.Constants;
 import edu.mum.client.model.LoginModel;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/authorization")
@@ -23,17 +26,21 @@ public class AuthorizationController {
     }
 
     @PostMapping("/do-login")
-    public String doLogin(@ModelAttribute LoginModel loginModel) {
+    public String doLogin(@ModelAttribute LoginModel loginModel, HttpSession session) {
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> result = restTemplate.postForEntity(Constants.URL_AUTH, loginModel, String.class);
         System.out.println(result.getBody());
         if (result.getBody() != null && !result.getBody().trim().isEmpty()) {
-            SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true);
+            session.setAttribute("token",result.getBody());
+//            WaaAuthenticationModel waaAuthenticationModel = new WaaAuthenticationModel();
+//            waaAuthenticationModel.setAuthenticated(true);
+//            waaAuthenticationModel.setToken(result.getBody());
+//
+//            SecurityContextHolder.getContext().setAuthentication(waaAuthenticationModel);
             return "welcome";
         }
-        return "welcome";
-        //return "redirect:/authorization/login";
+        return "redirect:/authorization/login";
     }
 
 }
