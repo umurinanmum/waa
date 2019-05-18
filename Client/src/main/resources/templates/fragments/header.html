@@ -18,16 +18,16 @@
             </div>
             <ul class="nav navbar-nav">
                 <li>
-                    <a class="navbar-brand" th:href="@{/authorization/login}">Login</a>
+                    <a class="navbar-brand" th:href="@{/authorization/login}"><span th:text="#{login}">Login</span></a>
                 </li>
                 <li>
-                    <a class="navbar-brand" th:href="@{/authorization/login}">Register New User</a>
+                    <a class="navbar-brand" th:href="@{/authorization/login}"><span th:text="#{register.new.user}">Register New User</span></a>
                 </li>
                 <li>
-                    <a class="navbar-brand" th:href="@{/authorization/login}">Import</a>
+                    <a class="navbar-brand" th:href="@{/authorization/import}"><span th:text="#{import}">Import</span></a>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Reports
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span th:text="#{reports}">Reports</span>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Faculty morning meditation</a></li>
@@ -48,12 +48,13 @@
                 </li>
 
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Language
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span th:text="#{language}">Language</span>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li id="enLang"><a href="#">En</a></li>
-                        <li id="trLang"><a href="#">Tr</a></li>
-                        <li id="mnLang"><a href="#">MN</a></li>
+                        <li id="enLang"><a href="?lang=en">English</a></li>
+                        <li id="trLang"><a href="?lang=tr">Turk</a></li>
+                        <li id="mnLang"><a href="?lang=mn">Монгол</a></li>
+                        <li id="viLang"><a href="?lang=vi">Vietnam</a></li>
                     </ul>
                 </li>
 
