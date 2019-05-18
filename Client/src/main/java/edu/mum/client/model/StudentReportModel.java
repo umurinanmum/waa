@@ -19,10 +19,9 @@ public class StudentReportModel {
     private int totalSessionsPossible;
     private int totalSessionsAttended;
     private int percentageAttendedInTotal;
-<<<<<<< HEAD
-=======
+
 
 
     private String selectedBlock;
->>>>>>> master
+
 }
