@@ -38,7 +38,11 @@ public class AuthorizationController {
 //            waaAuthenticationModel.setToken(result.getBody());
 //
 //            SecurityContextHolder.getContext().setAuthentication(waaAuthenticationModel);
+<<<<<<< HEAD
             return "welcome";
+=======
+            return "redirect:/welcome";
+>>>>>>> master
         }
         return "redirect:/authorization/login";
     }

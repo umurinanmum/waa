@@ -13,7 +13,7 @@
             <h3 class="panel-title">Add New Block</h3>
         </div>
         <div id="formContent" class="panel-body">
-            <form th:action="@{/block/save-block}" th:object="${blockModel}" method="post">
+            <form th:action="@{/block/save-block}" th:object="${blockReportModel}" method="post">
                 <div class="form-group">
                     <label for="startDate" th:text="#{startDate}"></label>
                     <input type="date" class="form-control" id="startDate" th:field="*{startDate}"/>

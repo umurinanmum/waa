@@ -34,4 +34,14 @@ public class WaaMvcConfigurer  implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
+<<<<<<< HEAD
+=======
+    @Bean
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasename("classpath:messages_en");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
+    }
+>>>>>>> master
 }

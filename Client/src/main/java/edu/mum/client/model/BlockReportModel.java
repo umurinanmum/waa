@@ -9,7 +9,11 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+<<<<<<< HEAD:Client/src/main/java/edu/mum/client/model/BlockModel.java
 public class BlockModel implements Serializable {
+=======
+public class BlockReportModel {
+>>>>>>> master:Client/src/main/java/edu/mum/client/model/BlockReportModel.java
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startDate;
@@ -18,5 +22,7 @@ public class BlockModel implements Serializable {
     private LocalDate endDate;
 
     private int cancelledDays=0;
+
+    private String name;
 
 }

@@ -1,14 +1,20 @@
 package edu.mum.client.config;
 
 
+<<<<<<< HEAD
 import org.springframework.context.annotation.Bean;
+=======
+>>>>>>> master
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+<<<<<<< HEAD
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
+=======
+>>>>>>> master
 
 @Configuration
 @EnableWebSecurity
@@ -29,11 +35,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         security.authorizeRequests().antMatchers("/**").permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+<<<<<<< HEAD
         .and().csrf().disable();
 
 
       //  security
                 //   .authorizeRequests()
+=======
+                .and().csrf().disable();
+
+
+        //  security
+        //   .authorizeRequests()
+>>>>>>> master
 //                .antMatchers("/authorization/login").permitAll()
 //                .antMatchers("/fileUpload/show").permitAll()
 //                .antMatchers("/fileUpload/uploadFile").permitAll()
@@ -41,10 +55,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/css/**").permitAll()
 //                .anyRequest().authenticated()
 
+<<<<<<< HEAD
                 //   .and()
         //        .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
           //      .and()
             //    .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
+=======
+        //   .and()
+        //        .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+        //      .and()
+        //    .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
+>>>>>>> master
         //.and()
         // .formLogin()
         //.loginPage("/login");

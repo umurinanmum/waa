@@ -5,12 +5,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+<<<<<<< HEAD
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+=======
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+>>>>>>> master
 
 @SpringBootApplication
 public class ClientApplication {
@@ -19,6 +24,7 @@ public class ClientApplication {
         SpringApplication.run(ClientApplication.class, args);
     }
 
+<<<<<<< HEAD
     @Bean
     public MultipartResolver multipartResolver() {
         StandardServletMultipartResolver resolver = new StandardServletMultipartResolver();
@@ -50,6 +56,25 @@ public class ClientApplication {
             }
         };
     }
+=======
+//    @Bean
+//    public MessageSource messageSource() {
+//        ReloadableResourceBundleMessageSource messageSource
+//                = new ReloadableResourceBundleMessageSource();
+//
+//        messageSource.setBasename("classpath:messages_en");
+//        messageSource.setDefaultEncoding("UTF-8");
+//        return messageSource;
+//    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        StandardServletMultipartResolver resolver = new StandardServletMultipartResolver();
+        return resolver;
+    }
+
+
+>>>>>>> master
 
 
 

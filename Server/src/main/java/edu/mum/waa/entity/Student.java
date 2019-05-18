@@ -31,4 +31,8 @@ public class Student {
     @JoinTable(name = "student_sections")
     private List<Section> sections;
 
+    private String firstName;
+
+    private String lastName;
+
 }
