@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class BlockModel implements Serializable {
 
 public class BlockReportModel {
 
