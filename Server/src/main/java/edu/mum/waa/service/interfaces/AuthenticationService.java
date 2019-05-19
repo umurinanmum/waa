@@ -5,4 +5,5 @@ import edu.mum.waa.entity.Credential;
 
 public interface AuthenticationService {
     String login(LoginDto loginDto);
+    boolean logOut();
 }

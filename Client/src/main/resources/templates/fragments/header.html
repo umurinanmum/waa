@@ -24,6 +24,14 @@
 
                 })
 
+                $("#mnLang").click(function () {
+                    console.log('mn click');
+                    /*                    console.log(this.innerHTML);
+                                        console.log(this.val);*/
+                    window.location.replace('?lang=' + 'mn');
+
+                })
+
 
             });
         </script>
@@ -66,9 +74,10 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/students/list}">Students</a></li>
+                        <li><a th:href="@{/blocks/list}">Blocks</a></li>
+                        <li><a th:href="@{/entries/list}">Entries</a></li>
                         <li><a href="#">TM Retreat</a></li>
                         <li><a href="#">TM Check</a></li>
-                        <li><a th:href="@{/block/show-add-form}">Blocks</a></li>
                         <li><a href="#">...</a></li>
                     </ul>
                 </li>
@@ -77,8 +86,9 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Language
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li ><a id="enLang" val="en">En</a></li>
-                        <li><a id="trLang">Tr</a></li>
+                        <li ><a id="enLang" val="en">English</a></li>
+                        <li><a id="trLang">Turk</a></li>
+                        <li><a id="mnLang">Mongolia</a></li>
                     </ul>
                 </li>
 
@@ -88,7 +98,7 @@
                     <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
                         Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;
                     </a>
-                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/authorization/logout}"></form>
                 </li>
             </ul>
         </nav>

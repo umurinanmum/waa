@@ -2,7 +2,9 @@ package edu.mum.client.controller;
 
 import edu.mum.client.config.WaaAuthenticationModel;
 import edu.mum.client.helper.Constants;
+import edu.mum.client.helper.TokenHelper;
 import edu.mum.client.model.LoginModel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,8 +21,21 @@ import javax.servlet.http.HttpSession;
 public class AuthorizationController {
 
 
+    @Autowired
+    private TokenHelper tokenHelper;
+
+
     @GetMapping("/login")
     public String showLoginForm(@ModelAttribute LoginModel loginModel) {
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logOut(@ModelAttribute LoginModel loginModel) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.delete(Constants.URL_AUTH + "?token=123");
+        tokenHelper.deleteToken();
 
         return "login";
     }
@@ -32,7 +47,7 @@ public class AuthorizationController {
         ResponseEntity<String> result = restTemplate.postForEntity(Constants.URL_AUTH, loginModel, String.class);
         System.out.println(result.getBody());
         if (result.getBody() != null && !result.getBody().trim().isEmpty()) {
-            session.setAttribute("token",result.getBody());
+            session.setAttribute("token", result.getBody());
 //            WaaAuthenticationModel waaAuthenticationModel = new WaaAuthenticationModel();
 //            waaAuthenticationModel.setAuthenticated(true);
 //            waaAuthenticationModel.setToken(result.getBody());

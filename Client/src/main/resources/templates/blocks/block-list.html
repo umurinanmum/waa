@@ -7,10 +7,10 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"/>
-<div class="container">
+<div class="container-fluid">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Block List</h3>
+            <h3 class="panel-title"><span th:text="#{blockList}">Block List</span></h3>
         </div>
         <div class="panel-body">
             <table class="table table-striped">
@@ -20,7 +20,8 @@
                     <th scope="col">startDate</th>
                     <th scope="col">endDate</th>
                     <th scope="col">name</th>
-                    <th scope="col">Events - <a th:href="@{/blocks/add}">Add</a>&nbsp;</th>
+<!--                    <th scope="col">cancelledDays</th>-->
+                    <th scope="col"><a th:href="@{/blocks/add}" class="btn btn-success"><span th:text="#{add}">Add</span></a></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,25 +30,14 @@
                     <td th:text="${block.startDate}">startDate</td>
                     <td th:text="${block.endDate}">endDate</td>
                     <td th:text="${block.name}">name</td>
+<!--                    <td th:text="${block.cancelledDays}">cancelledDays</td>-->
                     <td>
-                        <a th:href="@{/blocks/detail}">Detail</a>&nbsp;
-                        <a th:href="@{/blocks/edit}">Edit</a>
-                        <a th:href="@{/blocks/delete}">Delete</a>
+                        <a th:href="${'/blocks/detail/' + block.id}" class="btn btn-info"><span th:text="#{detail}">Detail</span></a>&nbsp;
+                        <a th:href="${'/blocks/edit/' + block.id}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
+                        <a th:href="${'/blocks/delete/' + block.id}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
                     </td>
                 </tr>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <td></td>
-                    <td>
-                        <button class="btn btn-primary pull-right">Previous</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary">Next</button>
-                    </td>
-                    <td></td>
-                </tr>
-                </tfoot>
             </table>
 
         </div>
