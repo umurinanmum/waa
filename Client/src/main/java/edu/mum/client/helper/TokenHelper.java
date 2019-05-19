@@ -20,6 +20,7 @@ public class TokenHelper {
 
     public void deleteToken(){
         httpSession.removeAttribute("token");
+        SecurityContextHolder.clearContext();
     }
 
 }
