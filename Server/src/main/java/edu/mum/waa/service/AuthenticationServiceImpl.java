@@ -26,6 +26,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public boolean logOut(){
         SecurityContextHolder.clearContext();
+        return true;
     }
 
     @Override

@@ -148,7 +148,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    @Secured(RoleEnum.VIEW_ENTRY_REPORT)
+    //@Secured(RoleEnum.VIEW_ENTRY_REPORT)
     public List<AttendanceByEntryDto> getReportByEntry(String entry) {
 
         List<AttendanceByEntryDto> result = new ArrayList<>();
