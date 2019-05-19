@@ -35,6 +35,8 @@ INSERT INTO FACULTY(id, first_name, last_name) VALUES (2, 'Bruen', 'Bruen');
 INSERT INTO FACULTY(id, first_name, last_name) VALUES (3, 'Steve', 'Nolle');
 INSERT INTO faculty (id,first_name,last_name) VALUES (4 ,'Asaad','Saad' );
 
+INSERT INTO faculty (id,first_name,last_name) VALUES (5 ,'Admin','Admin' );
+
 
 --SECTIONs
 INSERT INTO section (id,block_id, course_id,faculty_id,canceled_days,available_days) VALUES (1 ,1, 1,1,0,22);
@@ -47,8 +49,8 @@ INSERT INTO section (id,block_id, course_id,faculty_id,canceled_days,available_d
 INSERT INTO student (id,barcode, student_Id,entry_id,first_name,last_name) VALUES(1 ,'7888', '987012',1,'Eren','Ozturk' );
 INSERT INTO student (id,barcode, student_Id,entry_id,first_name,last_name) VALUES(2 ,'456', '986814',1,'Umur','Inan' );
 
-INSERT INTO student (id,barcode, student_Id, entry_id,first_name,last_name) VALUES(3 ,'123', '987012' ,1,'Tuy','Vo');
-INSERT INTO student (id,barcode, student_Id, entry_id,first_name,last_name) VALUES(4 ,'456', '986814', 1,'Tuugii','Tuugii');
+INSERT INTO student (id,barcode, student_Id, entry_id,first_name,last_name) VALUES(3 ,'123', '987002' ,1,'Tuy','Vo');
+INSERT INTO student (id,barcode, student_Id, entry_id,first_name,last_name) VALUES(4 ,'456', '986804', 1,'Tuugii','Tuugii');
 INSERT INTO student (id,barcode, student_Id, entry_id,first_name,last_name) VALUES(5 ,'456', '986803' ,1,'Tony','Mar');
 INSERT INTO student (id,barcode, student_Id, entry_id,first_name,last_name) VALUES(6 ,'456', '986804', 2,'Mick','Jupi');
 
@@ -63,6 +65,9 @@ INSERT INTO credential (id,email, password,faculty_id) VALUES (4 ,'tina@mum.edu'
 INSERT INTO credential (id,email, password,student_id) VALUES (5 ,'tvo@mum.edu', '12345',3);
 INSERT INTO credential (id,email, password,student_id) VALUES (6 ,'tuugii@mum.edu', '12345',4);
 
+
+INSERT INTO credential (id,email, password,student_id, FACULTY_ID) VALUES (7 ,'admin@mum.edu', '12345', null ,5);
+
 --ROLEs
 INSERT INTO role (id,name) VALUES (1 ,'GENERATE_REPORT');
 INSERT INTO role (id,name) VALUES (2 ,'SAVE_ENTRY');
@@ -71,6 +76,7 @@ INSERT INTO role (id,name) VALUES (4 ,'VIEW_BLOCK_REPORT');
 INSERT INTO role (id,name) VALUES (5 ,'VIEW_ENTRY_REPORT');
 INSERT INTO role (id,name) VALUES (6 ,'VIEW_EXTRA_CREDIT_REPORT');
 INSERT INTO role (id,name) VALUES (7 ,'DATA_IMPORT');
+INSERT INTO role (id,name) VALUES (8 ,'TMCHECK_CRUD');
 
 
 --CREDENTIAL ROLEs
@@ -89,7 +95,9 @@ INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,3);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,2);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,1);
 
-
+-- admin
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (7 ,8);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (5 ,8);
 
 /*  INSERT INTO entry (id,start_Date, end_Date,canceled_days) VALUES
   (1,'2017-08-04', '2017-08-04',0);*/

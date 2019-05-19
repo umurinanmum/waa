@@ -16,3 +16,6 @@ input[type=checkbox]
     font-weight: bold;
     color: brown;
 }
+.pagination {
+    float: right;
+}
