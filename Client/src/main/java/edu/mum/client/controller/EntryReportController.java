@@ -104,7 +104,7 @@ public class EntryReportController {
         }
 
 
-        return "entry-report";
+        return "reports/entry-report";
     }
 
 }
