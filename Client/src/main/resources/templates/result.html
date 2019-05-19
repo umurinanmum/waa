@@ -2,19 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title><span th:text="#{studentList}">Student List</span></title>
+    <title>Result Page</title>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
 <div th:replace="fragments/header :: header"/>
 <div class="container">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title" th:text="#{resultPage}">Detail information of ${studentModel.firstName}</h3>
-        </div>
-        <div class="panel-body">
-            <h3 class="panel-title" th:text="${resultInfo}">Result</h3>
-        </div>
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong><h3 class="panel-title" th:text="#{resultPage}"></h3></strong>
+        <h3 class="panel-title" th:text="${resultInfo}">Result</h3>
     </div>
 </div>
 <div th:replace="fragments/footer :: footer"/>

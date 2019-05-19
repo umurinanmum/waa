@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <title><span th:text="#{studentList}">Student List</span></title>
+    <title th:text="#{studentList}"> -- Student List</title>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
 <div th:replace="fragments/header :: header"/>
 
-<div class="container">
+<div class="container-fluid">
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title"><span th:text="#{studentList}">Student List</span></h3>
@@ -23,7 +23,7 @@
                     <th scope="col" th:text="#{lastName}">Last Name</th>
                     <th scope="col" th:text="#{barcode}">BarCode</th>
                     <th scope="col" th:text="#{studentId}">Student ID</th>
-                    <th scope="col"><span th:text="#{events}">Events</span> - <a th:href="@{/students/add}"><span th:text="#{add}">Add</span></a></th>
+                    <th scope="col"><span th:text="#{events}">Events</span> - <a th:href="@{/students/add}" class="btn btn-success"><span th:text="#{add}">Add</span></a></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,14 +34,15 @@
                     <td th:text="${student.barcode}">BarCode</td>
                     <td th:text="${student.studentId}">Student ID</td>
                     <td>
-                        <a th:href="${'/students/detail/' + student.id}"><span th:text="#{detail}">Detail</span></a>&nbsp;
-                        <a th:href="${'/students/edit/' + student.id}"><span th:text="#{edit}">Edit</span></a>
-                        <a th:href="${'/students/delete/' + student.id}"><span th:text="#{delete}">Delete</span></a>
+                        <a th:href="${'/students/detail/' + student.id}" class="btn btn-info"><span th:text="#{detail}">Detail</span></a>&nbsp;
+                        <a th:href="${'/students/edit/' + student.id}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
+                        <a th:href="${'/students/delete/' + student.id}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
                     </td>
                 </tr>
                 </tbody>
                 <tfoot>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td>
                         <button class="btn btn-primary pull-right"><span th:text="#{previous}">Previous</span></button>
@@ -50,9 +51,13 @@
                         <button class="btn btn-primary"><span th:text="#{next}">Next</span></button>
                     </td>
                     <td></td>
+                    <td></td>
                 </tr>
                 </tfoot>
             </table>
+
+
+
 
         </div>
     </div>
