@@ -30,6 +30,10 @@ INSERT INTO credential (id,email, password,faculty_id) VALUES (4 ,'tina@mum.edu'
 INSERT INTO role (id,name) VALUES (1 ,'GENERATE_REPORT');
 INSERT INTO role (id,name) VALUES (2 ,'SAVE_ENTRY');
 INSERT INTO role (id,name) VALUES (3 ,'SAVE_BLOCK');
+INSERT INTO role (id,name) VALUES (4 ,'VIEW_BLOCK_REPORT');
+INSERT INTO role (id,name) VALUES (5 ,'VIEW_ENTRY_REPORT');
+INSERT INTO role (id,name) VALUES (6 ,'VIEW_EXTRA_CREDIT_REPORT');
+INSERT INTO role (id,name) VALUES (7 ,'DATA_IMPORT');
 
 
 --CREDENTIAL ROLEs
@@ -38,6 +42,16 @@ INSERT INTO credential_roles (credential_id,roles_id) VALUES  (1 ,1);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (2 ,1);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (2 ,2);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (2 ,3);
+
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (3 ,6);
+
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,6);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,5);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,4);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,3);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,2);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,1);
+
 
 
 

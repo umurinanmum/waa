@@ -7,6 +7,7 @@ import edu.mum.waa.security.JwtUserDetails;
 import edu.mum.waa.security.JwtUtil;
 import edu.mum.waa.service.interfaces.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -21,6 +22,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public AuthenticationServiceImpl(AuthenticationRepo authenticationRepo, JwtUtil jwtUtil) {
         this.authenticationRepo = authenticationRepo;
         this.jwtUtil = jwtUtil;
+    }
+
+    public boolean logOut(){
+        SecurityContextHolder.clearContext();
     }
 
     @Override
