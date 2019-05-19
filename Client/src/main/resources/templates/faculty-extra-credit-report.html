@@ -19,8 +19,6 @@
 
             })
         });
-
-
     </script>
     <div th:replace="fragments/header :: header-css"/>
 </head>
@@ -36,38 +34,35 @@
 
 </tr>-->
 
-<form th:object="${extraCreditModelSes}" method="get">
-
-
-    <div>
-
-        <div class="form-group">
-            <label for="blockSelect" th:text="#{block}"></label>
-            <select id="blockSelect" th:field="*{selectedBlock}">
-                <!--<option value=""> &#45;&#45;</option>-->
-                <option th:each="block : ${blocks}"
-                        th:value="${block.name}"
-                        th:utext="${block.name}"/>
-            </select>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span th:text="#{facultyReport}">Faculty Extra Credit Report</span></h3>
         </div>
+        <div class="panel-body">
+            <div class="row">
+                <form th:object="${extraCreditModelSes}" method="get">
+                    <div class="col-xs-1"><label for="blockSelect" th:text="#{block}"></label></div>
+                    <div class="col-xs-3"><select id="blockSelect" th:field="*{selectedBlock}" class="form-control">
+                                <!--<option value=""> &#45;&#45;</option>-->
+                                <option th:each="block : ${blocks}"
+                                        th:value="${block.name}"
+                                        th:utext="${block.name}"/>
+                            </select>
+                        </div>
+                </form>
+            </div>
 
-
+            <div class="row">
+                <div th:each="student : ${extraCreditModelSes.data}" class="col-xs-4">
+                    <span class="glyphicon glyphicon-user"></span>
+                      <label th:text="${student.id}+' '+${student.firstName}+' '+${student.lastName}" style="font-weight: bolder"></label>
+                      <p th:text="${student.extraPoint}" style="font-weight: bold"></p>
+                </div>
+            </div>
+        </div>
     </div>
-
-
-</form>
-
-<table>
-    <span th:each="student : ${extraCreditModelSes.data}">
-          <p th:text="${student.id}+' '+${student.firstName}+' '+${student.lastName}" style="font-weight: bolder"></p>
-
-          <p th:text="${student.extraPoint}" style="font-weight: bold"></p>
-
-
-
-    </span>
-</table>
-
-
+</div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
