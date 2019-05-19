@@ -1,21 +1,25 @@
 package edu.mum.waa.service;
 
-import edu.mum.waa.dto.StudentDto;
 import edu.mum.waa.entity.Student;
 import edu.mum.waa.repository.StudentRepo;
 import edu.mum.waa.service.interfaces.StudentService;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import edu.mum.waa.dto.StudentDto;
+import lombok.var;
+
+import java.util.ArrayList;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
-
     private StudentRepo studentRepo;
+
+    public List<Student> lookupStudentByStudentId(String studentId) {
+        return studentRepo.lookupStudentByStudentId(studentId);
+    }
 
     @Autowired
     public StudentServiceImpl(StudentRepo studentRepo) {
@@ -87,4 +91,5 @@ public class StudentServiceImpl implements StudentService {
         StudentDto temp = new StudentDto();
         return temp.convertToDto(res.get());
     }
+
 }

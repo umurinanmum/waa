@@ -31,5 +31,7 @@ public class Student {
     @JoinTable(name = "student_sections")
     private List<Section> sections;
 
-
+    public long getId() {
+        return id;
+    }
 }
