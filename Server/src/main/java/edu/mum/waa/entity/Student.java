@@ -16,6 +16,10 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    private String firstName;
+
+    private String lastName;
+
     private String barcode;
 
     private String studentId;
@@ -24,6 +28,7 @@ public class Student {
     private Entry entry;
 
     @ManyToMany
+    @JoinTable(name = "student_sections")
     private List<Section> sections;
 
     public long getId() {

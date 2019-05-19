@@ -9,9 +9,13 @@ import java.util.Optional;
 
 public interface StudentRepo extends CrudRepository<Student,Long> {
 
+    Optional<Student> findStudentByStudentId(String studentId);
+
     Optional<Student> findStudentByBarcode(String barcode);
 
     @Query(value = "select s from Student s where s.studentId like :studentId%")
     List<Student> lookupStudentByStudentId(String studentId);
+
+    List<Student> findStudentsByEntryName(String entryName);
 
 }

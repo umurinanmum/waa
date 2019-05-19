@@ -3,31 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Block</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
-
-
-<form th:action="@{/block/save-block}" th:object="${blockModel}" method="post">
-    <div class="container">
-        <div class="form-group">
-            <label for="startDate" th:text="#{startDate}"></label>
-            <input type="date" class="form-control" id="startDate" th:field="*{startDate}"/>
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Add New Block</h3>
         </div>
+        <div id="formContent" class="panel-body">
+            <form th:action="@{/block/save-block}" th:object="${blockReportModel}" method="post">
+                <div class="form-group">
+                    <label for="startDate" th:text="#{startDate}"></label>
+                    <input type="date" class="form-control" id="startDate" th:field="*{startDate}"/>
+                </div>
 
-        <div class="form-group">
-            <label for="endDate" th:text="#{endDate}"></label>
-            <input type="date" class="form-control" id="endDate" th:field="*{endDate}"/>
+                <div class="form-group">
+                    <label for="endDate" th:text="#{endDate}"></label>
+                    <input type="date" class="form-control" id="endDate" th:field="*{endDate}"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="cancelledDays" th:text="#{cancelledDays}"></label>
+                    <input type="number" class="form-control" id="cancelledDays" th:field="*{cancelledDays}"/>
+                </div>
+                <div id="formFooter" class="form-group">
+                    <button type="submit" class="btn btn-primary form-control">Save</button>
+                </div>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label for="cancelledDays" th:text="#{cancelledDays}"></label>
-            <input type="date" class="form-control" id="cancelledDays" th:field="*{cancelledDays}"/>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
     </div>
-</form>
-
+</div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>

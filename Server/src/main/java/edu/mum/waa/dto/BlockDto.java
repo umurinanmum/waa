@@ -14,8 +14,8 @@ import java.time.LocalDate;
 public class BlockDto extends BaseDto<BlockDto, Block>{
 
     public BlockDto(){
-        dtoClass =BlockDto.class;
-        entityClass=Block.class;
+        super.dtoClass =BlockDto.class;
+        super.entityClass=Block.class;
     }
 
     private long id;
@@ -24,7 +24,8 @@ public class BlockDto extends BaseDto<BlockDto, Block>{
 
     private LocalDate endDate;
 
-    private int canceledDays=0;
+    private String name;
+
 
 
 }

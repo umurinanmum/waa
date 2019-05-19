@@ -31,8 +31,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 // generate token
             JwtUserDetails jwtUserDetails = new JwtUserDetails();
             jwtUserDetails.setUsername(loginDto.getEmail());
-            //TODO student or faculty id
-            jwtUserDetails.setId(credential.getId());
+            
+            // student or faculty id
+            if(credential.getFaculty()!=null){
+                jwtUserDetails.setId(credential.getFaculty().getId());
+            }else{
+                jwtUserDetails.setId(credential.getStudent().getId());
+            }
 
             //fetch roles
             jwtUserDetails.setRoles(credential.getRoles().stream().map(l -> l.getName()).collect(Collectors.toList()));

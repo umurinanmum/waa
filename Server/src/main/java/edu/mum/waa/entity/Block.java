@@ -3,6 +3,7 @@ package edu.mum.waa.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,6 @@ public class Block {
 
     private LocalDate endDate;
 
-    private int canceledDays = 0;
+    private String name;
 
-    private int availableDays = 22;
 }

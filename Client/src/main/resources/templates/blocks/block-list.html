@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Block List</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">startDate</th>
+                    <th scope="col">endDate</th>
+                    <th scope="col">name</th>
+                    <th scope="col">Events - <a th:href="@{/blocks/add}">Add</a>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="block: ${blocks}">
+                    <td th:text="${block.id}">id</td>
+                    <td th:text="${block.startDate}">startDate</td>
+                    <td th:text="${block.endDate}">endDate</td>
+                    <td th:text="${block.name}">name</td>
+                    <td>
+                        <a th:href="@{/blocks/detail}">Detail</a>&nbsp;
+                        <a th:href="@{/blocks/edit}">Edit</a>
+                        <a th:href="@{/blocks/delete}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button class="btn btn-primary pull-right">Previous</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary">Next</button>
+                    </td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

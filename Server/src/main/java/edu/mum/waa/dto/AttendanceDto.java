@@ -16,15 +16,20 @@ import java.time.LocalDate;
 public class AttendanceDto extends BaseDto<AttendanceDto, Attendance> {
 
     public AttendanceDto(){
-        dtoClass =AttendanceDto.class;
-        entityClass=Attendance.class;
+        super.dtoClass =AttendanceDto.class;
+        super.entityClass=Attendance.class;
     }
 
     private long id;
 
-    private Student student;
+    private StudentDto student;
 
     private LocalDate dateTime;
 
-    private Block block;
+    private BlockDto block;
+
+    private LocationDto location;
+
+    private String time;
+
 }
