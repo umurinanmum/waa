@@ -50,12 +50,10 @@ public class StudentPersonalReportController {
     }
 
     @GetMapping
-
-
     public String showForm(@ModelAttribute("studentReportModel") StudentReportModel studentReportModel, Model model) {
         RestTemplate restTemplate = new RestTemplate();
 
-        StudentReportModel studentReportModelSes;
+        StudentReportModel  studentReportModelSes ;
         String blockReq;
 
 
@@ -64,28 +62,17 @@ public class StudentPersonalReportController {
 
         HttpEntity entity = new HttpEntity(headers);
 
-        ResponseEntity<StudentReportModel> response = restTemplate.exchange(Constants.URL + "attendances/" + "2016-November",
-                HttpMethod.GET, entity, StudentReportModel.class);
-
-
-        if (response != null && response.getBody() != null) {
-            studentReportModel.setDaysPresent(response.getBody().getDaysPresent());
-            studentReportModel.setSessionsInBlock(response.getBody().getSessionsInBlock());
-            studentReportModel.setPercentageAttended(response.getBody().getPercentageAttended());
-        }
-
-
        /* if(test ==null || test.trim().isEmpty()){
             test ="2016-November";
         }*/
 
 
-        Object studentReportModelSesObj = httpSession.getAttribute("studentReportModelSes");
-        if (studentReportModelSesObj != null) {
+        Object studentReportModelSesObj =  httpSession.getAttribute("studentReportModelSes");
+        if(studentReportModelSesObj!=null){
             studentReportModelSes = (StudentReportModel) studentReportModelSesObj;
             blockReq = studentReportModelSes.getSelectedBlock();
 
-        } else {
+        }else{
             studentReportModelSes = new StudentReportModel();
             blockReq = "2016-November";
 
@@ -94,14 +81,14 @@ public class StudentPersonalReportController {
 
         if (request.getRequestURI().split("/").length == 3) {
             blockReq = request.getRequestURI().split("/")[2];
-        } else {
+        }else{
 
         }
 
         //System.out.println(request.getRequestURI().split("/")[2]);
 
-//        ResponseEntity<StudentReportModel> response = restTemplate.exchange(Constants.URL + "attendances/" + blockReq,
-//                HttpMethod.GET, entity, StudentReportModel.class);
+        ResponseEntity<StudentReportModel> response = restTemplate.exchange(Constants.URL + "attendances/" + blockReq,
+                HttpMethod.GET, entity, StudentReportModel.class);
 
 
         ResponseEntity<List<BlockReportModel>> blockResponse = restTemplate.exchange(Constants.URL + "blocks",
@@ -131,7 +118,7 @@ public class StudentPersonalReportController {
 
             studentReportModelSes.setDatePresentDtoList(response.getBody().getDatePresentDtoList());
 
-            model.addAttribute("studentReportModelSes", studentReportModelSes);
+            model.addAttribute("studentReportModelSes",studentReportModelSes);
         }
 
 
