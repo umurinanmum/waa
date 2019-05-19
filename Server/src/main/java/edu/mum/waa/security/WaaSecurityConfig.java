@@ -49,7 +49,6 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity webSecurity) throws Exception {
         webSecurity.ignoring().antMatchers("/resources/**")
                 .antMatchers("/retreat-checking/**")
-                .antMatchers("/student-lookup/**")
                 .antMatchers("/student-lookup/**");
     }
 
@@ -59,7 +58,8 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/retreat-checking/**").permitAll()
                 .antMatchers("/student-lookup/**").permitAll()
                 .antMatchers("/faculty-report/**").permitAll()
-                .antMatchers("/report/**").permitAll();
+                .antMatchers("/report/**").permitAll()
+                .antMatchers("retreat-checking/student/**").permitAll();
 
         http.csrf().disable()
                 .authorizeRequests().antMatchers("/api/authentication*").permitAll()

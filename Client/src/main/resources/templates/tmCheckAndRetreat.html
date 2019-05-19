@@ -5,34 +5,81 @@
     <title>TM Retreat And Checking</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
-    <script type="text/javascript" th:src="@{/js/waa.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/css/waa.css}"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
+<input style="display: none" id="server" th:value="${@environment.getProperty('backendServerUrl')}" ></input>
+    <h2>TM Checking And Retreat</h2>
+    <div id="errors" class="errors" style="display:none"></div>
+    <form id="tmRetreatAndCheckingForm" th:object="${tmCheckAndRetreat}" method="post">
 
-<form id="tmRetreatAndCheckingForm" th:object="${tmCheckAndRetreat}" method="post">
-    <div class="container">
+        <div class="container">
+            <input  style="display: none" id="studentIdKey"  th:field="*{student.id}">
+            <input  style="display: none" id="id" th:field="*{id}"> <!-- so that Reset button works, hidden reset does not work -->
+            <div class="form-group">
+                <label  th:text="#{student}"></label>
+                <input class="form-control" id="lblStudentID" value="98"
+                    minlength="3" placeholder="Put Student ID, min 3 characters" maxlength="10"/>
+            </div>
 
-        <div class="form-group">
-            <label for="studentId" th:text="#{student}"></label>
-            <input class="form-control" id="studentId" th:field="*{student.id}"
-                minlength="4" placeholder="Put Student ID" maxlength="10"/>
+            <div class="form-group">
+                <label for="localDateTime" th:text="#{date}"></label>
+                <input type="date" class="form-control" id="localDateTime" th:field="*{localDateTime}"/>
+            </div>
+            <div >
+
+                    <label for="retreat" th:text="#{isRetreat}">Is Retreat</label>
+                    <input type="checkbox" id="retreat" th:field="*{retreat}" th:checked="*{retreat} ? 'checked'"/>
+
+            </div>
+
+            <button type="button" class="btn btn-primary js-save-tmretreatAndChecking" >Save</button>
+            <button type="button" class="btn btn-primary js-view-tmretreatAndChecking" >View</button>
+            <button type="reset" class="btn btn-primary" >Reset</button>
         </div>
+    </form>
 
-        <div class="form-group">
-            <label for="localDateTime" th:text="#{date}"></label>
-            <input type="date" class="form-control" id="localDateTime" th:field="*{localDateTime}"/>
-        </div>
-        <div class="form-group">
-            <label for="retreat" th:text="#{isRetreat}"></label>
-            <input type="checkbox" class="form-control" id="retreat" th:field="*{retreat}" th:checked="*{retreat} ? 'checked'"/>
-        </div>
-
-        <button type="button" class="btn btn-primary" onclick="saveTmRetreatAndChecking()">Submit</button>
+    <div id="dialog" title="Confirmation Required"  style="display:none">
+        Are you sure about this?
     </div>
-</form>
-<div id="errors"></div>
+
+    <div >
+        <ul class="pagination"> </ul>
+    </div>
+    <table id="tblResult">
+        <colgroup>
+            <col width="25%">
+            <col width="25%">
+            <col width="25%">
+            <col width="20%">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>Date</th>
+            <th>Retreat/Checking</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
 </body>
+
+<script id="itemRow" type="text/x-jquery-tmpl">
+  <tr>
+	<td>${student.studentId}</td>
+	<td>${localDateTime}</td>
+	<td data-retreat="${retreat}">{{if retreat == true}}Retreat{{/if}} {{if retreat == false}}Checking{{/if}}</td>
+	<td><a href="#" class="js-retreat-checking-edit" data-id="${id}" >Edit</a> <a href="#" class="js-retreat-checking-delete" data-id="${id}">Delete</a></td>
+  </tr>
+</script>
+
+<script type="text/javascript" th:src="@{/js/waa.js}"></script>
+</body>
+
 </html>

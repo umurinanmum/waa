@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 
-//{"http://localhost:8080", "http://localhost:8081"}
-@CrossOrigin(origins = {"http://localhost:8080", "http://localhost:8081"}, maxAge = 6000, allowedHeaders = "*")
+@CrossOrigin(origins = "*", maxAge = 6000, allowedHeaders = "*")
 @RestController
 public class ReportController {
 

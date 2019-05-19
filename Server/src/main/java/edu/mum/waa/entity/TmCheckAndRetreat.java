@@ -1,10 +1,13 @@
 package edu.mum.waa.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -14,9 +17,11 @@ public class TmCheckAndRetreat {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seq")
     private long id;
 
+    @Valid
     @ManyToOne
     private Student student;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate localDateTime;
 
     private boolean retreat;

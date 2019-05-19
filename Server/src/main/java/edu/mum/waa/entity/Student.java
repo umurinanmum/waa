@@ -26,4 +26,7 @@ public class Student {
     @ManyToMany
     private List<Section> sections;
 
+    public long getId() {
+        return id;
+    }
 }
