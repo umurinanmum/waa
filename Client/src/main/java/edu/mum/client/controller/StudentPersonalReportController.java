@@ -135,7 +135,7 @@ public class StudentPersonalReportController {
         }
 
 
-        return "student-personal-report";
+        return "reports/student-personal-report";
 
 
     }

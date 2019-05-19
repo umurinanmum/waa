@@ -1,9 +1,7 @@
 package edu.mum.client.controller;
 
-
 import edu.mum.client.helper.Constants;
 import edu.mum.client.helper.TokenHelper;
-
 import edu.mum.client.model.StudentModel;
 import edu.mum.client.model.StudentReportModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -180,10 +178,11 @@ public class StudentContoller {
             if(!result.getBody().equalsIgnoreCase("true"))
                 result_str = result.getBody();
 
-            redirectAttributes.addFlashAttribute("resultInfo", result_str);
+            model.addAttribute("resultInfo", result_str);
         }
         catch(Exception e){
             System.out.println(e.getMessage());
+            model.addAttribute("resultInfo", e);
         }
         return "result";
     }
