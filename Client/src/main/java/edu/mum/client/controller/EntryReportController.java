@@ -33,7 +33,7 @@ public class EntryReportController {
     private HttpServletRequest request;
 
     @Autowired
-    HttpSession httpSession;
+    private HttpSession httpSession;
 
     @Autowired
     public EntryReportController(TokenHelper tokenHelper) {

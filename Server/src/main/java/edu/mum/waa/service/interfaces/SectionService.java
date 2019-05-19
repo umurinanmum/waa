@@ -7,5 +7,6 @@ public interface SectionService extends BaseService<SectionDto> {
 
     SectionDto findByBlockIdAndStudentListContains(Long id, StudentDto studentDto);
 
+    SectionDto findByFacultyIdAndBlockName(Long facultyId, String blockName);
 
 }

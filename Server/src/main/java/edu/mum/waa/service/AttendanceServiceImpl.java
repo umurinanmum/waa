@@ -42,6 +42,32 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
+    public ExtraCreditModel getExtraCreditsByBlock(String blockName) {
+        ExtraCreditModel extraCreditModel = new ExtraCreditModel();
+        List<StudentDataModel> studentDataModels = new ArrayList<>();
+
+
+        long facultyId = securityHelper.getCurrentUserId();
+        SectionDto sectionDto = sectionService.findByFacultyIdAndBlockName(facultyId, blockName);
+
+        List<StudentDto> studentDtoList = sectionDto.getStudentList();
+
+        for(StudentDto studentDto:studentDtoList){
+            StudentDataModel studentDataModel = new StudentDataModel();
+            studentDataModel.setFirstName(studentDto.getFirstName());
+            studentDataModel.setLastName(studentDto.getLastName());
+            studentDataModel.setId(studentDto.getStudentId());
+            studentDataModel.setExtraPoint(calculateOneBlock(blockName,studentDto.getId()).getExtraCredits());
+
+            studentDataModels.add(studentDataModel);
+        }
+
+        extraCreditModel.setSelectedBlock(blockName);
+        extraCreditModel.setData(studentDataModels);
+        return extraCreditModel;
+    }
+
+    @Override
     public AttendanceDatePresentDto getStudentAttendanceByStudentIdAndBlock(String blockName, Long idStudent) {
         AttendanceDatePresentDto main = calculateOneBlock(blockName, idStudent);
 
@@ -137,13 +163,13 @@ public class AttendanceServiceImpl implements AttendanceService {
                 String blockName = studentDto.getSections().get(i).getBlock().getName();
                 long studentId = studentDto.getId();
 
-                var byBlock = getStudentAttendanceByStudentIdAndBlock(blockName,studentId);
+                var byBlock = getStudentAttendanceByStudentIdAndBlock(blockName, studentId);
                 AttendancePerStudentDto attendancePerStudentDto = new AttendancePerStudentDto();
                 attendancePerStudentDto.setAvailableDays(byBlock.getSessionsInBlock());
                 attendancePerStudentDto.setDaysPresent(byBlock.getDaysPresent());
                 attendancePerStudentDto.setPercentageAttended(byBlock.getPercentageAttended());
 
-                attendancePerBlock.put(blockName,attendancePerStudentDto);
+                attendancePerBlock.put(blockName, attendancePerStudentDto);
 
             }
             attendanceByEntryDto.setAttendancePerBlock(attendancePerBlock);

@@ -3,6 +3,7 @@ package edu.mum.waa.controller;
 
 import edu.mum.waa.dto.AttendanceByEntryDto;
 import edu.mum.waa.dto.AttendanceDatePresentDto;
+import edu.mum.waa.dto.ExtraCreditModel;
 import edu.mum.waa.security.SecurityHelper;
 import edu.mum.waa.service.interfaces.AttendanceService;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,13 @@ public class AttendanceController {
     public List<AttendanceByEntryDto> getAttendanceByEntry(@RequestParam String entryName) {
 
         return attendanceService.getReportByEntry(entryName);
+    }
+
+
+    @GetMapping("/faculty")
+    public ExtraCreditModel getExtraCreditsByBlock(@RequestParam String blockName) {
+
+        return attendanceService.getExtraCreditsByBlock(blockName);
     }
 
 

@@ -1,9 +1,12 @@
 package edu.mum.waa.dto;
 
 import edu.mum.waa.entity.Section;
+import edu.mum.waa.entity.Student;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @Getter
@@ -27,5 +30,8 @@ public class SectionDto extends BaseDto<SectionDto, Section> {
     private int canceledDays = 0;
 
     private int availableDays = 22;
+
+    private List<StudentDto> studentList;
+
 
 }

@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface SectionRepo extends CrudRepository<Section, Long> {
 
     Section findByBlockIdAndStudentListContains(Long id,Student student);
+
+
+    Section findByFacultyIdAndBlockName(Long facultyId,String blockName);
 }

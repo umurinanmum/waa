@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#blockSelect").change(function () {
+                //alert($("#entrySelect").val());
+
+                $.get("facultyExtraPoints?blockName=" + $("#blockSelect").val(), function (data) {
+
+                    //$('body').html(data);
+                    window.location.reload();
+
+                });
+
+            })
+        });
+
+
+    </script>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<div th:replace="fragments/header :: header"/>
+<body>
+
+<!--
+<tr th:each="student: ${entryReportModelTotal.entryReportModelPerStudentList}">
+    <td th:text="${student.firstName}+' '+${student.lastName}"/>
+    </br>
+
+    <td th:text="${student.attendancePerBlock.forEach()}"/>
+
+</tr>-->
+
+<form th:object="${extraCreditModelSes}" method="get">
+
+
+    <div>
+
+        <div class="form-group">
+            <label for="blockSelect" th:text="#{block}"></label>
+            <select id="blockSelect" th:field="*{selectedBlock}">
+                <!--<option value=""> &#45;&#45;</option>-->
+                <option th:each="block : ${blocks}"
+                        th:value="${block.name}"
+                        th:utext="${block.name}"/>
+            </select>
+        </div>
+
+
+    </div>
+
+
+</form>
+
+<table>
+    <span th:each="student : ${extraCreditModelSes.data}">
+          <p th:text="${student.id}+' '+${student.firstName}+' '+${student.lastName}" style="font-weight: bolder"></p>
+
+          <p th:text="${student.extraPoint}" style="font-weight: bold"></p>
+
+
+
+    </span>
+</table>
+
+
+</body>
+</html>

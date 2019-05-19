@@ -70,12 +70,13 @@ INSERT INTO course (id,course_name) VALUES (8 ,'FPP' );
 --SECTIONs
 INSERT INTO section (id,block_id, course_id,faculty_id,canceled_days,available_days) VALUES (1 ,1, 1,1,0,22);
 INSERT INTO section (id,block_id, course_id,faculty_id,canceled_days,available_days) VALUES (2 ,1, 3,2,0,22);
-INSERT INTO section (id,block_id, course_id,faculty_id,canceled_days,available_days) VALUES (3 ,2, 3,2,0,22);
+INSERT INTO section (id,block_id, course_id,faculty_id,canceled_days,available_days) VALUES (3 ,2, 3,1,0,22);
 
 
 --STUDENT SECTIONs
 INSERT INTO student_sections (student_list_id,sections_id) VALUES (1 ,1);
 INSERT INTO student_sections (student_list_id,sections_id) VALUES (2 ,1);
 INSERT INTO student_sections (student_list_id,sections_id) VALUES (1 ,3);
+INSERT INTO student_sections (student_list_id,sections_id) VALUES (2 ,3);
 
 

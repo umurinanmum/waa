@@ -18,6 +18,14 @@ public class SectionServiceImpl implements SectionService {
         this.sectionRepo = sectionRepo;
     }
 
+
+    @Override
+    public SectionDto findByFacultyIdAndBlockName(Long facultyId, String blockName) {
+        SectionDto temp = new SectionDto();
+        Section section = sectionRepo.findByFacultyIdAndBlockName(facultyId,blockName);
+        return temp.convertToDto(section);
+    }
+
     @Override
     public SectionDto findByBlockIdAndStudentListContains(Long id, StudentDto studentDto) {
         SectionDto temp = new SectionDto();
