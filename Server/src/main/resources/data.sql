@@ -13,9 +13,6 @@ INSERT INTO entry (ID , NAME) VALUES (9, 'August 2019');
 INSERT INTO entry (ID , NAME) VALUES (10, 'October 2019');
 
 
-INSERT INTO block (id,start_Date, end_Date,canceled_days,available_days) VALUES(1 ,'2017-08-04', '2017-08-04',0,22 );
-INSERT INTO block (id,start_Date, end_Date,canceled_days,available_days) VALUES(2 ,'2019-01-04', '2019-02-03',1,21 );
-
 --BLOCKs
 INSERT INTO block (id,start_Date,end_Date,name) VALUES(1 ,'2016-10-01', '2016-10-30','2016-October' );
 INSERT INTO block (id,start_Date, end_Date,name) VALUES(2 ,'2016-11-01', '2016-11-30','2016-November' );
@@ -32,13 +29,12 @@ INSERT INTO course (id,course_name) VALUES (7 ,'MPP' );
 INSERT INTO course (id,course_name) VALUES (8 ,'FPP' );
 
 
+--FACULTYs
 INSERT INTO FACULTY(id, first_name, last_name) VALUES (1, 'Tina', 'Xing');
 INSERT INTO FACULTY(id, first_name, last_name) VALUES (2, 'Bruen', 'Bruen');
 INSERT INTO FACULTY(id, first_name, last_name) VALUES (3, 'Steve', 'Nolle');
+INSERT INTO faculty (id,first_name,last_name) VALUES (4 ,'Asaad','Saad' );
 
-
--- INSERT INTO SECTION (ID, BLOCK_ID, 	COURSE_ID, 	FACULTY_ID ) VALUES (1, 1, 1, 1);
--- INSERT INTO SECTION (ID, BLOCK_ID, 	COURSE_ID, 	FACULTY_ID ) VALUES (2, 2, 1, 1);
 
 --SECTIONs
 INSERT INTO section (id,block_id, course_id,faculty_id,canceled_days,available_days) VALUES (1 ,1, 1,1,0,22);
@@ -56,10 +52,6 @@ INSERT INTO student (id,barcode, student_Id, entry_id,first_name,last_name) VALU
 INSERT INTO student (id,barcode, student_Id, entry_id,first_name,last_name) VALUES(5 ,'456', '986803' ,1,'Tony','Mar');
 INSERT INTO student (id,barcode, student_Id, entry_id,first_name,last_name) VALUES(6 ,'456', '986804', 2,'Mick','Jupi');
 
-
---FACULTYs
-INSERT INTO faculty (id,first_name,last_name) VALUES (1 ,'Asaad','Saad' );
-INSERT INTO faculty (id,first_name,last_name) VALUES (2 ,'Tina','Xing' );
 
 --CREDENTIALs
 INSERT INTO credential (id,email, password,student_id) VALUES (1 ,'eozturk@mum.edu', '12345',1);
@@ -116,12 +108,12 @@ VALUES (5, '2018-08-10', 0, 2);
 
 
 --STUDENT SECTIONs
-INSERT INTO STUDENT_SECTIONS (STUDENT_ID, SECTIONS_ID  ) VALUES (1, 1);
-INSERT INTO STUDENT_SECTIONS (STUDENT_ID, SECTIONS_ID  ) VALUES (2, 1);
-INSERT INTO STUDENT_SECTIONS (STUDENT_ID, SECTIONS_ID  ) VALUES (3, 1);
-INSERT INTO STUDENT_SECTIONS (STUDENT_ID, SECTIONS_ID  ) VALUES (4, 1);
-INSERT INTO STUDENT_SECTIONS (STUDENT_ID, SECTIONS_ID  ) VALUES (1, 2);
-INSERT INTO STUDENT_SECTIONS (STUDENT_ID, SECTIONS_ID  ) VALUES (2, 2);
+INSERT INTO STUDENT_SECTIONS (STUDENT_LIST_ID  , SECTIONS_ID  ) VALUES (1, 1);
+INSERT INTO STUDENT_SECTIONS (STUDENT_LIST_ID, SECTIONS_ID  ) VALUES (2, 1);
+INSERT INTO STUDENT_SECTIONS (STUDENT_LIST_ID, SECTIONS_ID  ) VALUES (3, 1);
+INSERT INTO STUDENT_SECTIONS (STUDENT_LIST_ID, SECTIONS_ID  ) VALUES (4, 1);
+INSERT INTO STUDENT_SECTIONS (STUDENT_LIST_ID, SECTIONS_ID  ) VALUES (1, 2);
+INSERT INTO STUDENT_SECTIONS (STUDENT_LIST_ID, SECTIONS_ID  ) VALUES (2, 2);
 
 
 INSERT INTO ATTENDANCE (ID, DATE_TIME,	BLOCK_ID, STUDENT_ID  )  VALUES (1, '2018-08-04', 1, 1);

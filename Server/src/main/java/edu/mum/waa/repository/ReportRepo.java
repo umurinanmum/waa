@@ -17,7 +17,7 @@ public interface ReportRepo extends JpaRepository<FacultyReport, Long> {
     @Query(value = " SELECT s.student_id, COUNT(s.student_id) AS attendant"
             + " FROM Student s, attendance  a,  student_sections ss , section sec "
             + " WHERE s.id = a.student_id"
-            + " AND  s.id = ss.student_id AND sec.block_id = a.block_id"
+            + " AND  s.id = ss.STUDENT_LIST_ID AND sec.block_id = a.block_id"
             + " AND sec.id = ss.sections_id"
             + " AND ss.sections_id = :sectionId"
             + " GROUP BY s.student_id"

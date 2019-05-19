@@ -17,7 +17,7 @@ public class WaaApplication {
     public static void main(String[] args) {
         SpringApplication.run(WaaApplication.class, args);
     }
- 
+
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource
