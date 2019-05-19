@@ -6,6 +6,8 @@ import edu.mum.waa.service.interfaces.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.util.Collections;
 import java.util.List;
 import edu.mum.waa.dto.StudentDto;
 import lombok.var;
@@ -18,7 +20,20 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepo studentRepo;
 
     public List<Student> lookupStudentByStudentId(String studentId) {
-        return studentRepo.lookupStudentByStudentId(studentId);
+        List<Student> result = new ArrayList<>();
+
+        List<Object[]> list = studentRepo.lookupStudentByStudentId(studentId);
+        //s.id, s.first_name, s.last_name, s.barcode, s.student_id
+        for (Object[] obj : list) {
+            Student item = new Student();
+            item.setId(((BigInteger) obj[0]).longValue());
+            item.setFirstName((String) obj[1]);
+            item.setLastName((String) obj[2]);
+            item.setBarcode((String) obj[3]);
+            item.setStudentId((String) obj[4]);
+            result.add(item);
+        }
+        return result; //studentRepo.lookupStudentByStudentId(studentId);
     }
 
     @Autowired

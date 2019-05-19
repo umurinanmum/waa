@@ -2,8 +2,10 @@ package edu.mum.waa.controller;
 
 import edu.mum.waa.dto.SearchResultDto;
 import edu.mum.waa.dto.WaaPageable;
+import edu.mum.waa.entity.Student;
 import edu.mum.waa.entity.TmCheckAndRetreat;
 import edu.mum.waa.exceptions.StudentException;
+import edu.mum.waa.service.interfaces.StudentService;
 import edu.mum.waa.service.interfaces.TmCheckAndRetreatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -24,6 +26,9 @@ public class TMCheckAndRetreatController {
 
     @Autowired
     TmCheckAndRetreatService tmCheckAndRetreatService;
+
+    @Autowired
+    private StudentService studentService;
 
     @Autowired
     Environment environment;
@@ -63,6 +68,11 @@ public class TMCheckAndRetreatController {
     }
 
 
+    @GetMapping(value = "/student-lookup", produces = "application/json")
+    public List<Student> lookup(@RequestParam("q") String query) {
+        System.out.println("looking =====");
+        return studentService.lookupStudentByStudentId(query);
+    }
 //    @GetMapping("/retreat-checking/student/{stuId}")
 //    public List<TmCheckAndRetreat> findTmCheckAndRetreatOrderByStudent(@PathVariable("stuId") Long stuId) {
 //        return tmCheckAndRetreatService.findTmCheckAndRetreatOrderByStudent(stuId);
