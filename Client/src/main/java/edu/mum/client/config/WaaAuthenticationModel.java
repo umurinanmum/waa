@@ -1,5 +1,6 @@
 package edu.mum.client.config;
 
+import edu.mum.client.model.BlockModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.Authentication;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class WaaAuthenticationModel implements Authentication {
 
-    private boolean isAuthenticated;
+    private boolean isAuthenticated =false;
 
     private List<GrantedAuthority> authorities;
 
