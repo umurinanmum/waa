@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Entry</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Edit a Entry</h3>
+        </div>
+        <div id="formContent" class="panel-body">
+            <span th:text="${result}" class="alert-danger"></span>
+            <form th:action="@{/entries/edit}" th:object="${entryModel}" method="post">
+
+                <div class="form-group">
+                    <label for="id" th:text="#{id}"></label>
+                    <input type="text" class="form-control" id="id" th:field="*{id}" readonly/>
+                    <label th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="alert-danger"></label>
+                </div>
+
+                <div class="form-group">
+                    <label for="name" th:text="#{entry}"></label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}"/>
+                    <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="alert-danger"></label>
+                </div>
+
+                <div id="formFooter" class="form-group">
+                    <button type="submit" class="btn btn-primary form-control">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>

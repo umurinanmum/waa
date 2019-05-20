@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 @Getter @Setter
 public class StudentModel {
 
-    private Integer id;
+    private Long id;
 
     @NotEmpty
     @Size(min = 2, max = 50, message = "${Size.firstName}")
@@ -27,4 +27,5 @@ public class StudentModel {
     @Size(min = 6, max = 6, message = "${Size.studentId}")
     private String studentId;
 
+    private Entry entry;
 }
