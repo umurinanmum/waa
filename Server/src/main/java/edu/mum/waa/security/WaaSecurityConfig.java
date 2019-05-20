@@ -16,8 +16,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.util.ArrayList;
 import java.util.List;
 
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-@EnableWebSecurity
+/*@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true,jsr250Enabled = true)
+@EnableWebSecurity*/
 @Configuration
 public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -61,7 +61,7 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         //http.addFilterAfter(corsFilter,UsernamePasswordAuthenticationFilter.class);
-        http.headers().cacheControl();
+        //http.headers().cacheControl();
         http.headers().frameOptions().sameOrigin();
 
 
