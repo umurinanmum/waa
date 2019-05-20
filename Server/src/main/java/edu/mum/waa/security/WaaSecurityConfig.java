@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.util.ArrayList;
 import java.util.List;
 
-@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 @EnableWebSecurity
 @Configuration
 public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -26,6 +26,8 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationEntryPoint entryPoint;
+
+
 
     @Bean
     protected AuthenticationManager authenticationManager() {
@@ -48,8 +50,9 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().disable()
+        http.cors().and().csrf().disable()
                 .authorizeRequests().antMatchers("/api/authentication*").permitAll()
+                .antMatchers("/api/v1/file/upload*").permitAll()
                 .antMatchers("/api").authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
@@ -57,6 +60,7 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterAfter(corsFilter,UsernamePasswordAuthenticationFilter.class);
         http.headers().cacheControl();
         http.headers().frameOptions().sameOrigin();
 

@@ -1,4 +1,4 @@
-package edu.mum.client.config;
+package edu.mum.waa.config;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -7,11 +7,7 @@ import org.springframework.web.client.HttpClientErrorException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({HttpClientErrorException.class})
-    public String forbidden(HttpClientErrorException e) {
-        e.printStackTrace();
-        return "access-denied";
-    }
+
 
     @ExceptionHandler({Exception.class})
     public String doIt(Exception e) {
