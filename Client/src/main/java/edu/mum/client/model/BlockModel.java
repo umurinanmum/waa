@@ -25,6 +25,6 @@ public class BlockModel {
 
     @NotEmpty
     @Size(min = 2, max = 50, message = "${Size.lastName}")
-    private String name;
+    private String name="umur";
 
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head>
+<head sec:authorize="isAuthenticated()">
     <meta charset="UTF-8">
     <title>Welcome to WAA</title>
     <div th:replace="fragments/header :: header-css"/>

@@ -1,42 +1,49 @@
 package edu.mum.client.config;
 
 
-
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Bean
-//    public AccessDeniedHandler accessDeniedHandler() {
-//        return new WaaAccessDeniedHandler();
-//    }
-//
-//    @Bean
-//    public AuthenticationEntryPoint authenticationEntryPoint() {
-//        return new WaaForbiddenEntryPoint();
-//    }
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new WaaAccessDeniedHandler();
+    }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new WaaForbiddenEntryPoint();
+    }
 
     @Override
     protected void configure(HttpSecurity security) throws Exception {
 
-        security.authorizeRequests().antMatchers("/**").permitAll()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//        security.authorizeRequests().antMatchers("/**").permitAll()
+//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//
+//        .and().csrf().disable();
 
-        .and().csrf().disable();
 
-
-      //  security
-                //   .authorizeRequests()
-
-               // .and().csrf().disable();
-
+        security.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/authorization/login").permitAll()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/authorization/do-login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+                .and()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
 
         //  security
         //   .authorizeRequests()
@@ -49,10 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .anyRequest().authenticated()
 
 
-                //   .and()
+        //   .and()
         //        .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-          //      .and()
-            //    .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
+        //      .and()
+        //    .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
 
         //   .and()
         //        .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
