@@ -20,8 +20,10 @@ public class Block {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate startDate;
 
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate endDate;
 
     private String name;

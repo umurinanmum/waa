@@ -10,6 +10,7 @@ import edu.mum.waa.service.interfaces.SectionService;
 import edu.mum.waa.service.interfaces.StudentService;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -147,6 +148,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
+    //@Secured(RoleEnum.VIEW_ENTRY_REPORT)
     public List<AttendanceByEntryDto> getReportByEntry(String entry) {
 
         List<AttendanceByEntryDto> result = new ArrayList<>();

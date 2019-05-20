@@ -16,6 +16,12 @@
             <form th:action="@{/students/edit}" th:object="${studentModel}" method="post">
                 <span th:text="${result}" class="alert-danger"></span>
                 <div class="form-group">
+                    <label for="id" th:text="#{id}"></label>
+                    <input type="text" class="form-control" id="id" th:field="*{id}" placeholder="id" readonly/>
+                    <label th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="alert-danger"></label>
+                </div>
+
+                <div class="form-group">
                     <label for="firstName" th:text="#{firstName}"></label>
                     <input type="text" class="form-control" id="firstName" th:field="*{firstName}" placeholder="First Name"/>
                     <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="alert-danger"></label>
@@ -39,11 +45,16 @@
                     <label th:if="${#fields.hasErrors('studentId')}" th:errors="*{studentId}" class="alert-danger"></label>
                 </div>
 
-<!--                <div class="form-group">-->
-<!--                    <label for="studentId" th:text="#{entry}"></label>-->
-<!--                    <input type="number" class="form-control" id="entry" th:field="*{entry}" placeholder="entry"/>-->
-<!--                    <label th:if="${#fields.hasErrors('entry')}" th:errors="*{entry}" class="alert-danger"></label>-->
-<!--                </div>-->
+                <div class="form-group">
+                    <label for="entry" th:text="#{entry}"></label>
+                    <select id="entry" th:field="*{entry.id}" class="form-control">
+                        <option th:each="entry : ${entries}"
+                                th:value="${entry.id}"
+                                th:utext="${entry.name}"
+                        />
+                    </select>
+                    <label th:if="${#fields.hasErrors('entry.id')}" th:errors="*{entry.id}" class="alert-danger"></label>
+                </div>
 
                 <div id="formFooter" class="form-group">
                     <button type="submit" class="btn btn-primary form-control">Update</button>

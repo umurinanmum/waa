@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Entry Report</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+    <script type="text/javascript" th:src="@{/js/report.js}"></script>
+
+    <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+<body>
+
+<form  >
+    <div class="container">
+        <h2>Entry Report</h2>
+        <div class="form-group">
+            <label th:text="#{entry}"></label>
+            <select name="id" id="sectionId">
+                <option value="">Select Entry</option>
+                <option value="1">April 2018 </option>
+                <option value="2">May 2018 </option>
+                <option value="3">January 2019</option>
+                <option value="4">February 2019</option>
+                <option value="5">March 2019</option>
+                <option value="6">April 2019</option>
+            </select>
+        </div>
+
+        <button type="button" class="btn btn-primary js-entry-report">View</button>
+    </div>
+</form>
+<div id="errors"></div>
+<table id="tblResult">
+    <colgroup>
+        <col width="25%">
+        <col width="25%">
+        <col width="25%">
+        <col width="20%">
+    </colgroup>
+    <thead>
+    <tr>
+        <th>Student ID</th>
+        <th>attendant</th>
+        <th>percent</th>
+        <th>Credit</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+</body>
+
+<script id="itemRow" type="text/x-jquery-tmpl">
+  <tr>
+	<td>${student_id}</td>
+	<td>${attendant}</td>
+	<td>${percent}%</td>
+	<td>${extraCredit}</td>
+  </tr>
+</script>
+</html>
