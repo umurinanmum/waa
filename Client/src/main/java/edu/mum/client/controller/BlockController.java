@@ -91,7 +91,7 @@ public class BlockController {
                 result_str = result.getBody();
 
             redirectAttributes.addFlashAttribute("blockModel", blockModel);
-            redirectAttributes.addFlashAttribute("result", result_str);
+            model.addAttribute("result", result_str);
         }
         catch(Exception e){
             System.out.println(e.getMessage());

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Student</title>
+    <title>Block</title>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
@@ -32,7 +32,6 @@
                     <td th:text="${block.name}">name</td>
 <!--                    <td th:text="${block.cancelledDays}">cancelledDays</td>-->
                     <td>
-                        <a th:href="${'/blocks/detail/' + block.id}" class="btn btn-info"><span th:text="#{detail}">Detail</span></a>&nbsp;
                         <a th:href="${'/blocks/edit/' + block.id}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
                         <a th:href="${'/blocks/delete/' + block.id}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
                     </td>
