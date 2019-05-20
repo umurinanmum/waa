@@ -5,6 +5,7 @@ import edu.mum.waa.entity.Attendance;
 import edu.mum.waa.repository.AttendanceRepo;
 import edu.mum.waa.security.JwtUserDetails;
 import edu.mum.waa.security.SecurityHelper;
+import edu.mum.waa.security.WaaSecured;
 import edu.mum.waa.service.interfaces.AttendanceService;
 import edu.mum.waa.service.interfaces.BlockService;
 import edu.mum.waa.service.interfaces.SectionService;
@@ -48,6 +49,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
+    @WaaSecured(RoleEnum.VIEW_EXTRA_CREDIT_REPORT)
     public ExtraCreditModel getExtraCreditsByBlock(String blockName) {
         ExtraCreditModel extraCreditModel = new ExtraCreditModel();
         List<StudentDataModel> studentDataModels = new ArrayList<>();
@@ -74,6 +76,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
+    @WaaSecured(RoleEnum.VIEW_BLOCK_REPORT)
     public AttendanceDatePresentDto getStudentAttendanceByStudentIdAndBlock(String blockName, Long idStudent) {
         AttendanceDatePresentDto main = calculateOneBlock(blockName, idStudent);
 
@@ -153,8 +156,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    //@PreAuthorize("hasAuthority('ROLE_VIEW_ENTRY_REPORT')")
-    @Secured(value ="ROLE_VIEW_ENTRY_REPORT")
+    @WaaSecured(RoleEnum.VIEW_ENTRY_REPORT)
     public List<AttendanceByEntryDto> getReportByEntry(String entry) {
 
 

@@ -1,6 +1,8 @@
 package edu.mum.waa.controller;
 
 
+import edu.mum.waa.dto.RoleEnum;
+import edu.mum.waa.security.WaaSecured;
 import edu.mum.waa.service.interfaces.BatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,7 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    //@Secured(RoleEnum.DATA_IMPORT)
+    @WaaSecured(RoleEnum.DATA_IMPORT)
     public String uploadFile(@RequestParam MultipartFile file) throws Exception {
         byte[] bytes = file.getBytes();
         if (file.getOriginalFilename().equals("attendance.csv")) {
