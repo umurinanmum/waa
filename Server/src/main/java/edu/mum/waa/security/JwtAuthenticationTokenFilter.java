@@ -1,25 +1,18 @@
 package edu.mum.waa.security;
 
 import edu.mum.waa.exceptions.WaaAuthorizationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessingFilter {
-
-    @Autowired
-    private HttpServletRequest httpServletRequest;
 
     public JwtAuthenticationTokenFilter() {
         super("/api/**");
@@ -45,7 +38,6 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
         }
         return authentication;
     }
-
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {

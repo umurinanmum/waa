@@ -1,8 +1,6 @@
 package edu.mum.client.config;
 
-import lombok.var;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.servlet.ServletException;

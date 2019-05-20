@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Sign In</title>
@@ -24,7 +23,7 @@
                     <label for="password" th:text="#{password}" class="control-label"></label>
                     <input type="password" class="form-control" id="password" th:field="*{password}"/>
                 </div>
-                <div id="formFooter" class="form-group" sec:authorize="isAuthenticated()">
+                <div id="formFooter" class="form-group">
                     <button type="submit" class="btn btn-primary form-control">Login</button>
                 </div>
             </form>

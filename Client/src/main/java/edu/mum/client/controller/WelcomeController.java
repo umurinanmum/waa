@@ -10,7 +10,7 @@ public class WelcomeController {
 
     @GetMapping("/welcome")
     private String hello(){
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
+        //System.out.println(SecurityContextHolder.getContext().getAuthentication().isAuthenticated());
         return "welcome";
     }
 

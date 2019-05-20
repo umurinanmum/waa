@@ -11,6 +11,4 @@ public class SecurityHelper {
        return ((JwtUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
     }
 
-
-
 }

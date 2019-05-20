@@ -1,8 +1,6 @@
 package edu.mum.waa.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,19 +18,15 @@ public class Section {
     private long id;
 
     @ManyToOne
-    @JsonIgnore
     private Block block;
 
     @ManyToOne
-    @JsonIgnore
     private Course course;
 
     @ManyToOne
-    @JsonIgnore
     private Faculty faculty;
 
-    @ManyToMany(mappedBy = "sections", fetch = FetchType.LAZY)
-    @JsonIgnore
+    @ManyToMany(mappedBy = "sections")
     private List<Student> studentList;
 
 

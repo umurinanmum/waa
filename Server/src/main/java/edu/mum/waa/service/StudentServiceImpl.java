@@ -1,40 +1,21 @@
 package edu.mum.waa.service;
 
+import edu.mum.waa.dto.StudentDto;
 import edu.mum.waa.entity.Student;
 import edu.mum.waa.repository.StudentRepo;
 import edu.mum.waa.service.interfaces.StudentService;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
-import java.util.Collections;
-import java.util.List;
-import edu.mum.waa.dto.StudentDto;
-import lombok.var;
-
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
+
     private StudentRepo studentRepo;
-
-    public List<Student> lookupStudentByStudentId(String studentId) {
-        List<Student> result = new ArrayList<>();
-
-        List<Object[]> list = studentRepo.lookupStudentByStudentId(studentId);
-        //s.id, s.first_name, s.last_name, s.barcode, s.student_id
-        for (Object[] obj : list) {
-            Student item = new Student();
-            item.setId(((BigInteger) obj[0]).longValue());
-            item.setFirstName((String) obj[1]);
-            item.setLastName((String) obj[2]);
-            item.setBarcode((String) obj[3]);
-            item.setStudentId((String) obj[4]);
-            result.add(item);
-        }
-        return result; //studentRepo.lookupStudentByStudentId(studentId);
-    }
 
     @Autowired
     public StudentServiceImpl(StudentRepo studentRepo) {
@@ -60,12 +41,6 @@ public class StudentServiceImpl implements StudentService {
         StudentDto temp = new StudentDto();
         var student = studentRepo.findStudentByStudentId(studentId).get();
         return temp.convertToDto(student);
-    }
-
-    @Override
-    public Student findStudentByStudentId2(String studentId) {
-        Student student = studentRepo.findStudentByStudentId(studentId).get();
-        return student;
     }
 
     @Override
@@ -106,17 +81,10 @@ public class StudentServiceImpl implements StudentService {
         return result;
     }
 
-    public List<Student> findAllStudent() {
-        List<Student> result = new ArrayList<>();
-        studentRepo.findAll().iterator().forEachRemaining(result::add);
-        return result;
-    }
-
     @Override
     public StudentDto findById(Long id) {
         var res = studentRepo.findById(id);
         StudentDto temp = new StudentDto();
         return temp.convertToDto(res.get());
     }
-
 }

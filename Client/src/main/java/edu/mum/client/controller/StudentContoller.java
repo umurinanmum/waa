@@ -2,7 +2,6 @@ package edu.mum.client.controller;
 
 import edu.mum.client.helper.Constants;
 import edu.mum.client.helper.TokenHelper;
-import edu.mum.client.model.Entry;
 import edu.mum.client.model.StudentModel;
 import edu.mum.client.model.StudentReportModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -56,18 +57,8 @@ public class StudentContoller {
     }
 
     @GetMapping("/add")
-    public String add(@ModelAttribute StudentModel studentModel, Model model){
+    public String add(@ModelAttribute StudentModel studentModel){
         System.out.println("students/student-add");
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-        HttpEntity<Entry[]> entity = new HttpEntity<Entry[]>(headers);
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Entry[]> response = restTemplate.exchange(Constants.URL + "entries", HttpMethod.GET, entity, Entry[].class);
-        final List<Entry> entryList = Arrays.stream(response.getBody()).collect(Collectors.toList());
-        System.out.println(entryList);
-        model.addAttribute("entries", entryList);
-
         return "students/student-add";
     }
 
@@ -124,15 +115,6 @@ public class StudentContoller {
             System.out.println("response: " + student);
 
             model.addAttribute("studentModel", student);
-
-            //HttpHeaders headers = new HttpHeaders();
-            //headers.set("Authorization", "Bearer " + tokenHelper.getToken());
-            HttpEntity<Entry[]> entity2 = new HttpEntity<Entry[]>(headers);
-            RestTemplate restTemplate2 = new RestTemplate();
-            ResponseEntity<Entry[]> response2 = restTemplate2.exchange(Constants.URL + "entries", HttpMethod.GET, entity2, Entry[].class);
-            final List<Entry> entryList = Arrays.stream(response2.getBody()).collect(Collectors.toList());
-            System.out.println(entryList);
-            model.addAttribute("entries", entryList);
         }
         catch (Exception e){
             System.out.println(e.getMessage());
