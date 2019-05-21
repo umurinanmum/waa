@@ -1,6 +1,7 @@
 package edu.mum.waa.controller;
 
 import edu.mum.waa.download.ExcelGenerator;
+import edu.mum.waa.security.SecurityHelper;
 import edu.mum.waa.service.interfaces.AttendanceService;
 import lombok.var;
 import org.jxls.template.SimpleExporter;
@@ -32,17 +33,14 @@ public class DownloadController {
     @Autowired
     private AttendanceService attendanceService;
 
+    @Autowired
+    private SecurityHelper securityHelper;
+
     @GetMapping(value = "/studentBlockReportToExcel")
-    public String studentBlockReportToExcel(HttpServletResponse response, @RequestParam String blockName, @RequestParam Long id) throws IOException {
-
+    public String studentBlockReportToExcel(HttpServletResponse response, @RequestParam String blockName) throws IOException {
+        Long id= securityHelper.getCurrentUserId();
         var res = attendanceService.getStudentAttendanceByStudentIdAndBlock(blockName, id);
-
-
-
-
         String r = res.getDatePresentDtoList().stream().map(l -> l.getDate() + "," + l.isPresent()).collect(Collectors.joining("\r\n"));
-
-
         return r;
 
 

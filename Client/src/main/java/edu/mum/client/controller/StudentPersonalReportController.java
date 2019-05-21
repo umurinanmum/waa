@@ -119,6 +119,8 @@ public class StudentPersonalReportController {
             studentReportModelSes.setDatePresentDtoList(response.getBody().getDatePresentDtoList());
 
             model.addAttribute("studentReportModelSes",studentReportModelSes);
+
+
         }
 
 

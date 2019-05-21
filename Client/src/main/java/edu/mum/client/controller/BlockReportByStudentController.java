@@ -4,7 +4,6 @@ package edu.mum.client.controller;
 import edu.mum.client.helper.Constants;
 import edu.mum.client.helper.TokenHelper;
 import edu.mum.client.model.BlockReportModel;
-import edu.mum.client.model.StudentDataModel;
 import edu.mum.client.model.StudentDtoForCrud;
 import edu.mum.client.model.StudentReportModelForFaculty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,6 @@ import java.util.List;
 @Controller
 @SessionAttributes("studentReportModelForFacultySes")
 @RequestMapping("/blockReportByStudent")
-
 public class BlockReportByStudentController {
 
     private final TokenHelper tokenHelper;
@@ -53,9 +51,13 @@ public class BlockReportByStudentController {
     public String showForm(@ModelAttribute("studentReportModelForFaculty") StudentReportModelForFaculty studentReportModelForFaculty, Model model) {
         RestTemplate restTemplate = new RestTemplate();
 
-        StudentReportModelForFaculty  studentReportModelForFacultySes ;
-        String blockReq=null;
-        Long selectedStudent=null;
+        StudentReportModelForFaculty studentReportModelForFacultySes;
+        String blockReq = null;
+        Long selectedStudent = null;
+        boolean isSession = false;
+
+        String blockNameFromRequest=request.getParameter("blockName");
+        String selectedStudentFromRequest=request.getParameter("studentId");
 
 
 
@@ -69,30 +71,30 @@ public class BlockReportByStudentController {
         }*/
 
 
-        Object studentReportModelForFacultySesObj =  httpSession.getAttribute("studentReportModelForFacultySes");
-        if(studentReportModelForFacultySesObj!=null){
+        Object studentReportModelForFacultySesObj = httpSession.getAttribute("studentReportModelForFacultySes");
+        if (studentReportModelForFacultySesObj != null) {
+            isSession = true;
             studentReportModelForFacultySes = (StudentReportModelForFaculty) studentReportModelForFacultySesObj;
             blockReq = studentReportModelForFacultySes.getSelectedBlock();
             selectedStudent = studentReportModelForFacultySes.getSelectedStudent();
 
 
-        }else{
+        } else{
             studentReportModelForFacultySes = new StudentReportModelForFaculty();
-            blockReq = "2016-November";
-            selectedStudent =1L;
-        }
-String uri = request.getRequestURI();
-        if (request.getRequestURI().split("/").length == 3) {
-            blockReq = request.getRequestURI().split("/")[2];
-        }else{
 
         }
+
+        if(blockNameFromRequest!=null && !blockNameFromRequest.isEmpty()){
+            blockReq = request.getParameter("blockName");
+            selectedStudent = Long.parseLong( request.getParameter("studentId"));
+        }
+
+
+
 
         //System.out.println(request.getRequestURI().split("/")[2]);
 
-        ResponseEntity<StudentReportModelForFaculty> response = restTemplate
-                .exchange(Constants.URL + "attendances/student/?blockName="+ blockReq +"&studentId="+selectedStudent ,
-                HttpMethod.GET, entity, StudentReportModelForFaculty.class);
+
 
 
         ResponseEntity<List<BlockReportModel>> blockResponse = restTemplate.exchange(Constants.URL + "blocks",
@@ -116,6 +118,20 @@ String uri = request.getRequestURI();
         }
 
 
+        if(!isSession && blockNameFromRequest==null) {
+            blockReq = blockResponse.getBody().get(blockResponse.getBody().size() - 1).getName();
+            selectedStudent = 1l;
+
+        }
+
+
+
+
+        ResponseEntity<StudentReportModelForFaculty> response = restTemplate
+                .exchange(Constants.URL + "attendances/student/?blockName=" + blockReq + "&studentId=" + selectedStudent,
+                        HttpMethod.GET, entity, StudentReportModelForFaculty.class);
+
+
         if (response != null && response.getBody() != null) {
 
             //studentReportModelForFaculty=response.getBody();
@@ -135,7 +151,7 @@ String uri = request.getRequestURI();
 
             studentReportModelForFacultySes.setDatePresentDtoList(response.getBody().getDatePresentDtoList());
 
-            model.addAttribute("studentReportModelForFacultySes",studentReportModelForFacultySes);
+            model.addAttribute("studentReportModelForFacultySes", studentReportModelForFacultySes);
         }
 
 

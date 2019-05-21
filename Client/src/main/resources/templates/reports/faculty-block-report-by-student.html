@@ -8,17 +8,24 @@
     <script>
         $(document).ready(function () {
             $("#blockSelect").change(function () {
-                $.get("blockReportByStudent/" + $("#blockSelect").val(), function (data) {
-                    window.location.reload();
-                });
+
+                sendReq();
             });
 
             $("#studentSelect").change(function () {
-                console.log('student select');
-                $.get("blockReportByStudent/" + $("#studentSelect").val(), function (data) {
+
+                sendReq();
+
+            });
+
+
+            function sendReq() {
+                $.get("blockReportByStudent?blockName=" + $("#blockSelect").val()+"&studentId="+$("#studentSelect").val(), function (data) {
                     window.location.reload();
                 });
-            });
+
+            }
+
         });
 
     </script>
