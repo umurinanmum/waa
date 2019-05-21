@@ -1,6 +1,9 @@
 var SERVER = "http://localhost:8081";
+var token = "";
 jQuery(document).ready(function($) {
     SERVER = $("#server").val();
+    token = $("#token").val();
+
     $(".js-view-tmretreatAndChecking").on("click", viewTmRetreatAndChecking);
     $(".js-save-tmretreatAndChecking").on("click", saveTmRetreatAndChecking); // save to DB
 
@@ -21,9 +24,13 @@ function studentIdAutocomplete() {
 
         source: function (request, response) {
             if ($("#lblStudentID").val().length > 2) {
-                let url = SERVER + "/student-lookup?q=" + $("#lblStudentID").val();
+                let url = SERVER + "/api/v1" + "/student-lookup?q=" + $("#lblStudentID").val();
                 console.log(url);
+                console.log(token);
                 $.ajax({
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    },
                     type: "GET",
                     url: url,
                     contentType: "application/json",
@@ -77,8 +84,11 @@ function saveTmRetreatAndChecking() {
     let data = JSON.stringify(json);
     $("#errors").empty();
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
         type: "POST",
-        url: SERVER + "/retreat-checking",
+        url: SERVER + "/api/v1" + "/retreat-checking",
         contentType: "application/json",
         dataType : "json",
         data: data,
@@ -129,13 +139,16 @@ function viewTmRetreatAndChecking(evt, currentPage, pageSize, link) {
         pageSize = '';
     }
     if ($("#studentIdKey").val().length > 0) {
-        let url = SERVER + "/retreat-checking/student/" + $("#studentIdKey").val();
-        let uri = SERVER + "/retreat-checking/student/" + $("#studentIdKey").val() + "?page=" + currentPage + "&pageSize=" + pageSize;
+        let url = SERVER + "/api/v1" + "/retreat-checking/student/" + $("#studentIdKey").val();
+        let uri = SERVER + "/api/v1" + "/retreat-checking/student/" + $("#studentIdKey").val() + "?page=" + currentPage + "&pageSize=" + pageSize;
         if (link !== undefined) {
             uri = link;
         }
         console.log(url);
         $.ajax({
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
             type: "GET",
             url: uri,
             contentType: "application/json",
@@ -184,9 +197,12 @@ function selectEditTmRetreatAndChecking(evt) {
 }
 
 function loadTmRetreatAndCheckingFillForm(retreatId) {
-    let url = SERVER + "/retreat-checking/" + retreatId;
+    let url = SERVER + "/api/v1" + "/retreat-checking/" + retreatId;
     console.log(url);
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
         type: "GET",
         url: url,
         contentType: "application/json",
@@ -224,9 +240,12 @@ function deleteTmRetreatAndChecking(evt) {
 }
 
 function deleteTmRetreatAndCheckingById(retreatId) {
-    let url = SERVER + "/retreat-checking/" + retreatId;
+    let url = SERVER + "/api/v1" + "/retreat-checking/" + retreatId;
     console.log(url);
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
         type: "DELETE",
         url: url,
         success: function (data) {

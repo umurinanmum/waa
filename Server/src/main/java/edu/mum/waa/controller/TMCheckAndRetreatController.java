@@ -22,6 +22,7 @@ import java.util.List;
 @CrossOrigin(origins = {"http://localhost:8080", "http://localhost:8081"
         , "http://ec2-18-218-112-35.us-east-2.compute.amazonaws.com:8080", "http://ec2-18-218-112-35.us-east-2.compute.amazonaws.com:8082"}, maxAge = 6000, allowedHeaders = "*")
 @RestController
+@RequestMapping("/api/v1")
 public class TMCheckAndRetreatController {
 
     @Autowired
@@ -73,8 +74,5 @@ public class TMCheckAndRetreatController {
         System.out.println("looking =====");
         return studentService.lookupStudentByStudentId(query);
     }
-//    @GetMapping("/retreat-checking/student/{stuId}")
-//    public List<TmCheckAndRetreat> findTmCheckAndRetreatOrderByStudent(@PathVariable("stuId") Long stuId) {
-//        return tmCheckAndRetreatService.findTmCheckAndRetreatOrderByStudent(stuId);
-//    }
+
 }

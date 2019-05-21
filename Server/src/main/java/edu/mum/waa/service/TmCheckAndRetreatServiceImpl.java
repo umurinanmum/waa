@@ -1,5 +1,6 @@
 package edu.mum.waa.service;
 
+import edu.mum.waa.dto.RoleEnum;
 import edu.mum.waa.dto.SearchResultDto;
 import edu.mum.waa.dto.WaaPageable;
 import edu.mum.waa.entity.Student;
@@ -8,6 +9,7 @@ import edu.mum.waa.exceptions.StudentException;
 import edu.mum.waa.repository.TMCheckAndRetreatRepo;
 import edu.mum.waa.service.interfaces.TmCheckAndRetreatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +25,7 @@ public class TmCheckAndRetreatServiceImpl implements TmCheckAndRetreatService {
         return tmCheckAndRetreatRepo.findTmCheckAndRetreatOrderById(id);
     }
 
+//    /@Secured(RoleEnum.TMCHECK_CRUD)
     public TmCheckAndRetreat save(TmCheckAndRetreat tmCheckAndRetreat) throws StudentException {
         if (tmCheckAndRetreat.getStudent() != null && tmCheckAndRetreat.getStudent().getId() < 1) {
             throw new StudentException("studentError");
