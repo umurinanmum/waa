@@ -65,4 +65,30 @@ public class TmCheckAndRetreatServiceImpl implements TmCheckAndRetreatService {
 
         return result;
     }
+
+    public SearchResultDto<TmCheckAndRetreat> search(TmCheckAndRetreat tmCheckAndRetreat, WaaPageable pageable) {
+        SearchResultDto result = new SearchResultDto();
+
+        List<TmCheckAndRetreat> listResult = tmCheckAndRetreatRepo.search(tmCheckAndRetreat.getLocalDateTime(), tmCheckAndRetreat.isRetreat(), pageable);
+
+        int total = listResult.size();
+        // pageNumber : current page
+        if (total >= pageable.getPageSize()) {
+            pageable.setNextPage(pageable.getPageNumber() + 1);
+            listResult = listResult.subList(0, total - 1);
+        }
+
+        pageable.setTotal(total);
+        System.out.println("size: " + total);
+        System.out.println("offset: " + pageable.getOffset());
+
+        pageable.setNumberOfPages(total / pageable.getPageSize());
+        result.setResult(listResult);
+        result.setPageable(pageable);
+
+        System.out.println("pageable.getPageSize(): " + pageable.getPageSize());
+        System.out.println("setNumberOfPages: " + pageable.getNumberOfPages());
+
+        return result;
+    }
 }

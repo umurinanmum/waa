@@ -18,6 +18,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:8080", "http://localhost:8081"
@@ -67,6 +69,28 @@ public class TMCheckAndRetreatController {
         WaaPageable pageable = WaaPageable.of(page, pageSize);
 
         return tmCheckAndRetreatService.findTmCheckAndRetreatOrderByStudent(stuId, pageable);
+    }
+
+    @GetMapping("/retreat-checking/search")
+    public SearchResultDto<TmCheckAndRetreat> search(@RequestParam(value = "date", required = true) String date
+            ,@RequestParam(value = "retreat", defaultValue = "false") String retreat
+            , @RequestParam(value = "page", defaultValue = "0") Integer page
+            , @RequestParam(value = "pageSize", defaultValue = "10") Integer size) {
+
+        TmCheckAndRetreat tmCheckAndRetreat = new TmCheckAndRetreat();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        //convert String to LocalDate
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        tmCheckAndRetreat.setLocalDateTime(localDate);
+        tmCheckAndRetreat.setRetreat(Boolean.valueOf(retreat));
+
+        Integer pageSize = (size==null) ? Integer.valueOf(environment.getProperty("pageSize", "10")) + 1 : size;
+
+        int pageNum = page.intValue();
+        WaaPageable pageable = WaaPageable.of(page, pageSize);
+
+        return tmCheckAndRetreatService.search(tmCheckAndRetreat, pageable);
     }
 
 

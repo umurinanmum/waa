@@ -17,4 +17,6 @@ public interface TmCheckAndRetreatService {
     void deleteById(Long id);
 
     SearchResultDto<TmCheckAndRetreat> findTmCheckAndRetreatOrderByStudent(Long stuId, WaaPageable pageable);
+
+    SearchResultDto<TmCheckAndRetreat> search(TmCheckAndRetreat tmCheckAndRetreat, WaaPageable pageable);
 }

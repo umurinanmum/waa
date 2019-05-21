@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
     SERVER = $("#server").val();
     token = $("#token").val();
 
-    $(".js-view-tmretreatAndChecking").on("click", viewTmRetreatAndChecking);
+    $(".js-view-tmretreatAndChecking").on("click", searchTmRetreatAndChecking);
     $(".js-save-tmretreatAndChecking").on("click", saveTmRetreatAndChecking); // save to DB
 
     // bind callback
@@ -149,6 +149,72 @@ function viewTmRetreatAndCheckingByPageable(evt) {
     let link = $(evt.target).data("link");
     viewTmRetreatAndChecking(evt, page, pageSize, link);
 }
+function searchTmRetreatAndChecking(evt, currentPage, pageSize, link) {
+    if (currentPage === undefined ) {
+        currentPage = '';
+    }
+    if (pageSize === undefined) {
+        pageSize = '';
+    }
+    if ($("#studentIdKey").val() === "0") {
+        let url = SERVER + "/api/v1" + "/retreat-checking/search/";
+        let uri = url + "?page=" + currentPage + "&pageSize=" + pageSize + "&date=" + $("#localDateTime").val() + "&retreat=" + $("#retreat").prop('checked');
+        if (link !== undefined) {
+            uri = link;
+        }
+        console.log(uri);
+        $("#errors").empty();
+        $.ajax({
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+            type: "GET",
+            url: uri,
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                allResult = data.result;
+                $("#tblResult tbody").empty();
+                $.each(allResult, function (index, item) {
+                    $('#itemRow').tmpl(item).appendTo($('#tblResult tbody'));
+                });
+
+                // pagination
+                pageable = data.pageable;
+                $("ul.pagination").empty();
+                //$('#formInput').html("");
+
+                if (pageable.pageNumber > 0) {
+                    let pageLink = url + "?page=" + (pageable.pageNumber - 1) + "&pageSize=" + pageable.pageSize;
+                    $("ul.pagination").append('<li> <a class="itemPage js-retreat-checking-viewByPageable" href="#" data-link="' + pageLink + '"' + '> Previous</a> </li>')
+                }
+                if (pageable.total > 0) {
+                    let pageLink = url + "?page=" + (pageable.pageNumber ) + "&pageSize=" + pageable.pageSize;
+                    $("ul.pagination").append('<li> <a  class="current itemPage js-retreat-checking-viewByPageable"  href="#" data-link="' + pageLink + '"' + '> ' + (pageable.pageNumber + 1) + '</a> </li>')
+                }
+                if (pageable.nextPage > 0) {
+                    let pageLink = url + "?page=" + (pageable.pageNumber + 1) + '&amp;pageSize=' + pageable.pageSize;
+                    $("ul.pagination").append('<li> <a class="itemPage js-retreat-checking-viewByPageable"   href="#" data-link="' + pageLink + '"' + '> Next</a> </li>')
+                }
+
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                let errorMsg = '<h3> Error(s)!! </h3>';
+                errorMsg += "<p>";
+                errorMsg = errorMsg + "There is an issue, please patient to try again. Thank you.";
+                errorMsg += '</p>';
+                $('#errors').append(errorMsg);
+                $('#errors').show();
+            }
+        });
+    } else {
+        console.log("search with student");
+        viewTmRetreatAndChecking(evt, currentPage, pageSize, link);
+    }
+}
+
 function viewTmRetreatAndChecking(evt, currentPage, pageSize, link) {
     if (currentPage === undefined ){
         currentPage = '';
@@ -163,6 +229,7 @@ function viewTmRetreatAndChecking(evt, currentPage, pageSize, link) {
             uri = link;
         }
         console.log(url);
+        $("#errors").empty();
         $.ajax({
             headers: {
                 'Authorization': 'Bearer ' + token,
