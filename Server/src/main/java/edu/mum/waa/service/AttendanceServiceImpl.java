@@ -12,12 +12,9 @@ import edu.mum.waa.service.interfaces.SectionService;
 import edu.mum.waa.service.interfaces.StudentService;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -36,7 +33,6 @@ public class AttendanceServiceImpl implements AttendanceService {
     private BlockService blockService;
     private SectionService sectionService;
     private StudentService studentService;
-
 
 
     @Autowired
@@ -60,12 +56,12 @@ public class AttendanceServiceImpl implements AttendanceService {
 
         List<StudentDto> studentDtoList = sectionDto.getStudentList();
 
-        for(StudentDto studentDto:studentDtoList){
+        for (StudentDto studentDto : studentDtoList) {
             StudentDataModel studentDataModel = new StudentDataModel();
             studentDataModel.setFirstName(studentDto.getFirstName());
             studentDataModel.setLastName(studentDto.getLastName());
             studentDataModel.setId(studentDto.getStudentId());
-            studentDataModel.setExtraPoint(calculateOneBlock(blockName,studentDto.getId()).getExtraCredits());
+            studentDataModel.setExtraPoint(calculateOneBlock(blockName, studentDto.getId()).getExtraCredits());
 
             studentDataModels.add(studentDataModel);
         }
@@ -158,10 +154,6 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     @WaaSecured(RoleEnum.VIEW_ENTRY_REPORT)
     public List<AttendanceByEntryDto> getReportByEntry(String entry) {
-
-
-       var aa = (JwtUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
 
         List<AttendanceByEntryDto> result = new ArrayList<>();
 

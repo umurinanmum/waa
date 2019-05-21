@@ -46,6 +46,7 @@ INSERT INTO credential_roles (credential_id,roles_id) VALUES  (3 ,6);
 
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,2);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,3);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,4);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,5);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,6);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,7);
