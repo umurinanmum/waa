@@ -72,7 +72,6 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    @WaaSecured(RoleEnum.VIEW_BLOCK_REPORT)
     public AttendanceDatePresentDto getStudentAttendanceByStudentIdAndBlock(String blockName, Long idStudent) {
         AttendanceDatePresentDto main = calculateOneBlock(blockName, idStudent);
 

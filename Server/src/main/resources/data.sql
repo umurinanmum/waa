@@ -11,7 +11,6 @@ INSERT INTO entry (id,name) VALUES (2,'2016-December');
 --STUDENTs
 INSERT INTO student (id,barcode, student_Id,entry_id,first_name,last_name) VALUES(1 ,'7888', '987012',1,'Eren','Ozturk' );
 INSERT INTO student (id,barcode, student_Id,entry_id,first_name,last_name) VALUES(2 ,'456', '986814',1,'Umur','Inan' );
-INSERT INTO student (id,barcode, student_Id,entry_id,first_name,last_name) VALUES(3 ,'123', '123',1,'Battuguldur','Ganbold' );
 
 
 --FACULTYs
@@ -21,7 +20,6 @@ INSERT INTO faculty (id,first_name,last_name) VALUES (2 ,'Tina','Xing' );
 --CREDENTIALs
 INSERT INTO credential (id,email, password,student_id) VALUES (1 ,'eozturk@mum.edu', '12345',1);
 INSERT INTO credential (id,email, password,student_id) VALUES (2 ,'tinan@mum.edu', '12345',2);
-INSERT INTO credential (id,email, password,student_id) VALUES (5 ,'bganbold@mum.edu', '12345',3);
 
 INSERT INTO credential (id,email, password,faculty_id) VALUES (3 ,'asaad@mum.edu', '12345',1);
 INSERT INTO credential (id,email, password,faculty_id) VALUES (4 ,'tina@mum.edu', '12345',2);
@@ -29,31 +27,37 @@ INSERT INTO credential (id,email, password,faculty_id) VALUES (4 ,'tina@mum.edu'
 
 
 --ROLEs
-INSERT INTO role (id,name) VALUES (1 ,'GENERATE_REPORT');
 INSERT INTO role (id,name) VALUES (2 ,'SAVE_ENTRY');
 INSERT INTO role (id,name) VALUES (3 ,'SAVE_BLOCK');
 INSERT INTO role (id,name) VALUES (4 ,'VIEW_BLOCK_REPORT');
 INSERT INTO role (id,name) VALUES (5 ,'VIEW_ENTRY_REPORT');
 INSERT INTO role (id,name) VALUES (6 ,'VIEW_EXTRA_CREDIT_REPORT');
 INSERT INTO role (id,name) VALUES (7 ,'DATA_IMPORT');
+INSERT INTO role (id,name) VALUES (8 ,'BLOCK_REPORT_FOR_FACULTY');
+INSERT INTO role (id,name) VALUES (9 ,'TMCHECK_CRUD');
+
+
 
 
 --CREDENTIAL ROLEs
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (1 ,1);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (1 ,4);
 
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (2 ,1);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (2 ,2);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (2 ,3);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (2 ,4);
 
+
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (3 ,5);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (3 ,6);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (3 ,8);
 
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,7);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,6);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,5);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,4);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,3);
+
+
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,2);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,1);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,3);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,8);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,5);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,6);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,7);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,9);
 
 
 
@@ -79,7 +83,6 @@ INSERT INTO course (id,course_name) VALUES (5 ,'Algorithms' );
 INSERT INTO course (id,course_name) VALUES (6 ,'ASD' );
 INSERT INTO course (id,course_name) VALUES (7 ,'MPP' );
 INSERT INTO course (id,course_name) VALUES (8 ,'FPP' );
-INSERT INTO course (id,course_name) VALUES (8 ,'STC' );
 
 
 
@@ -89,7 +92,6 @@ INSERT INTO course (id,course_name) VALUES (8 ,'STC' );
 INSERT INTO section (id,block_id, course_id,faculty_id,canceled_days,available_days) VALUES (1 ,1, 1,1,0,22);
 INSERT INTO section (id,block_id, course_id,faculty_id,canceled_days,available_days) VALUES (2 ,1, 3,2,0,22);
 INSERT INTO section (id,block_id, course_id,faculty_id,canceled_days,available_days) VALUES (3 ,2, 3,1,0,22);
-INSERT INTO section (id,block_id, course_id,faculty_id,canceled_days,available_days) VALUES (4 ,1, 8,1,0,10);
 
 
 --STUDENT SECTIONs
@@ -97,6 +99,5 @@ INSERT INTO student_sections (student_list_id,sections_id) VALUES (1 ,1);
 INSERT INTO student_sections (student_list_id,sections_id) VALUES (2 ,1);
 INSERT INTO student_sections (student_list_id,sections_id) VALUES (1 ,3);
 INSERT INTO student_sections (student_list_id,sections_id) VALUES (2 ,3);
-INSERT INTO student_sections (student_list_id,sections_id) VALUES (5 ,4);
 
 

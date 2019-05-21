@@ -56,32 +56,32 @@
     <div class="container-fluid">
         <nav class="navbar navbar-inverse bg-success">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Meditation Attendance System</a>
+                <a class="navbar-brand" href="#" th:text="#{meditationAttendanceSystem}"></a>
             </div>
             <ul class="nav navbar-nav">
                 <li th:if="${session.token ==null}">
-                    <a class="navbar-brand" th:href="@{/authorization/login}">Login</a>
+                    <a class="navbar-brand" th:href="@{/authorization/login}" th:text="#{login}"></a>
                 </li>
                 <!--<li>-->
                     <!--<a class="navbar-brand" th:href="@{/authorization/login}">Register New User</a>-->
                 <!--</li>-->
                 <li th:if="${session.roles.contains('DATA_IMPORT')}">
-                    <a class="navbar-brand" th:href="@{/fileUpload/show}">Import</a>
+                    <a class="navbar-brand" th:href="@{/fileUpload/show}" th:text="#{import}"></a>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">Reports
+                    <a class="dropdown-toggle" data-toggle="dropdown" th:text="#{reports}">
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a  th:href="@{/blockReportByStudent}">Block Report By Student</a></li>
-                        <li><a th:if="${!session.roles.contains('VIEW_BLOCK_REPORT')}" th:href="@{/facultyExtraPoints}">Faculty morning meditation</a></li>
-                        <li><a th:if="${session.roles.contains('VIEW_BLOCK_REPORT')}" th:href="@{/StudentPersonalReport}">Student’s detail report</a></li>
-                        <li th:if="${session.roles.contains('VIEW_ENTRY_REPORT')}"><a th:href="@{/entryReport}">Generate Attendance report by entry</a></li>
+                        <li><a th:if="${session.roles.contains('BLOCK_REPORT_FOR_FACULTY')}" th:href="@{/blockReportByStudent}" th:text="#{blockReportByStudent}"></a></li>
+                        <li><a th:if="${!session.roles.contains('VIEW_BLOCK_REPORT')}" th:href="@{/facultyExtraPoints}" th:text="#{facultyMorningMeditation}"></a></li>
+                        <li><a th:if="${session.roles.contains('VIEW_BLOCK_REPORT')}" th:href="@{/StudentPersonalReport}" th:text="#{myReport}"></a></li>
+                        <li th:if="${session.roles.contains('VIEW_ENTRY_REPORT')}"><a th:href="@{/entryReport}" th:text="#{generateAttendaceReportByEntry}"></a></li>
 
 
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">CRUDs
+                <li th:if="${session.roles.contains('VIEW_ENTRY_REPORT')}" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="#{cruds}">
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li th:if="${session.roles.contains('VIEW_ENTRY_REPORT')}" ><a th:href="@{/students/list}">Students</a></li>
@@ -96,7 +96,7 @@
                 </li>
 
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Language
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" th:text="#{language}">
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li ><a id="enLang" val="en">English</a></li>

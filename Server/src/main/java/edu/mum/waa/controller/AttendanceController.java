@@ -5,6 +5,7 @@ import edu.mum.waa.dto.AttendanceByEntryDto;
 import edu.mum.waa.dto.AttendanceDatePresentDto;
 import edu.mum.waa.dto.ExtraCreditModel;
 import edu.mum.waa.security.SecurityHelper;
+import edu.mum.waa.security.WaaSecured;
 import edu.mum.waa.service.interfaces.AttendanceService;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class AttendanceController {
 
 
     @GetMapping("/{blockName}")
+    @WaaSecured("VIEW_BLOCK_REPORT")
     public AttendanceDatePresentDto getAttendanceByBlock(@PathVariable String blockName) {
 
 
@@ -31,6 +33,7 @@ public class AttendanceController {
     }
 
     @GetMapping("/student")
+    @WaaSecured("BLOCK_REPORT_FOR_FACULTY")
     public AttendanceDatePresentDto getAttendanceByBlock(@RequestParam String blockName, @RequestParam Long studentId) {
         return attendanceService.getStudentAttendanceByStudentIdAndBlock(blockName, studentId);
     }
