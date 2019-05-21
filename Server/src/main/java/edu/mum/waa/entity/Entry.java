@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
-@SequenceGenerator(name="seqEntry", initialValue=5)
+@SequenceGenerator(name="seqEntry", initialValue=20)
 public class Entry {
 
     @Id
