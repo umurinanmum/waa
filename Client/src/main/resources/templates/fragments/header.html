@@ -59,27 +59,27 @@
                 <a class="navbar-brand" href="#">Meditation Attendance System</a>
             </div>
             <ul class="nav navbar-nav">
-                <li>
+                <li th:if="${session.token ==null}">
                     <a class="navbar-brand" th:href="@{/authorization/login}">Login</a>
                 </li>
-                <li>
-                    <a class="navbar-brand" th:href="@{/authorization/login}">Register New User</a>
-                </li>
-                <li>
+                <!--<li>-->
+                    <!--<a class="navbar-brand" th:href="@{/authorization/login}">Register New User</a>-->
+                <!--</li>-->
+                <li th:if="${session.roles.contains('DATA_IMPORT')}">
                     <a class="navbar-brand" th:href="@{/fileUpload/show}">Import</a>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">Reports
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/facultyExtraPoints}">Faculty morning meditation</a></li>
-                        <li><a th:href="@{/StudentPersonalReport}">Student’s detail report</a></li>
-                        <li><a th:href="@{/entryReport}">Generate Attendance report by entry</a></li>
+                        <li><a th:if="${!session.roles.contains('VIEW_BLOCK_REPORT')}" th:href="@{/facultyExtraPoints}">Faculty morning meditation</a></li>
+                        <li><a th:if="${session.roles.contains('VIEW_BLOCK_REPORT')}" th:href="@{/StudentPersonalReport}">Student’s detail report</a></li>
+                        <li th:if="${session.roles.contains('VIEW_ENTRY_REPORT')}"><a th:href="@{/entryReport}">Generate Attendance report by entry</a></li>
 
 
                     </ul>
                 </li>
-                <li class="dropdown">
+                <li th:if="${session.roles.contains('VIEW_ENTRY_REPORT')}" class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">CRUDs
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">

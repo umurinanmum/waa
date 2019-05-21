@@ -1,6 +1,10 @@
 package edu.mum.client.controller;
 
 import edu.mum.client.helper.Constants;
+import edu.mum.client.helper.TokenHelper;
+import edu.mum.client.model.BlockReportModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
@@ -15,11 +19,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Security;
+import java.util.List;
 
 @Controller
 @RequestMapping("/fileUpload")
 public class FileUploadController {
 
+    @Autowired
+    TokenHelper tokenHelper;
 
     @GetMapping("/show")
     public String showForm() {
@@ -31,24 +39,33 @@ public class FileUploadController {
     public String submit(@RequestParam("file") MultipartFile file) throws IOException {
 
         byte[] bytes = file.getBytes();
-        Path path = Paths.get(Constants.UPLOAD + file.getOriginalFilename());
-        Files.write(path, bytes);
+/*        Path path = Paths.get(Constants.UPLOAD + file.getOriginalFilename());
+        Files.write(path, bytes);*/
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("file",new ByteArrayResource(bytes));
 
-        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-        String serverUrl = "http://localhost:8081/file/upload/";
+        String serverUrl = "http://localhost:8081/api/v1/file/upload/";
 
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(serverUrl, requestEntity, String.class);
-        //ResponseEntity<String> responseEntity = restTemplate.exchange(serverUrl, HttpMethod.POST, requestEntity, String.class);
-        return "file-upload";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + tokenHelper.getToken());
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+
+
+
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+
+//
+  //      ResponseEntity<String> response = restTemplate.postForEntity(serverUrl, requestEntity, String.class);
+        ResponseEntity<String> responseEntity = restTemplate.exchange(serverUrl, HttpMethod.POST, requestEntity, String.class);
+        return "redirect:/welcome";
     }
 
 }

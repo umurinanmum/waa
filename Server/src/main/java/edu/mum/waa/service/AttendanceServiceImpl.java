@@ -3,14 +3,16 @@ package edu.mum.waa.service;
 import edu.mum.waa.dto.*;
 import edu.mum.waa.entity.Attendance;
 import edu.mum.waa.repository.AttendanceRepo;
+import edu.mum.waa.security.JwtUserDetails;
 import edu.mum.waa.security.SecurityHelper;
+import edu.mum.waa.security.WaaSecured;
 import edu.mum.waa.service.interfaces.AttendanceService;
 import edu.mum.waa.service.interfaces.BlockService;
 import edu.mum.waa.service.interfaces.SectionService;
 import edu.mum.waa.service.interfaces.StudentService;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -43,6 +45,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
+    @WaaSecured(RoleEnum.VIEW_EXTRA_CREDIT_REPORT)
     public ExtraCreditModel getExtraCreditsByBlock(String blockName) {
         ExtraCreditModel extraCreditModel = new ExtraCreditModel();
         List<StudentDataModel> studentDataModels = new ArrayList<>();
@@ -53,12 +56,12 @@ public class AttendanceServiceImpl implements AttendanceService {
 
         List<StudentDto> studentDtoList = sectionDto.getStudentList();
 
-        for(StudentDto studentDto:studentDtoList){
+        for (StudentDto studentDto : studentDtoList) {
             StudentDataModel studentDataModel = new StudentDataModel();
             studentDataModel.setFirstName(studentDto.getFirstName());
             studentDataModel.setLastName(studentDto.getLastName());
             studentDataModel.setId(studentDto.getStudentId());
-            studentDataModel.setExtraPoint(calculateOneBlock(blockName,studentDto.getId()).getExtraCredits());
+            studentDataModel.setExtraPoint(calculateOneBlock(blockName, studentDto.getId()).getExtraCredits());
 
             studentDataModels.add(studentDataModel);
         }
@@ -69,6 +72,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
+    @WaaSecured(RoleEnum.VIEW_BLOCK_REPORT)
     public AttendanceDatePresentDto getStudentAttendanceByStudentIdAndBlock(String blockName, Long idStudent) {
         AttendanceDatePresentDto main = calculateOneBlock(blockName, idStudent);
 
@@ -148,7 +152,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    //@Secured(RoleEnum.VIEW_ENTRY_REPORT)
+    @WaaSecured(RoleEnum.VIEW_ENTRY_REPORT)
     public List<AttendanceByEntryDto> getReportByEntry(String entry) {
 
         List<AttendanceByEntryDto> result = new ArrayList<>();

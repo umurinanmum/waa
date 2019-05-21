@@ -72,6 +72,8 @@ public class AuthorizationController {
                     });
 
             if (authResponse!=null){
+                session.setAttribute("roles",authResponse.getBody());
+
                 String csvRoles = String.join(",", authResponse.getBody());
                 List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(csvRoles);
                 waaAuthenticationModel.setAuthorities(grantedAuthorities);
