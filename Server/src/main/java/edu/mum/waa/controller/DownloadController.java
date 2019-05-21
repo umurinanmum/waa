@@ -5,6 +5,7 @@ import edu.mum.waa.service.interfaces.AttendanceService;
 import lombok.var;
 import org.jxls.template.SimpleExporter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -32,17 +33,41 @@ public class DownloadController {
     private AttendanceService attendanceService;
 
     @GetMapping(value = "/studentBlockReportToExcel")
-    public void studentBlockReportToExcel(HttpServletResponse response, @RequestParam String blockName, @RequestParam Long id) throws IOException {
+    public String studentBlockReportToExcel(HttpServletResponse response, @RequestParam String blockName, @RequestParam Long id) throws IOException {
 
         var res = attendanceService.getStudentAttendanceByStudentIdAndBlock(blockName, id);
 
 
 
 
-        String r = res.getDatePresentDtoList().stream().map(l -> l.getDate() + "," + l.isPresent()).collect(Collectors.joining("\n"));
-        response.setContentType("application/octet-stream");
+        String r = res.getDatePresentDtoList().stream().map(l -> l.getDate() + "," + l.isPresent()).collect(Collectors.joining("\r\n"));
+
+
+        return r;
+
+
+
+/*        OutputStream out = response.getOutputStream();
+
+        File file = new File("test1.csv");
+        FileWriter fileWriter = new FileWriter(file);
+        fileWriter.write(r);
+        fileWriter.flush();
+        fileWriter.close();
+
+        FileInputStream in = new FileInputStream(file);
+        byte[] buffer = new byte[4096];
+        int length;
+        while ((length = in.read(buffer)) > 0){
+            out.write(buffer, 0, length);
+        }
+        in.close();
+        out.flush();*/
+
+
+  /*      response.setContentType("application/octet-stream");
         response.getOutputStream().write(r.getBytes());
-        response.flushBuffer();
+        response.flushBuffer();*/
 
 
 //        List<String> headers = Arrays.asList("Date", "Status");
