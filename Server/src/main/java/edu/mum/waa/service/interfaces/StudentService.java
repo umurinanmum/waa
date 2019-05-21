@@ -15,11 +15,9 @@ public interface StudentService extends BaseService<StudentDto> {
 
     StudentDto findStudentByStudentId(String studentId);
 
+
     List<StudentDto> findStudentsByEntry(String entryName);
 
     List<Student> lookupStudentByStudentId(String studentId);
-
-    List<Student> findAllStudent();
-    Student findStudentByStudentId2(String studentId);
 
 }

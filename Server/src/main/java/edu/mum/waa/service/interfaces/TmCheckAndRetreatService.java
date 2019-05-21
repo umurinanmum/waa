@@ -12,9 +12,11 @@ public interface TmCheckAndRetreatService {
 
     Optional<TmCheckAndRetreat> findTmCheckAndRetreatOrderById(Long id);
 
-    TmCheckAndRetreat save(TmCheckAndRetreat tmCheckAndRetreat) throws StudentException;
+    TmCheckAndRetreat save(TmCheckAndRetreat tmCheckAndRetreat); // throws StudentException;
 
     void deleteById(Long id);
 
     SearchResultDto<TmCheckAndRetreat> findTmCheckAndRetreatOrderByStudent(Long stuId, WaaPageable pageable);
+
+    SearchResultDto<TmCheckAndRetreat> search(TmCheckAndRetreat tmCheckAndRetreat, WaaPageable pageable);
 }

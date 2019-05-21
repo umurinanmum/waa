@@ -1,8 +1,11 @@
 package edu.mum.waa.security;
 
+import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -12,12 +15,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)
-@EnableWebSecurity
+/*@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true,jsr250Enabled = true)
+@EnableWebSecurity*/
 @Configuration
 public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -26,6 +32,8 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationEntryPoint entryPoint;
+
+
 
     @Bean
     protected AuthenticationManager authenticationManager() {
@@ -48,19 +56,34 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().disable()
+        http.cors().and().csrf().disable()
                 .authorizeRequests().antMatchers("/api/authentication*").permitAll()
+                .antMatchers("/api/v1/file/upload*").permitAll()
+
                 .antMatchers("/api").authenticated()
+
+                .antMatchers("/api/v1/download/studentBlockReportToExcel").permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.headers().cacheControl();
+        //http.addFilterAfter(corsFilter,UsernamePasswordAuthenticationFilter.class);
+        //http.headers().cacheControl();
         http.headers().frameOptions().sameOrigin();
 
+        // pass CORS when ajax calls
+        CorsConfiguration config = new CorsConfiguration();
+        config.applyPermitDefaultValues();
+        config.setAllowCredentials(true);
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        // it works but DELETE method does not work
+//        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()
+//        );
 
+        http.cors().configurationSource(request -> config);
     }
 
 }

@@ -1,13 +1,16 @@
 package edu.mum.waa.service;
 
+import edu.mum.waa.dto.RoleEnum;
 import edu.mum.waa.dto.SearchResultDto;
 import edu.mum.waa.dto.WaaPageable;
 import edu.mum.waa.entity.Student;
 import edu.mum.waa.entity.TmCheckAndRetreat;
 import edu.mum.waa.exceptions.StudentException;
 import edu.mum.waa.repository.TMCheckAndRetreatRepo;
+import edu.mum.waa.security.WaaSecured;
 import edu.mum.waa.service.interfaces.TmCheckAndRetreatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,13 +26,15 @@ public class TmCheckAndRetreatServiceImpl implements TmCheckAndRetreatService {
         return tmCheckAndRetreatRepo.findTmCheckAndRetreatOrderById(id);
     }
 
-    public TmCheckAndRetreat save(TmCheckAndRetreat tmCheckAndRetreat) throws StudentException {
-        if (tmCheckAndRetreat.getStudent() != null && tmCheckAndRetreat.getStudent().getId() < 1) {
-            throw new StudentException("studentError");
-        }
+    @WaaSecured(RoleEnum.TMCHECK_CRUD)
+    public TmCheckAndRetreat save(TmCheckAndRetreat tmCheckAndRetreat) { // throws StudentException {
+//        if (tmCheckAndRetreat.getStudent() != null && tmCheckAndRetreat.getStudent().getId() < 1) {
+//            throw new StudentException("studentError");
+//        }
         return tmCheckAndRetreatRepo.save(tmCheckAndRetreat);
     }
 
+    @WaaSecured(RoleEnum.TMCHECK_CRUD)
     public void deleteById(Long id) {
         tmCheckAndRetreatRepo.deleteById(id);
     }
@@ -39,6 +44,32 @@ public class TmCheckAndRetreatServiceImpl implements TmCheckAndRetreatService {
         SearchResultDto result = new SearchResultDto();
 
         List<TmCheckAndRetreat> listResult = tmCheckAndRetreatRepo.fetchTmCheckAndRetreatOrderByStudent(stuId, pageable);
+
+        int total = listResult.size();
+        // pageNumber : current page
+        if (total >= pageable.getPageSize()) {
+            pageable.setNextPage(pageable.getPageNumber() + 1);
+            listResult = listResult.subList(0, total - 1);
+        }
+
+        pageable.setTotal(total);
+        System.out.println("size: " + total);
+        System.out.println("offset: " + pageable.getOffset());
+
+        pageable.setNumberOfPages(total / pageable.getPageSize());
+        result.setResult(listResult);
+        result.setPageable(pageable);
+
+        System.out.println("pageable.getPageSize(): " + pageable.getPageSize());
+        System.out.println("setNumberOfPages: " + pageable.getNumberOfPages());
+
+        return result;
+    }
+
+    public SearchResultDto<TmCheckAndRetreat> search(TmCheckAndRetreat tmCheckAndRetreat, WaaPageable pageable) {
+        SearchResultDto result = new SearchResultDto();
+
+        List<TmCheckAndRetreat> listResult = tmCheckAndRetreatRepo.search(tmCheckAndRetreat.getLocalDateTime(), tmCheckAndRetreat.isRetreat(), pageable);
 
         int total = listResult.size();
         // pageNumber : current page

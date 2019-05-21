@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -38,22 +39,4 @@ public class ExceptionController {
 
         return errors;
     }
-
-    @ExceptionHandler({StudentException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    public DomainErrors handleException2(StudentException exception) {
-        System.out.println("handling StudentException ====");
-
-        DomainErrors errors = new DomainErrors();
-        errors.setErrorType("ValidationError");
-
-
-
-        DomainError error = new DomainError(messageAccessor.getMessage(exception.getMessage()));
-        errors.addError(error);
-
-        return errors;
-    }
-
 }

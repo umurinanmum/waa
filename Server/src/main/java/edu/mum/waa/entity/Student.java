@@ -12,11 +12,10 @@ import java.util.List;
 @Entity
 //@Setter
 //@Getter
-@SequenceGenerator(name="seqStudent", initialValue=10)
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seqStudent")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "first_name")

@@ -25,7 +25,12 @@ public class BlockModel {
     private int cancelledDays;
 
     @NotEmpty
+<<<<<<< HEAD
     @Size(min = 2, max = 50, message = "${Size.name}")
     private String name;
+=======
+    @Size(min = 2, max = 50, message = "${Size.lastName}")
+    private String name="umur";
+>>>>>>> master
 
 }
