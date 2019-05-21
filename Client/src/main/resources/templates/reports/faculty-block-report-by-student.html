@@ -8,15 +8,17 @@
     <script>
         $(document).ready(function () {
             $("#blockSelect").change(function () {
-                //alert($("#blockSelect").val());
-
-                $.get("studentPersonalReport/" + $("#blockSelect").val(), function (data) {
-
+                $.get("blockReportByStudent/" + $("#blockSelect").val(), function (data) {
                     window.location.reload();
-
                 });
+            });
 
-            })
+            $("#studentSelect").change(function () {
+                console.log('student select');
+                $.get("blockReportByStudent/" + $("#studentSelect").val(), function (data) {
+                    window.location.reload();
+                });
+            });
         });
 
     </script>
@@ -31,7 +33,7 @@
             <h3 class="panel-title"><span th:text="#{studentDetailReport}">Student's Detail Report</span></h3>
         </div>
         <div class="panel-body">
-            <form th:action="@{/studentPersonalReport}" th:object="${studentReportModelForFacultySes}" method="get">
+            <form th:action="@{/blockReportByStudent}" th:object="${studentReportModelForFacultySes}" method="get">
                 <div class="col-xs-12">
                     <div class="col-xs-4">
 
@@ -65,9 +67,8 @@
                                         th:utext="${block.name}"/>
                             </select>
 
-                            <label for="student" th:text="#{student}"></label>
-                            <select id="student" th:field="*{selectedStudent}" class="form-control">
-                                <option value=""> --</option>
+                            <label for="studentSelect" th:text="#{student}"></label>
+                            <select id="studentSelect" th:field="*{selectedStudent}" class="form-control">
                                 <option th:each="student : ${students}"
                                         th:value="${student.id}"
                                         th:utext="${student.firstName}+' '+${student.lastName}"/>
@@ -76,12 +77,14 @@
 
                         <div class="form-group">
                             <label for="sessionsInblock" th:text="#{sessionsInblock}"></label>
-                            <input type="text" class="form-control" id="sessionsInblock" th:field="*{sessionsInBlock}" readonly/>
+                            <input type="text" class="form-control" id="sessionsInblock" th:field="*{sessionsInBlock}"
+                                   readonly/>
                         </div>
 
                         <div class="form-group">
                             <label for="daysPresent" th:text="#{daysPresent}"></label>
-                            <input type="text" class="form-control" id="daysPresent" th:field="*{daysPresent}" readonly/>
+                            <input type="text" class="form-control" id="daysPresent" th:field="*{daysPresent}"
+                                   readonly/>
                         </div>
 
                         <div class="form-group">
@@ -92,7 +95,8 @@
 
                         <div class="form-group">
                             <label for="extraCreditPoints" th:text="#{extraCreditPoints}"></label>
-                            <input type="text" class="form-control" id="extraCreditPoints" th:field="*{extraCredits}" readonly/>
+                            <input type="text" class="form-control" id="extraCreditPoints" th:field="*{extraCredits}"
+                                   readonly/>
                         </div>
                     </div>
 

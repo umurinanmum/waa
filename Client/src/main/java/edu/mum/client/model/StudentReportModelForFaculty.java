@@ -23,7 +23,7 @@ public class StudentReportModelForFaculty {
 
 
     private String selectedBlock;
-    private String selectedStudent;
+    private Long selectedStudent;
 
 
 }

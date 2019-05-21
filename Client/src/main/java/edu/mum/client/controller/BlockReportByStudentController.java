@@ -54,8 +54,8 @@ public class BlockReportByStudentController {
         RestTemplate restTemplate = new RestTemplate();
 
         StudentReportModelForFaculty  studentReportModelForFacultySes ;
-        String blockReq;
-        String selectedStudent;
+        String blockReq=null;
+        Long selectedStudent=null;
 
 
 
@@ -79,8 +79,9 @@ public class BlockReportByStudentController {
         }else{
             studentReportModelForFacultySes = new StudentReportModelForFaculty();
             blockReq = "2016-November";
+            selectedStudent =1L;
         }
-
+String uri = request.getRequestURI();
         if (request.getRequestURI().split("/").length == 3) {
             blockReq = request.getRequestURI().split("/")[2];
         }else{
@@ -89,7 +90,8 @@ public class BlockReportByStudentController {
 
         //System.out.println(request.getRequestURI().split("/")[2]);
 
-        ResponseEntity<StudentReportModelForFaculty> response = restTemplate.exchange(Constants.URL + "attendances/" + blockReq,
+        ResponseEntity<StudentReportModelForFaculty> response = restTemplate
+                .exchange(Constants.URL + "attendances/student/?blockName="+ blockReq +"&studentId="+selectedStudent ,
                 HttpMethod.GET, entity, StudentReportModelForFaculty.class);
 
 
