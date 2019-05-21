@@ -86,7 +86,11 @@
                         <li><a th:href="@{/students/list}">Students</a></li>
                         <li><a th:href="@{/blocks/list}">Blocks</a></li>
                         <li><a th:href="@{/entries/list}">Entries</a></li>
+
+
                         <li><a th:href="@{/retreat-checking}">TM Check & Retreat</a></li>
+
+
                     </ul>
                 </li>
 
@@ -112,7 +116,7 @@
         </nav>
     </div>
 
-
+    <input type="hidden" th:value="${session.token}" id="token" >
 </div>
 
 </body>
