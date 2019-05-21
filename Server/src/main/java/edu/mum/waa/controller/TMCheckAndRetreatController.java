@@ -14,14 +14,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:8080", "http://localhost:8081"
         , "http://ec2-18-218-112-35.us-east-2.compute.amazonaws.com:8080", "http://ec2-18-218-112-35.us-east-2.compute.amazonaws.com:8082"}, maxAge = 6000, allowedHeaders = "*")
 @RestController
+@RequestMapping("/api/v1")
 public class TMCheckAndRetreatController {
 
     @Autowired
@@ -36,7 +40,7 @@ public class TMCheckAndRetreatController {
     @PostMapping(value = "/retreat-checking", produces = "application/json")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public TmCheckAndRetreat save(@RequestBody @Valid TmCheckAndRetreat tmCheckAndRetreat
-            , HttpServletRequest request, Model model) throws StudentException {
+            , HttpServletRequest request, Model model) {
 
         // create & update
         tmCheckAndRetreatService.save(tmCheckAndRetreat);
@@ -67,14 +71,33 @@ public class TMCheckAndRetreatController {
         return tmCheckAndRetreatService.findTmCheckAndRetreatOrderByStudent(stuId, pageable);
     }
 
+    @GetMapping("/retreat-checking/search")
+    public SearchResultDto<TmCheckAndRetreat> search(@RequestParam(value = "date", required = true) String date
+            ,@RequestParam(value = "retreat", defaultValue = "false") String retreat
+            , @RequestParam(value = "page", defaultValue = "0") Integer page
+            , @RequestParam(value = "pageSize", defaultValue = "10") Integer size) {
+
+        TmCheckAndRetreat tmCheckAndRetreat = new TmCheckAndRetreat();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        //convert String to LocalDate
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        tmCheckAndRetreat.setLocalDateTime(localDate);
+        tmCheckAndRetreat.setRetreat(Boolean.valueOf(retreat));
+
+        Integer pageSize = (size==null) ? Integer.valueOf(environment.getProperty("pageSize", "10")) + 1 : size;
+
+        int pageNum = page.intValue();
+        WaaPageable pageable = WaaPageable.of(page, pageSize);
+
+        return tmCheckAndRetreatService.search(tmCheckAndRetreat, pageable);
+    }
+
 
     @GetMapping(value = "/student-lookup", produces = "application/json")
     public List<Student> lookup(@RequestParam("q") String query) {
         System.out.println("looking =====");
         return studentService.lookupStudentByStudentId(query);
     }
-//    @GetMapping("/retreat-checking/student/{stuId}")
-//    public List<TmCheckAndRetreat> findTmCheckAndRetreatOrderByStudent(@PathVariable("stuId") Long stuId) {
-//        return tmCheckAndRetreatService.findTmCheckAndRetreatOrderByStudent(stuId);
-//    }
+
 }

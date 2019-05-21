@@ -8,4 +8,5 @@ public class RoleEnum {
     public static final String VIEW_ENTRY_REPORT ="VIEW_ENTRY_REPORT";
     public static final String VIEW_EXTRA_CREDIT_REPORT ="VIEW_EXTRA_CREDIT_REPORT";
     public static final String DATA_IMPORT ="DATA_IMPORT";
+    public static final String TMCHECK_CRUD ="TMCHECK_CRUD";
 }

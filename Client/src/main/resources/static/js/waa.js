@@ -1,7 +1,10 @@
 var SERVER = "http://localhost:8081";
+var token = "";
 jQuery(document).ready(function($) {
     SERVER = $("#server").val();
-    $(".js-view-tmretreatAndChecking").on("click", viewTmRetreatAndChecking);
+    token = $("#token").val();
+
+    $(".js-view-tmretreatAndChecking").on("click", searchTmRetreatAndChecking);
     $(".js-save-tmretreatAndChecking").on("click", saveTmRetreatAndChecking); // save to DB
 
     // bind callback
@@ -21,9 +24,13 @@ function studentIdAutocomplete() {
 
         source: function (request, response) {
             if ($("#lblStudentID").val().length > 2) {
-                let url = SERVER + "/student-lookup?q=" + $("#lblStudentID").val();
+                let url = SERVER + "/api/v1" + "/student-lookup?q=" + $("#lblStudentID").val();
                 console.log(url);
+                console.log(token);
                 $.ajax({
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                    },
                     type: "GET",
                     url: url,
                     contentType: "application/json",
@@ -32,7 +39,7 @@ function studentIdAutocomplete() {
                         console.log(data);
                         response($.map(data, function (item) {
                             return {
-                                label: item.studentId,
+                                label: item.studentId + " " + item.firstName + " " + item.lastName,
                                 value: item.id
                             };
                         }));
@@ -71,14 +78,20 @@ function studentIdAutocomplete() {
 
 function saveTmRetreatAndChecking() {
     let json = serializeObject($("#tmRetreatAndCheckingForm"));
+    let studentIdKey = $("#studentIdKey").val();
+
     json["student"] = {};
-    json.student["id"] = $("#studentIdKey").val();
+
+    json.student["id"] = studentIdKey;
 
     let data = JSON.stringify(json);
     $("#errors").empty();
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
         type: "POST",
-        url: SERVER + "/retreat-checking",
+        url: SERVER + "/api/v1" + "/retreat-checking",
         contentType: "application/json",
         dataType : "json",
         data: data,
@@ -99,7 +112,11 @@ function saveTmRetreatAndChecking() {
             if (XMLHttpRequest.responseJSON.errorType == "ValidationError") {
                 let errorMsg = '<h3> Error(s)!! </h3>';
                 errorMsg += "<p>";
-                var errorList = XMLHttpRequest.responseJSON.errors;
+                var errorList = XMLHttpRequest.responseJSON.fieldErrors;
+                let studentIdKey = $("#studentIdKey").val();
+                if (studentIdKey === "0") {
+                    errorMsg = errorMsg + "Student field must have a value" + '<br>';
+                }
                 $.each(errorList, function(i, error) {
                     errorMsg = errorMsg +error.message + '<br>';
                 });
@@ -108,6 +125,17 @@ function saveTmRetreatAndChecking() {
                 $('#errors').show();
             } else {
                 console.log("error======= non Validation");
+                let errorMsg = '<h3> Error(s)!! </h3>';
+                errorMsg += "<p>";
+                let studentIdKey = $("#studentIdKey").val();
+                if (studentIdKey === "0") {
+                    errorMsg = errorMsg + "Student field must have a value" + '<br>';
+                } else {
+                    errorMsg = errorMsg + "It might be you do not have permission";
+                }
+                errorMsg += '</p>';
+                $('#errors').append(errorMsg);
+                $('#errors').show();
             }
         }
 
@@ -121,21 +149,25 @@ function viewTmRetreatAndCheckingByPageable(evt) {
     let link = $(evt.target).data("link");
     viewTmRetreatAndChecking(evt, page, pageSize, link);
 }
-function viewTmRetreatAndChecking(evt, currentPage, pageSize, link) {
-    if (currentPage === undefined ){
+function searchTmRetreatAndChecking(evt, currentPage, pageSize, link) {
+    if (currentPage === undefined ) {
         currentPage = '';
     }
     if (pageSize === undefined) {
         pageSize = '';
     }
-    if ($("#studentIdKey").val().length > 0) {
-        let url = SERVER + "/retreat-checking/student/" + $("#studentIdKey").val();
-        let uri = SERVER + "/retreat-checking/student/" + $("#studentIdKey").val() + "?page=" + currentPage + "&pageSize=" + pageSize;
+    if ($("#studentIdKey").val() === "0") {
+        let url = SERVER + "/api/v1" + "/retreat-checking/search/";
+        let uri = url + "?page=" + currentPage + "&pageSize=" + pageSize + "&date=" + $("#localDateTime").val() + "&retreat=" + $("#retreat").prop('checked');
         if (link !== undefined) {
             uri = link;
         }
-        console.log(url);
+        console.log(uri);
+        $("#errors").empty();
         $.ajax({
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
             type: "GET",
             url: uri,
             contentType: "application/json",
@@ -169,7 +201,78 @@ function viewTmRetreatAndChecking(evt, currentPage, pageSize, link) {
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $("#errors").html("There is an issue, please patient to try again. Thank you.");
+                let errorMsg = '<h3> Error(s)!! </h3>';
+                errorMsg += "<p>";
+                errorMsg = errorMsg + "There is an issue, please patient to try again. Thank you.";
+                errorMsg += '</p>';
+                $('#errors').append(errorMsg);
+                $('#errors').show();
+            }
+        });
+    } else {
+        console.log("search with student");
+        viewTmRetreatAndChecking(evt, currentPage, pageSize, link);
+    }
+}
+
+function viewTmRetreatAndChecking(evt, currentPage, pageSize, link) {
+    if (currentPage === undefined ){
+        currentPage = '';
+    }
+    if (pageSize === undefined) {
+        pageSize = '';
+    }
+    if ($("#studentIdKey").val().length > 0) {
+        let url = SERVER + "/api/v1" + "/retreat-checking/student/" + $("#studentIdKey").val();
+        let uri = SERVER + "/api/v1" + "/retreat-checking/student/" + $("#studentIdKey").val() + "?page=" + currentPage + "&pageSize=" + pageSize;
+        if (link !== undefined) {
+            uri = link;
+        }
+        console.log(url);
+        $("#errors").empty();
+        $.ajax({
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+            type: "GET",
+            url: uri,
+            contentType: "application/json",
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                allResult = data.result;
+                $("#tblResult tbody").empty();
+                $.each(allResult, function (index, item) {
+                    $('#itemRow').tmpl(item).appendTo($('#tblResult tbody'));
+                });
+
+                // pagination
+                pageable = data.pageable;
+                $("ul.pagination").empty();
+                //$('#formInput').html("");
+
+                if (pageable.pageNumber > 0) {
+                    let pageLink = url + "?page=" + (pageable.pageNumber - 1) + "&pageSize=" + pageable.pageSize;
+                    $("ul.pagination").append('<li> <a class="itemPage js-retreat-checking-viewByPageable" href="#" data-link="' + pageLink + '"' + '> Previous</a> </li>')
+                }
+                if (pageable.total > 0) {
+                    let pageLink = url + "?page=" + (pageable.pageNumber ) + "&pageSize=" + pageable.pageSize;
+                    $("ul.pagination").append('<li> <a  class="current itemPage js-retreat-checking-viewByPageable"  href="#" data-link="' + pageLink + '"' + '> ' + (pageable.pageNumber + 1) + '</a> </li>')
+                }
+                if (pageable.nextPage > 0) {
+                    let pageLink = url + "?page=" + (pageable.pageNumber + 1) + '&amp;pageSize=' + pageable.pageSize;
+                    $("ul.pagination").append('<li> <a class="itemPage js-retreat-checking-viewByPageable"   href="#" data-link="' + pageLink + '"' + '> Next</a> </li>')
+                }
+
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                let errorMsg = '<h3> Error(s)!! </h3>';
+                errorMsg += "<p>";
+                errorMsg = errorMsg + "There is an issue, please patient to try again. Thank you.";
+                errorMsg += '</p>';
+                $('#errors').append(errorMsg);
+                $('#errors').show();
             }
         });
     } else {
@@ -184,9 +287,12 @@ function selectEditTmRetreatAndChecking(evt) {
 }
 
 function loadTmRetreatAndCheckingFillForm(retreatId) {
-    let url = SERVER + "/retreat-checking/" + retreatId;
+    let url = SERVER + "/api/v1" + "/retreat-checking/" + retreatId;
     console.log(url);
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
         type: "GET",
         url: url,
         contentType: "application/json",
@@ -200,7 +306,12 @@ function loadTmRetreatAndCheckingFillForm(retreatId) {
             $("#retreat").prop( "checked", data.retreat );
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $("#errors").html("There is an issue, please patient to try again. Thank you.");
+            let errorMsg = '<h3> Error(s)!! </h3>';
+            errorMsg += "<p>";
+            errorMsg = errorMsg + "There is an issue, please patient to try again. Thank you.";
+            errorMsg += '</p>';
+            $('#errors').append(errorMsg);
+            $('#errors').show();
         }
     });
 }
@@ -224,9 +335,12 @@ function deleteTmRetreatAndChecking(evt) {
 }
 
 function deleteTmRetreatAndCheckingById(retreatId) {
-    let url = SERVER + "/retreat-checking/" + retreatId;
+    let url = SERVER + "/api/v1" + "/retreat-checking/" + retreatId;
     console.log(url);
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        },
         type: "DELETE",
         url: url,
         success: function (data) {
@@ -235,10 +349,30 @@ function deleteTmRetreatAndCheckingById(retreatId) {
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $("#errors").html("There is an issue, please patient to try again. Thank you.");
+            let errorMsg = '<h3> Error(s)!! </h3>';
+            errorMsg += "<p>";
+            errorMsg = errorMsg + "It might be you do not have permission. Thank you.";
+            errorMsg += '</p>';
+            $('#errors').append(errorMsg);
+            $('#errors').show();
         }
     });
 }
+
+validate = function() {
+    let studentIdKey = $("#studentIdKey").val();
+    error("Student field must have a value");
+    return false;
+}
+error = function(message) {
+    let errorMsg = '<h3> Error(s)!! </h3>';
+    errorMsg += "<p>";
+    errorMsg = errorMsg + message + '<br>';
+    errorMsg += '</p>';
+    $('#errors').append(errorMsg);
+    $('#errors').show();
+}
+
 make_hidden = function(id) {
     var element = document.getElementById(id);
     element.style.display = 'none';
