@@ -79,16 +79,16 @@
 
                     </ul>
                 </li>
-                <li th:if="${session.roles.contains('VIEW_ENTRY_REPORT')}" class="dropdown">
+                <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">CRUDs
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/students/list}">Students</a></li>
-                        <li><a th:href="@{/blocks/list}">Blocks</a></li>
-                        <li><a th:href="@{/entries/list}">Entries</a></li>
+                        <li th:if="${session.roles.contains('VIEW_ENTRY_REPORT')}" ><a th:href="@{/students/list}">Students</a></li>
+                        <li th:if="${session.roles.contains('VIEW_ENTRY_REPORT')}" ><a th:href="@{/blocks/list}">Blocks</a></li>
+                        <li th:if="${session.roles.contains('VIEW_ENTRY_REPORT')}" ><a th:href="@{/entries/list}">Entries</a></li>
 
 
-                        <li><a th:href="@{/retreat-checking}">TM Check & Retreat</a></li>
+                        <li th:if="${session.roles.contains('TMCHECK_CRUD')}" ><a th:href="@{/retreat-checking}">TM Check & Retreat</a></li>
 
 
                     </ul>

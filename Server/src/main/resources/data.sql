@@ -92,20 +92,9 @@ INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,4);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,5);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,6);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,7);
-
-
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (3 ,6);
-
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,6);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,5);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,4);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,3);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,2);
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,1);
-
 -- admin
-INSERT INTO credential_roles (credential_id,roles_id) VALUES  (7 ,8);
 INSERT INTO credential_roles (credential_id,roles_id) VALUES  (4 ,8);
+INSERT INTO credential_roles (credential_id,roles_id) VALUES  (5 ,8);
 
 
 /*  INSERT INTO entry (id,start_Date, end_Date,canceled_days) VALUES

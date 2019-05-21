@@ -78,8 +78,11 @@ function studentIdAutocomplete() {
 
 function saveTmRetreatAndChecking() {
     let json = serializeObject($("#tmRetreatAndCheckingForm"));
+    let studentIdKey = $("#studentIdKey").val();
+
     json["student"] = {};
-    json.student["id"] = $("#studentIdKey").val();
+
+    json.student["id"] = studentIdKey;
 
     let data = JSON.stringify(json);
     $("#errors").empty();
@@ -109,7 +112,11 @@ function saveTmRetreatAndChecking() {
             if (XMLHttpRequest.responseJSON.errorType == "ValidationError") {
                 let errorMsg = '<h3> Error(s)!! </h3>';
                 errorMsg += "<p>";
-                var errorList = XMLHttpRequest.responseJSON.errors;
+                var errorList = XMLHttpRequest.responseJSON.fieldErrors;
+                let studentIdKey = $("#studentIdKey").val();
+                if (studentIdKey === "0") {
+                    errorMsg = errorMsg + "Student field must have a value" + '<br>';
+                }
                 $.each(errorList, function(i, error) {
                     errorMsg = errorMsg +error.message + '<br>';
                 });
@@ -118,6 +125,17 @@ function saveTmRetreatAndChecking() {
                 $('#errors').show();
             } else {
                 console.log("error======= non Validation");
+                let errorMsg = '<h3> Error(s)!! </h3>';
+                errorMsg += "<p>";
+                let studentIdKey = $("#studentIdKey").val();
+                if (studentIdKey === "0") {
+                    errorMsg = errorMsg + "Student field must have a value" + '<br>';
+                } else {
+                    errorMsg = errorMsg + "It might be you do not have permission";
+                }
+                errorMsg += '</p>';
+                $('#errors').append(errorMsg);
+                $('#errors').show();
             }
         }
 
@@ -182,7 +200,12 @@ function viewTmRetreatAndChecking(evt, currentPage, pageSize, link) {
 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $("#errors").html("There is an issue, please patient to try again. Thank you.");
+                let errorMsg = '<h3> Error(s)!! </h3>';
+                errorMsg += "<p>";
+                errorMsg = errorMsg + "There is an issue, please patient to try again. Thank you.";
+                errorMsg += '</p>';
+                $('#errors').append(errorMsg);
+                $('#errors').show();
             }
         });
     } else {
@@ -216,7 +239,12 @@ function loadTmRetreatAndCheckingFillForm(retreatId) {
             $("#retreat").prop( "checked", data.retreat );
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $("#errors").html("There is an issue, please patient to try again. Thank you.");
+            let errorMsg = '<h3> Error(s)!! </h3>';
+            errorMsg += "<p>";
+            errorMsg = errorMsg + "There is an issue, please patient to try again. Thank you.";
+            errorMsg += '</p>';
+            $('#errors').append(errorMsg);
+            $('#errors').show();
         }
     });
 }
@@ -254,10 +282,30 @@ function deleteTmRetreatAndCheckingById(retreatId) {
 
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            $("#errors").html("There is an issue, please patient to try again. Thank you.");
+            let errorMsg = '<h3> Error(s)!! </h3>';
+            errorMsg += "<p>";
+            errorMsg = errorMsg + "It might be you do not have permission. Thank you.";
+            errorMsg += '</p>';
+            $('#errors').append(errorMsg);
+            $('#errors').show();
         }
     });
 }
+
+validate = function() {
+    let studentIdKey = $("#studentIdKey").val();
+    error("Student field must have a value");
+    return false;
+}
+error = function(message) {
+    let errorMsg = '<h3> Error(s)!! </h3>';
+    errorMsg += "<p>";
+    errorMsg = errorMsg + message + '<br>';
+    errorMsg += '</p>';
+    $('#errors').append(errorMsg);
+    $('#errors').show();
+}
+
 make_hidden = function(id) {
     var element = document.getElementById(id);
     element.style.display = 'none';

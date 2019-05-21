@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -37,7 +38,7 @@ public class TMCheckAndRetreatController {
     @PostMapping(value = "/retreat-checking", produces = "application/json")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public TmCheckAndRetreat save(@RequestBody @Valid TmCheckAndRetreat tmCheckAndRetreat
-            , HttpServletRequest request, Model model) throws StudentException {
+            , HttpServletRequest request, Model model) {
 
         // create & update
         tmCheckAndRetreatService.save(tmCheckAndRetreat);

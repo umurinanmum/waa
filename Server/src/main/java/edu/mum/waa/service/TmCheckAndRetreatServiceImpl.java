@@ -7,6 +7,7 @@ import edu.mum.waa.entity.Student;
 import edu.mum.waa.entity.TmCheckAndRetreat;
 import edu.mum.waa.exceptions.StudentException;
 import edu.mum.waa.repository.TMCheckAndRetreatRepo;
+import edu.mum.waa.security.WaaSecured;
 import edu.mum.waa.service.interfaces.TmCheckAndRetreatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -25,14 +26,15 @@ public class TmCheckAndRetreatServiceImpl implements TmCheckAndRetreatService {
         return tmCheckAndRetreatRepo.findTmCheckAndRetreatOrderById(id);
     }
 
-//    /@Secured(RoleEnum.TMCHECK_CRUD)
-    public TmCheckAndRetreat save(TmCheckAndRetreat tmCheckAndRetreat) throws StudentException {
-        if (tmCheckAndRetreat.getStudent() != null && tmCheckAndRetreat.getStudent().getId() < 1) {
-            throw new StudentException("studentError");
-        }
+    @WaaSecured(RoleEnum.TMCHECK_CRUD)
+    public TmCheckAndRetreat save(TmCheckAndRetreat tmCheckAndRetreat) { // throws StudentException {
+//        if (tmCheckAndRetreat.getStudent() != null && tmCheckAndRetreat.getStudent().getId() < 1) {
+//            throw new StudentException("studentError");
+//        }
         return tmCheckAndRetreatRepo.save(tmCheckAndRetreat);
     }
 
+    @WaaSecured(RoleEnum.TMCHECK_CRUD)
     public void deleteById(Long id) {
         tmCheckAndRetreatRepo.deleteById(id);
     }

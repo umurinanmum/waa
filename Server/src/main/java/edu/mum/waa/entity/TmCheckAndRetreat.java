@@ -23,6 +23,7 @@ public class TmCheckAndRetreat {
     @ManyToOne
     private Student student;
 
+    @NotNull
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate localDateTime;
 
