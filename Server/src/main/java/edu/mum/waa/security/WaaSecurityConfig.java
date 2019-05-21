@@ -53,7 +53,10 @@ public class WaaSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests().antMatchers("/api/authentication*").permitAll()
                 .antMatchers("/api/v1/file/upload*").permitAll()
+
                 .antMatchers("/api").authenticated()
+
+                .antMatchers("/api/v1/download/studentBlockReportToExcel").permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()
