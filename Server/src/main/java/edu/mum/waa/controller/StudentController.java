@@ -1,5 +1,6 @@
 package edu.mum.waa.controller;
 
+import edu.mum.waa.dto.StudentDtoForCrud;
 import edu.mum.waa.entity.Student;
 import edu.mum.waa.service.interfaces.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,18 +24,15 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping
-    public List<Student> findAll() {
+    public List<StudentDtoForCrud> findAllForCrud() {
         System.out.println("Students - findAll");
-        //return studentService.findAll();
-        return studentService.findAllStudent();
+        return studentService.findAllForCrud();
     }
 
     @GetMapping("/{studentid}")
     public StudentDto getStudent(@PathVariable Long studentid) {
-        System.out.println("Students - findById: " + studentid);
-        StudentDto student = studentService.findById(studentid);
-        System.out.println("Students - findById - findByIdstudent: " + student);
-        return student;
+        System.out.println("Students - findById");
+        return studentService.findById(studentid);
     }
 
     //GetMapping("/{}")
@@ -42,12 +40,13 @@ public class StudentController {
     @PostMapping
     public boolean save(@RequestBody StudentDto studentDto) {
         System.out.println("Students - save");
+        System.out.println(studentDto);
         return studentService.save(studentDto);
     }
 
     @PutMapping
     public boolean update(@RequestBody StudentDto studentDto) {
-        System.out.println("Students - update: " + studentDto.getId());
+        System.out.println("Students - update");
         return studentService.update(studentDto);
     }
 

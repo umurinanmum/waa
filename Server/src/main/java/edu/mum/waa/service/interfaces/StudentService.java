@@ -1,5 +1,6 @@
 package edu.mum.waa.service.interfaces;
 
+import edu.mum.waa.dto.StudentDtoForCrud;
 import edu.mum.waa.entity.Student;
 import edu.mum.waa.entity.TmCheckAndRetreat;
 
@@ -20,7 +21,6 @@ public interface StudentService extends BaseService<StudentDto> {
 
     List<Student> lookupStudentByStudentId(String studentId);
 
-    List<Student> findAllStudent();
-    Student findStudentByStudentId2(String studentId);
+    List<StudentDtoForCrud> findAllForCrud();
 
 }

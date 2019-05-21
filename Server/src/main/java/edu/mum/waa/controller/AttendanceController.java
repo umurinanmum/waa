@@ -30,6 +30,10 @@ public class AttendanceController {
         return attendanceService.getStudentAttendanceByStudentIdAndBlock(blockName, securityHelper.getCurrentUserId());
     }
 
+    @GetMapping("/student")
+    public AttendanceDatePresentDto getAttendanceByBlock(@RequestParam String blockName, @RequestParam Long studentId) {
+        return attendanceService.getStudentAttendanceByStudentIdAndBlock(blockName, studentId);
+    }
 
     @GetMapping
     public List<AttendanceByEntryDto> getAttendanceByEntry(@RequestParam String entryName) {
