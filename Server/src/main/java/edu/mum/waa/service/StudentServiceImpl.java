@@ -1,5 +1,6 @@
 package edu.mum.waa.service;
 
+import edu.mum.waa.dto.StudentDtoForCrud;
 import edu.mum.waa.entity.Student;
 import edu.mum.waa.repository.StudentRepo;
 import edu.mum.waa.service.interfaces.StudentService;
@@ -94,6 +95,17 @@ public class StudentServiceImpl implements StudentService {
         var res = studentRepo.findAll();
         ArrayList<StudentDto> result = new ArrayList<>();
         StudentDto temp = new StudentDto();
+        for (Student student : res) {
+            result.add(temp.convertToDto(student));
+        }
+        return result;
+    }
+
+
+    public ArrayList<StudentDtoForCrud> findAllForCrud() {
+        var res = studentRepo.findAll();
+        ArrayList<StudentDtoForCrud> result = new ArrayList<>();
+        StudentDtoForCrud temp = new StudentDtoForCrud();
         for (Student student : res) {
             result.add(temp.convertToDto(student));
         }

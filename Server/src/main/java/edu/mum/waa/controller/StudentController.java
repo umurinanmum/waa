@@ -1,5 +1,6 @@
 package edu.mum.waa.controller;
 
+import edu.mum.waa.dto.StudentDtoForCrud;
 import edu.mum.waa.entity.Student;
 import edu.mum.waa.service.interfaces.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,9 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping
-    public List<StudentDto> findAll() {
+    public List<StudentDtoForCrud> findAllForCrud() {
         System.out.println("Students - findAll");
-        return studentService.findAll();
+        return studentService.findAllForCrud();
     }
 
     @GetMapping("/{studentid}")

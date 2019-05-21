@@ -72,6 +72,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown">Reports
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
+                        <li><a  th:href="@{/blockReportByStudent}">Block Report By Student</a></li>
                         <li><a th:if="${!session.roles.contains('VIEW_BLOCK_REPORT')}" th:href="@{/facultyExtraPoints}">Faculty morning meditation</a></li>
                         <li><a th:if="${session.roles.contains('VIEW_BLOCK_REPORT')}" th:href="@{/StudentPersonalReport}">Student’s detail report</a></li>
                         <li th:if="${session.roles.contains('VIEW_ENTRY_REPORT')}"><a th:href="@{/entryReport}">Generate Attendance report by entry</a></li>
