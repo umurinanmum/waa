@@ -39,7 +39,7 @@ function studentIdAutocomplete() {
                         console.log(data);
                         response($.map(data, function (item) {
                             return {
-                                label: item.studentId,
+                                label: item.studentId + " " + item.firstName + " " + item.lastName,
                                 value: item.id
                             };
                         }));
