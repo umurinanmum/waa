@@ -14,17 +14,18 @@ public class BlockModel {
 
     private Integer id;
 
+    //@NotEmpty
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate startDate;
 
+    //@NotEmpty
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate endDate;
 
-    @NotNull
     private int cancelledDays;
 
     @NotEmpty
-    @Size(min = 2, max = 50, message = "${Size.lastName}")
-    private String name="umur";
+    @Size(min = 2, max = 50, message = "${Size.name}")
+    private String name;
 
 }

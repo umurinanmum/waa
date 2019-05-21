@@ -10,11 +10,18 @@
 <div class="container">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Add New Block</h3>
+            <h3 class="panel-title">Edit a Block</h3>
         </div>
         <div id="formContent" class="panel-body">
             <span th:text="${result}" class="alert-danger"></span>
-            <form th:action="@{/blocks/add}" th:object="${blockModel}" method="post">
+            <form th:action="@{/blocks/edit}" th:object="${blockModel}" method="post">
+
+                <div class="form-group">
+                    <label for="id" th:text="#{id}"></label>
+                    <input type="text" class="form-control" id="id" th:field="*{id}"/>
+                    <label th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="alert-danger"></label>
+                </div>
+
                 <div class="form-group">
                     <label for="startDate" th:text="#{startDate}"></label>
                     <input type="date" class="form-control" id="startDate" th:field="*{startDate}"

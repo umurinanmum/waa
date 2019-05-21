@@ -23,15 +23,18 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping
-    public List<StudentDto> findAll() {
+    public List<Student> findAll() {
         System.out.println("Students - findAll");
-        return studentService.findAll();
+        //return studentService.findAll();
+        return studentService.findAllStudent();
     }
 
     @GetMapping("/{studentid}")
     public StudentDto getStudent(@PathVariable Long studentid) {
-        System.out.println("Students - findById");
-        return studentService.findById(studentid);
+        System.out.println("Students - findById: " + studentid);
+        StudentDto student = studentService.findById(studentid);
+        System.out.println("Students - findById - findByIdstudent: " + student);
+        return student;
     }
 
     //GetMapping("/{}")
@@ -39,13 +42,12 @@ public class StudentController {
     @PostMapping
     public boolean save(@RequestBody StudentDto studentDto) {
         System.out.println("Students - save");
-        System.out.println(studentDto);
         return studentService.save(studentDto);
     }
 
     @PutMapping
     public boolean update(@RequestBody StudentDto studentDto) {
-        System.out.println("Students - update");
+        System.out.println("Students - update: " + studentDto.getId());
         return studentService.update(studentDto);
     }
 

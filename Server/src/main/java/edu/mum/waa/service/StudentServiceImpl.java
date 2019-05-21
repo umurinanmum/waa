@@ -63,6 +63,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student findStudentByStudentId2(String studentId) {
+        Student student = studentRepo.findStudentByStudentId(studentId).get();
+        return student;
+    }
+
+    @Override
     public StudentDto findStudentByBarcode(String barcode) {
         StudentDto temp = new StudentDto();
         var student = studentRepo.findStudentByBarcode(barcode).get();
@@ -97,6 +103,12 @@ public class StudentServiceImpl implements StudentService {
         for (Student student : res) {
             result.add(temp.convertToDto(student));
         }
+        return result;
+    }
+
+    public List<Student> findAllStudent() {
+        List<Student> result = new ArrayList<>();
+        studentRepo.findAll().iterator().forEachRemaining(result::add);
         return result;
     }
 

@@ -9,7 +9,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({HttpClientErrorException.class})
     public String forbidden(HttpClientErrorException e) {
-        e.printStackTrace();
         return "access-denied";
     }
 

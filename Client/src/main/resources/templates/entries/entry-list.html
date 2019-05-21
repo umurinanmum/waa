@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Entry</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span th:text="#{entry}">Entry List</span></h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">name</th>
+                    <th scope="col"><a th:href="@{/entries/add}" class="btn btn-success"><span th:text="#{add}">Add</span></a></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entry: ${entries}">
+                    <td th:text="${entry.id}">id</td>
+                    <td th:text="${entry.name}">name</td>
+                    <td>
+                        <a th:href="${'/entries/edit/' + entry.id}" class="btn btn-primary"><span th:text="#{edit}">Edit</span></a>
+                        <a th:href="${'/entries/delete/' + entry.id}" class="btn btn-danger"><span th:text="#{delete}">Delete</span></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
