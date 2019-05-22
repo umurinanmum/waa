@@ -40,7 +40,7 @@ public class TMCheckAndRetreatController {
     @PostMapping(value = "/retreat-checking", produces = "application/json")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public TmCheckAndRetreat save(@RequestBody @Valid TmCheckAndRetreat tmCheckAndRetreat
-            , HttpServletRequest request, Model model) {
+            , HttpServletRequest request, Model model) throws StudentException{
 
         // create & update
         tmCheckAndRetreatService.save(tmCheckAndRetreat);

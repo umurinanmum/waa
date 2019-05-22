@@ -1,6 +1,9 @@
 package edu.mum.waa.config;
 
+import edu.mum.waa.dto.DomainError;
+import edu.mum.waa.dto.DomainErrors;
 import edu.mum.waa.dto.ValidationErrorDto;
+import edu.mum.waa.exceptions.StudentException;
 import edu.mum.waa.exceptions.WaaAuthorizationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -33,6 +36,21 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler({StudentException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public DomainErrors handleException2(StudentException exception) {
+        //System.out.println("handling StudentException ==== 111");
+
+        DomainErrors errors = new DomainErrors();
+        errors.setErrorType("ValidationError");
+
+        DomainError error = new DomainError(messageSourceAccessor.getMessage(exception.getMessage()));
+        errors.addError(error);
+
+        return errors;
+    }
+
     @ExceptionHandler({WaaAuthorizationException.class})
     public String denied(Exception e) {
         return "403";
@@ -41,6 +59,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     public String doIt(Exception e) {
+        System.out.println("catching general exception .........");
         e.printStackTrace();
         return "redirect:/authorization/login";
     }

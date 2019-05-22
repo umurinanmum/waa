@@ -27,10 +27,10 @@ public class TmCheckAndRetreatServiceImpl implements TmCheckAndRetreatService {
     }
 
     @WaaSecured(RoleEnum.TMCHECK_CRUD)
-    public TmCheckAndRetreat save(TmCheckAndRetreat tmCheckAndRetreat) { // throws StudentException {
-//        if (tmCheckAndRetreat.getStudent() != null && tmCheckAndRetreat.getStudent().getId() < 1) {
-//            throw new StudentException("studentError");
-//        }
+    public TmCheckAndRetreat save(TmCheckAndRetreat tmCheckAndRetreat)   throws StudentException {
+        if (tmCheckAndRetreat.getStudent() != null && tmCheckAndRetreat.getStudent().getId() < 1) {
+            throw new StudentException("studentError");
+        }
         return tmCheckAndRetreatRepo.save(tmCheckAndRetreat);
     }
 
