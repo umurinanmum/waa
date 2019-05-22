@@ -118,7 +118,7 @@ public class BatchConfig {
 
         FlatFileItemReader<ManualModel> reader = new FlatFileItemReader<>();
 
-        reader.setResource(new FileSystemResource("/tmp/rest/manual.csv"));
+        reader.setResource(new FileSystemResource("./manual.csv"));
 
         reader.setLineMapper(new DefaultLineMapper<ManualModel>() {
             {
